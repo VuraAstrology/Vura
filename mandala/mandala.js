@@ -1,5 +1,6 @@
 // mandala.js
-const API_BASE = "https://vura-wine.vercel.app";
+// const API_BASE = "https://vura-wine.vercel.app"; PADRAO
+const API_BASE = "https://vura-git-bender-benders-projects-0c4bd68e.vercel.app";
 
 const pegarEl = (id) => document.getElementById(id);
 
