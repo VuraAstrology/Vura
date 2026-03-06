@@ -24,7 +24,7 @@ async function carregarPerfil(){
   const token=getToken();
 
   if(!token){
-    window.location.href="./index.html";
+    window.location.href="./login.html";
     return;
   }
 

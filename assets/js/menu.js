@@ -1,6 +1,6 @@
 // const token = localStorage.getItem("token");
 // if (!token) {
-//   window.location.href = "index.html";
+//   window.location.href = "login.html";
 // }
 
 function toggleMenu() {
@@ -11,5 +11,5 @@ function toggleMenu() {
 function sair() {
  localStorage.removeItem("token");
   localStorage.removeItem("usuario");
-  window.location.href = "./index.html";
+  window.location.href = "./login.html";
 }

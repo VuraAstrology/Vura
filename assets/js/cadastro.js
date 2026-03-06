@@ -30,7 +30,7 @@ formulario.addEventListener("submit", async function(evento) {
         }
 
         alert("Cadastro realizado com sucesso!");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
 
     } catch (erro) {
         alert("Erro ao conectar com servidor");
@@ -39,5 +39,5 @@ formulario.addEventListener("submit", async function(evento) {
 });
 
 function voltarLogin() {
-    window.location.href = "index.html";
+    window.location.href = "login.html";
 }
