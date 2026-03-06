@@ -1,0 +1,7 @@
+{
+  "name": "vura",
+  "version": "1.0.0",
+  "dependencies": {
+    "tz-lookup": "^6.1.25"
+  }
+}
