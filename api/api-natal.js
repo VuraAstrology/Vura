@@ -3,7 +3,7 @@
 // { subject, planets, houses, angles, angles_details, aspects, dominants }
 
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "https://danielbendersantos.github.io");
+  res.setHeader("Access-Control-Allow-Origin", "https://vuraastrology.github.io/");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
