@@ -29,7 +29,7 @@ formulario.addEventListener("submit", async function (evento) {
     localStorage.setItem("token", dados.token);
     localStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
-    window.location.href = "home.html";
+    window.location.href = "index.html";
   } catch (e) {
     console.error(e);
     alert("Não foi possível conectar no servidor (backend).");
