@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "tz-lookup": "^6.1.25"
-  }
-}
