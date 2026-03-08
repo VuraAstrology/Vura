@@ -160,7 +160,7 @@ function loadAstro(id, data) {
 ═══════════════════════════════════════════════ */
 async function init() {
     try {
-        const res  = await fetch('./data/posicionamentos.json');
+        const res  = await fetch('data/posicionamentos.json');
         if (!res.ok) throw new Error('JSON not found');
         const data = await res.json();
 
@@ -175,7 +175,7 @@ async function init() {
             <div class="not-found">
                 <div class="big-symbol">⚠</div>
                 <h2>Erro ao carregar dados</h2>
-                <p>Verifique se o arquivo <code>./data/posicionamentos.json</code> está no lugar certo.</p>
+                <p>Verifique se o arquivo <code>data/posicionamentos.json</code> está no lugar certo.</p>
             </div>`;
     }
 }
