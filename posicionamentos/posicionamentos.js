@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════
-    HAMBURGER
+    HAMBURGER / MOBILE TOGGLE
 ═══════════════════════════════════════════════ */
-const hamburger    = document.getElementById('hamburger');
+const hamburger    = document.querySelector('.nav-mobile-toggle');
 const mobileDrawer = document.getElementById('mobileDrawer');
 
 hamburger.addEventListener('click', () => {
@@ -11,6 +11,7 @@ hamburger.addEventListener('click', () => {
     mobileDrawer.setAttribute('aria-hidden', !isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
 });
+
 mobileDrawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('open');
@@ -20,6 +21,7 @@ mobileDrawer.querySelectorAll('a').forEach(link => {
         document.body.style.overflow = '';
     });
 });
+
 document.querySelectorAll('.mobile-item[data-target]').forEach(item => {
     item.addEventListener('click', () => {
         const submenu = document.getElementById(item.dataset.target);
@@ -33,6 +35,7 @@ document.querySelectorAll('.mobile-item[data-target]').forEach(item => {
         });
     });
 });
+
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
         hamburger.classList.remove('open');
@@ -47,23 +50,20 @@ document.addEventListener('keydown', e => {
     DATA & RENDERING
 ═══════════════════════════════════════════════ */
 
-// Read ?astro= from URL, default to first entry
 function getAstroParam() {
     return new URLSearchParams(window.location.search).get('astro') || null;
 }
 
-// Update URL without page reload
 function setAstroParam(id) {
     const url = new URL(window.location);
     url.searchParams.set('astro', id);
     window.history.pushState({}, '', url);
 }
 
-// Build nav links from data
 function buildNavLinks(data) {
-    const desktopMenu  = document.getElementById('desktop-astros-menu');
-    const mobileMenu   = document.getElementById('sub-astros');
-    const selectorEl   = document.getElementById('astroSelector');
+    const desktopMenu = document.getElementById('desktop-astros-menu');
+    const mobileMenu  = document.getElementById('sub-astros');
+    const selectorEl  = document.getElementById('astroSelector');
 
     desktopMenu.innerHTML = '';
     mobileMenu.innerHTML  = '';
@@ -98,9 +98,8 @@ function buildNavLinks(data) {
     });
 }
 
-// Render a single posicionamento
 function loadAstro(id, data) {
-    const pos = data.posicionamentos.find(p => p.id === id);
+    const pos     = data.posicionamentos.find(p => p.id === id);
     const content = document.getElementById('pageContent');
 
     // update active pill
@@ -121,15 +120,12 @@ function loadAstro(id, data) {
         return;
     }
 
-    // update hero + title
     document.title = `${pos.nome} nos Signos — Vura Astrology`;
     document.getElementById('hero-glyph').textContent = `${pos.nome} ${pos.simbolo}`;
     document.getElementById('hero-title').textContent = `${pos.nome} no Mapa Astral`;
 
-    // update URL
     setAstroParam(id);
 
-    // build content HTML
     const signosHTML = pos.signos.map((s, i) => `
         <div class="sign-section" style="animation-delay:${(i * 0.05 + 0.05).toFixed(2)}s">
             <div class="sign-img-wrap">
@@ -151,7 +147,6 @@ function loadAstro(id, data) {
         ${signosHTML}
     `;
 
-    // scroll to top of content smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -160,7 +155,7 @@ function loadAstro(id, data) {
 ═══════════════════════════════════════════════ */
 async function init() {
     try {
-        const res  = await fetch('./data/posicionamentos.json');
+        const res  = await fetch('data/posicionamentos.json');
         if (!res.ok) throw new Error('JSON not found');
         const data = await res.json();
 
@@ -175,7 +170,7 @@ async function init() {
             <div class="not-found">
                 <div class="big-symbol">⚠</div>
                 <h2>Erro ao carregar dados</h2>
-                <p>Verifique se o arquivo <code>./data/posicionamentos.json</code> está no lugar certo.</p>
+                <p>Verifique se o arquivo <code>data/posicionamentos.json</code> está no lugar certo.</p>
             </div>`;
     }
 }
