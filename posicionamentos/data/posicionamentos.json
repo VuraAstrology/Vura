@@ -1,0 +1,282 @@
+{
+  "posicionamentos": [
+    {
+      "id": "sol",
+      "nome": "Sol",
+      "simbolo": "⊙",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "lua",
+      "nome": "Lua",
+      "simbolo": "☾",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "mercurio",
+      "nome": "Mercúrio",
+      "simbolo": "☿",
+      "introducao": "Na astrologia, Mercúrio representa o planeta da comunicação; dependendo do posicionamento presente em cada um dos signos, ele apresenta um impacto significativo. Por ser o planeta mais próximo ao Sol e receber muita luz dele, associamo-lo à nossa mente, aos nossos pensamentos e ao funcionamento do nosso consciente. Tudo isso, junto, forma a nossa expressão e dita como nos comunicamos e valorizamos as informações.",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": " Pessoas com Mercúrio em Áries possuem uma comunicação direta, assertiva e enérgica, com uma mente ágil e proativa. Uma pessoa com Mercúrio em Áries tende a ser muito direta e assertiva na sua fala; podem ser pessoas que falam muito ou muito rápido, o que pode resultar em uma certa impaciência." },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "Para pessoas com Mercúrio em Touro, a comunicação é prática, cautelosa e com bom senso, valorizando informações concretas e confiáveis. Mercúrio em Touro mostra uma mente muito prática; essa pessoa deseja ver as informações concretas. São pessoas que sempre buscam e checam os dados, e a sua fala tende a ser um pouco mais calma, educada e muito articulada." },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "Para pessoas com Mercúrio em Gêmeos, a comunicação é intensa, versátil e curiosa, com uma mente extremamente adaptável. Mercúrio se sente muito bem em Gêmeos, então essa pessoa tem a tendência de ser muito curiosa e comunicativa; ela consegue processar as informações muito rápido, independentemente do assunto em questão." },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "Para pessoas com Mercúrio em Câncer, a comunicação é emocionalmente sensível e intuitiva, valorizando a conexão emocional em suas interações. Mercúrio em Câncer mostra uma mente muito intuitiva; a fala dessa pessoa, quando ela vai se expressar, tende a ser mais empática, e ela costuma ter uma memória de outro mundo." },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "Para pessoas com Mercúrio em Leão, a comunicação é teatral e expressiva, com uma mente criativa e generosa. Mercúrio em Leão mostra uma pessoa muito expressiva e comunicativa, que vai gostar ainda mais de ser o centro das atenções. Terá uma mente muito criativa e generosa; assim como Câncer, vai pensar muito no coletivo." },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "Para pessoas com Mercúrio em Virgem, a comunicação é analítica, detalhada e altamente organizada, valorizando a lógica e a ordem. Mercúrio em Virgem também fica muito 'contente'; aqui o nativo vai possuir uma mente mais analítica e se expressar de uma forma mais centrada e crítica. São pessoas que gostam de ter processos em tudo o que fazem." },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "Para pessoas com Mercúrio em Libra, a comunicação é diplomática e equilibrada, valorizando o pensamento justo e a harmonia. Mercúrio em Libra trata-se de pessoas com a comunicação bem diplomática. Dentro das suas conversas, sempre vão buscar a harmonia e, na sua mente, sempre vão pesar as coisas na balança antes de tomar uma decisão, o que pode aparentar ser alguém muito indeciso em suas escolhas." },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "Para pessoas com Mercúrio em Escorpião, a comunicação é perceptiva e intuitiva, com uma mente investigativa e profunda. Mercúrio em Escorpião indica alguém que sabe ler nas entrelinhas; terá uma comunicação muito assertiva e será aquela pessoa que sempre vai querer saber mais informações." },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "Para pessoas com Mercúrio em Sagitário, a comunicação é expansiva e otimista, com uma mente filosófica. Mercúrio em Sagitário indica aquele tipo de pessoa muito otimista, que acredita que tudo vai dar certo no final; ela busca cada vez mais o conhecimento e sua comunicação tende a ter um ar bem leve e descontraído." },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "Para pessoas com Mercúrio em Capricórnio, o pensamento é estruturado, realista e disciplinado, focado em resultados, com uma comunicação direta e planejada. Mercúrio em Capricórnio faz com que o nativo tenha uma mente prática e ambiciosa; tende a ser uma pessoa mais séria, que também valoriza a disciplina e a eficiência. A sua comunicação é voltada para suas metas e objetivos." },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "Para pessoas com Mercúrio em Aquário, a mente é inovadora, progressista e tecnológica. Gostam de ideias originais e coletivas, além de questionarem o tradicional. Pessoas com Mercúrio em Aquário tendem a ser muito inovadoras, extremamente criativas e progressistas, que vão adorar ter conversas mais filosóficas e intelectualizadas." },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "Para pessoas com Mercúrio em Peixes, o pensamento é sonhador, intuitivo e artístico. A comunicação é poética, mas pode ser evasiva ou dispersa. Mercúrio em Peixes trata de uma pessoa que tem muitos sonhos e é muito imaginativa, o que significa que terá formas de expressão mais calmas e serenas. É aquele tipo de pessoa que compreende o mundo além do que foi dito a ela, por possuir uma intuição muito aguçada." }
+      ]
+    },
+    {
+      "id": "venus",
+      "nome": "Vênus",
+      "simbolo": "♀",
+      "introducao": "A vênus em um mapa astral representa a energia do amor, os valores, prazer e autoestima. O signo onde vênus está posicionado indica a forma que a pessoa expressa afeto, o que valoriza em relacionamentos e também pode indicar seu estilo de sedução.Vênus em signos de fogo é intenso, na terra busca estabilidade, Ar preza a comunicação e em signos de Água é emocional.",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "Apaixonada, direta e enérgica. Quem possui Vênus em Áries aprecia relacionamentos dinâmicos, mas precisa lidar com a impulsividade. Por ter um lado visceral, conquistador e fogoso, essa pessoa pode confundir intensidade e paixão passageira com amor genuíno. Muitas vezes, esse desejo carnal a faz mergulhar em relacionamentos de forma precipitada, sem refletir sobre as consequências ou avaliar se aquela parceria realmente faz sentido a longo prazo. O resultado, frequentemente, é perceber que não havia tanta afinidade ou interesse real, o que pode levar a diversas decepções amorosas. Para pessoas com esse posicionamento, é fundamental ter cautela. Refletir antes de se envolver em uma relação apenas por impulso pode evitar muitos problemas e frustrações futuras. Perfis que atraem a longo prazo: Pessoas bonitas, atraentes, confiantes e assertivas, que demonstram independência e sabem exatamente o que querem da vida." },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "Sensual e leal. Este posicionamento valoriza a estabilidade, o conforto e os prazeres físicos, buscando sempre relacionamentos duradouros e seguros. No entanto, quem possui Vênus em Touro pode acabar se sabotando no amor por dois motivos principais. O primeiro é a seletividade extrema, que pode levar muito tempo para resultar em uma iniciativa real. Muitas vezes, você pode cair na armadilha de esperar que o parceiro ideal 'caia do céu' ou bata à sua porta, passando anos sonhando sem tomar a iniciativa de sair e conhecer pessoas novas. A segunda questão é a resistência ao fim. Por apego à segurança, Vênus em Touro tende a permanecer em relacionamentos mesmo quando já não resta afeto, amor ou parceria. Por teimosia, orgulho ou até 'preguiça' de enfrentar mudanças, você pode insistir em situações desgastadas por anos, deixando de viver algo muito mais satisfatório e genuíno. Dica: Lembre-se que estabilidade é diferente de estagnação. Às vezes, o verdadeiro conforto vem de ter a coragem de mudar. Perfis que atraem a longo prazo: Pessoas estáveis, que não fazem 'joguinhos', mais caseiras e que saibam aproveitar os prazeres simples da vida." },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "Sociável e comunicativa. Este posicionamento valoriza a troca intelectual, a curiosidade e a variedade no amor. No entanto, quem possui Vênus em Gêmeos pode acabar se sabotando por não saber ao certo o que deseja em uma relação. Muitas vezes, você busca toda a excitação e o frio na barriga de um romance, mas evita a responsabilidade que ele traz. Por medo de se sentir 'preso' ou de que as coisas percam a graça, você pode acabar mantendo um pé dentro e outro fora da relação. Essa postura, por vezes superficial, pode afastar oportunidades reais de felicidade e conexão profunda com alguém especial. Existe uma tendência a acreditar que a felicidade está no 'caos' ou na novidade constante. Assim, quando as coisas começam a ficar sérias, você pode perder o interesse precocemente, sem dar a chance de descobrir que a estabilidade também pode ser prazerosa. Perfis que atraem a longo prazo: Pessoas inteligentes, que dominam a arte da conversa, são curiosas e sabem estimular a sua mente constantemente." },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "Sensível e protetora. Este posicionamento busca segurança emocional, valoriza o romance e tem um talento natural para nutrir as relações. Por ser uma Vênus sonhadora, maternal e acolhedora, você pode acabar se sabotando ao oferecer tudo de si para alguém que não oferece nada em troca. Muitas vezes, Vênus em Câncer acredita que o amor se resume ao sacrifício: cuidar, curar e proteger o outro, mesmo sem reciprocidade. No entanto, receber cuidado, afeto e nutrição emocional é algo vital para o seu bem-estar. O amor não deve ser apenas uma via de mão única onde você se desgasta para manter o outro bem. É fundamental aprender que você também merece ser abraçado e cuidado. Sem esse equilíbrio, a frustração e o cansaço emocional podem acabar prejudicando sua autoestima e suas chances de um relacionamento saudável. Perfis que atraem a longo prazo: Pessoas emocionalmente disponíveis, carinhosas e gentis. Você se sente atraído por quem demonstra potencial para construir uma família (esposas/maridos) e por parceiros que saibam comunicar claramente o que sentem." },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "Calorosa, generosa e dramática. Este posicionamento adora ser admirado e demonstra afeto de forma grandiosa. No entanto, quem possui Vênus em Leão pode se sabotar nas relações devido a uma profunda insegurança camuflada. Como essa Vênus sente necessidade de ser 'aplaudida' e até venerada, quando o parceiro não oferece a atenção esperada, você pode começar a questionar o seu próprio valor. O risco aqui é perder o seu brilho natural e condicionar sua autoestima ao reconhecimento externo. É fundamental trabalhar o mundo interno para que, independentemente de ser vista pelo outro, você nunca deixe de enxergar a si mesma. Outro desafio é a busca por um amor excessivamente dramático, onde o relacionamento precisa ser um 'show' constante. Essa expectativa de veneração pode te deixar vulnerável e carente, levando-a a implorar por atenção. Moderar essas expectativas é o caminho para um amor mais saudável e menos exaustivo. Perfis que atraem a longo prazo: Pessoas confiantes, que não têm medo de serem elas mesmas e que sabem 'amar em voz alta' — aquelas que fazem grandes gestos de carinho e não poupam elogios." },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "Prática e detalhista. Quem possui Vênus em Virgem demonstra afeto através de cuidados práticos e serviços no dia a dia. No entanto, esse posicionamento pode carregar uma insegurança latente: a sensação de não ser bom o suficiente. Isso leva a pessoa a dar o máximo de si na tentativa de 'comprar' ou garantir o afeto do parceiro. Uma grande armadilha aqui é a tendência a atrair parceiros caóticos ou com a vida desregrada, sob a impressão de que você pode 'consertar' o outro ou colocar a vida dele no lugar. Tratar o relacionamento como um projeto de reforma pode ser exaustivo e insustentável a longo prazo. É fundamental aprender a relaxar e entender que nem tudo pode — ou deve — ser controlado em uma relação. Aceitar que o amor envolve imprevistos e que você é digno de afeto pelo que é, e não pelo que faz, é o grande aprendizado para este signo. Perfis que atraem a longo prazo: Curiosamente, costumam se atrair por pessoas que parecem 'perdidas' ou que precisam de direção. No entanto, o parceiro ideal para o seu crescimento é alguém que também valorize a organização, o crescimento mútuo e a estabilidade." },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "Diplomática e refinada. Este posicionamento busca harmonia, equilíbrio e beleza nas parcerias, fazendo de tudo para evitar conflitos. No entanto, quem possui Vênus em Libra pode se sabotar ao se 'invisibilizar' em busca dessa paz a todo custo. O risco aqui é anular sua própria voz e opiniões, moldando-se completamente às expectativas do parceiro apenas para ser aceito e querido. A longo prazo, essa falta de posicionamento pode fazer com que o parceiro — e você mesmo — perca o respeito pela sua individualidade. Lembre-se: uma relação equilibrada precisa de duas pessoas inteiras, e não de alguém que apenas reflete o desejo do outro. Perfis que atraem a longo prazo: Pessoas companheiras, charmosas e sociáveis. Você se atrai por quem demonstra lealdade absoluta (aqueles que 'vão do céu ao inferno' por você) e por personalidades marcantes, sejam elas mais introspectivas ou muito extrovertidas." },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "Intensa e magnética. Este posicionamento vive o amor com extrema profundidade e paixão, buscando exclusividade e entrega total. Para Vênus em Escorpião, o amor é 'tudo ou nada'. No entanto, essa mesma intensidade pode ser o motivo de autossabotagem quando se transforma em uma busca incessante pelo controle. Ao sentir que está perdendo o domínio da situação ou da relação, essa Vênus pode manifestar comportamentos obsessivos, possessivos ou manipuladores. O desejo visceral de possuir o outro pode transformar o relacionamento em uma verdadeira guerra emocional. O grande desafio aqui é aprender a confiar e entender que a vulnerabilidade não é uma fraqueza, mas o caminho para a verdadeira intimidade. Perfis que atraem a longo prazo: O mistério é o seu maior combustível. Quanto mais enigmática e profunda a pessoa for, mais Vênus em Escorpião se sentirá atraída. Você busca parceiros que sustentem a sua intensidade e que não tenham medo de mergulhar nas sombras e segredos da alma." },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "Liberdade e aventura. Quem possui este posicionamento busca parceiros que compartilhem seus ideais e permitam a sua expansão pessoal. O amor, para você, precisa ter gosto de descoberta. No entanto, a autossabotagem acontece quando a relação começa a ficar séria e o medo de ser controlado fala mais alto. Vênus em Sagitário valoriza conexões profundas, mas tem pavor de se sentir 'enjaulada'. O risco é acabar fugindo de relacionamentos incríveis apenas pelo medo da estagnação ou de perder a autonomia. É importante lembrar que um parceiro pode ser um companheiro de viagem e um melhor amigo, e não necessariamente um 'carcereiro'. Perfis que atraem a longo prazo: Pessoas independentes, autossuficientes e que tenham a própria vida. Você se atrai por quem é livre e que, por ser seguro de si, também sabe oferecer liberdade ao outro." },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "Prudente e reservada. Este posicionamento valoriza a lealdade, o compromisso e a estabilidade a longo prazo. No entanto, quem possui Vênus em Capricórnio pode acabar se sabotando ao transformar o relacionamento em um 'segundo trabalho'. Por ter expectativas muito rígidas sobre o que seria uma relação 'certa' ou produtiva, você corre o risco de drenar a diversão, a emoção e a alegria da parceria. Ao focar excessivamente em ser o melhor parceiro possível e cumprir obrigações, o amor vira uma tarefa árdua, o que pode acabar afastando a felicidade tanto sua quanto da outra pessoa. O segredo para este posicionamento é aprender que o amor também precisa de leveza e momentos de lazer que não tenham necessariamente uma 'utilidade' prática ou financeira. Perfis que atraem a longo prazo: Pessoas que transmitem segurança e potencial de 'investimento'. Você se atrai por quem demonstra que a relação pode dar frutos no futuro, valorizando parceiros ambiciosos, responsáveis e que levam a vida a sério." },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "Independente e original. Este posicionamento valoriza a amizade, a liberdade e as conexões intelectuais, sendo avesso a possessividades. No entanto, quem possui Vênus em Aquário pode sabotar a relação fingindo uma frieza ou desinteresse que não são reais. Muitas vezes, essa postura de 'não me apego a ninguém' é uma armadura para esconder o medo profundo da rejeição. Ao se manter distante para se proteger, você pode acabar afastando conexões verdadeiras. O desafio é entender que ser vulnerável não significa perder a sua tão preciosa independência. Perfis que atraem a longo prazo: Você se atrai pela mente. Pessoas inteligentes, rebeldes e autênticas despertam seu interesse, muitas vezes independentemente da aparência física. Quem pensa fora da caixa e sustenta as próprias opiniões exerce um fascínio irresistível sobre você." },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "Romântica e empática. Este posicionamento entrega-se de forma incondicional, idealizando o parceiro e vivendo o amor com poesia. A autossabotagem aqui acontece pela dificuldade em distinguir a realidade da fantasia. Por ser muito movida pelo sonho, você pode confundir desejo passageiro ou carinho básico com amor profundo, perdendo tempo em relações infrutíferas. Ao agir com uma intensidade precipitada em algo que ainda não tem base, você pode acabar se decepcionando ao perceber que a pessoa real não corresponde ao ideal que você criou na sua mente. Perfis que atraem a longo prazo: Pessoas gentis, empáticas e sonhadoras, que conseguem enxergar você além do corpo físico. Você busca parceiros que tenham sensibilidade, imaginação e que saibam apreciar a conexão espiritual e emocional da relação." }
+      ]
+    },
+    {
+      "id": "marte",
+      "nome": "Marte",
+      "simbolo": "♂",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "jupiter",
+      "nome": "Júpiter",
+      "simbolo": "♃",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "saturno",
+      "nome": "Saturno",
+      "simbolo": "♄",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "urano",
+      "nome": "Urano",
+      "simbolo": "♅",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "netuno",
+      "nome": "Netuno",
+      "simbolo": "♆",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "plutao",
+      "nome": "Plutão",
+      "simbolo": "♇",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "quiron",
+      "nome": "Quíron",
+      "simbolo": "⚷",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    },
+    {
+      "id": "lilith",
+      "nome": "Lilith",
+      "simbolo": "⚸",
+      "introducao": "Lilith e seus desejos ocultos no mapa astral. Onde o se encontra lilith no mapa astral pode representar onde está a sua sombra os seus desejos reprimidos, sexualidade selvagem e onde você não aceita submissão. Ela mostra o lado inegociável da sua personalidade. Ter Lilith em um signo indica como você busca liberdade e lida com bloqueios, muitas vezes de forma instintiva, rebelde ou intensa",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "Impulsividade extrema, raiva reprimida, agressividade e forte desejo de independência.Para quem posssui lilith em aries, isso pode representar que você é uma pessoa com uma personalidade muito forte, super acertiva, que sabe muito bem oque quer e sabe demonstrar com perfeição suas vontades e por demonstrar tanta confiança podem ser extremante competitivos mesmo que não precisem ser tanto assim, pessoas com lilith em aries tem forte tendências de não demontrar fraqueza na sua vida seja na área que for carreira, trabalho, relacionamento... para trabalhar essa energia tão poderosa do seu mapa é preciso que você seja um puco mais vulnerável, abraçar os seus defeitos e entender que nem tudo pode ficar sobre o seu controle o tempo todo pois isso faz parte da vida." },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "Apego excessivo ao materialismo, possessividade e necessidade de prazeres sensoriais.Para quem possui lilith em touro muito provavelmente você é uma pessoa que ama luxo, tudo que é belo, todas as partes boas da vida muito apegado em todos os prazeres de vida. e quer ter essas coisas mas tudo tem que ser da sua propria maneira não se submete a nada nem a ninguém para alcancar os seus desejos. provavelmente você alcança esses prazeres da vida de uma maneira muito independente sem precisar pedir para ninguem, oque pode levar pessoas com esse posicionamento a se revoltarem contra o mundo quando não conseguem atingir o status material que tanto desejam alcançar." },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "Manipulação através da comunicação, tédio com rotina e desejo de experiências variadas.Para pessoas com esse posicionamento provavelmente podem ser seres extremamente comunicativos e extremante curiosa, oque pode indicar que quando alguém tenta prender a sua língua tentar calar a sua voz oque pode te revoltar.O lado mais tenso para esse posicionamento é que as vezes você pode reprimir o lado emocional da sua vida oque pode acabar racionalizando demais as relações, deixando o sentimento em segundo plano. e as vezes ser muito depêndente dessa estimulação mental por exemplo se a pessoa com quem você estiver se relacionando não for muito inteligente pode se estressar e perder o interesse. Para quem tem lilith em gêmeos trabalhar para que os relacionamentos não se tornem superficiais é muito importante." },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "Medo de rejeição/abandono, superproteção e manipulação emocional.Para quem posssui esse posicionamento constumam ser individuos muitos conectados com as emoções. e tem muito orgulho disso. são muito intuitivos seguem o coração, oque leva a revolta quando os outros falam que você é uma pessoa muito emocionada que leva tudo pro coração... isso te deixa com raiva para você compreender as proprias emoções e utiliza-las nas decisões da vida é muito importante. A parte mais tensa para quem possui esse posicionamento possuem muito medo de rejeição, do abandono, de não ter as necessidades emocionais nutridas oque faz com que pode fazer essas pessoas se fecharem no próprio mundo por causa desse medo. É extremamente importante trabalharr essa energia." },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "Necessidade extrema de atenção e validação, arrogância e criatividade indomável. Pessoas com lilith em leão podem ter muito orgulho com a sua auto expressão, podem ser indivíduos extremamente teatrais, muito confiantes não tem medo de ser quem são, muito orgulhosa da própria criatividade e que não tem medo de ser os centros da atenção até gosta disso. O lado mais tenso para esse posicionamento pode ser o fato de querer mais reconhecimento de ter o seu valor reconhecido, pode ter o medo de ser comum tipo mais um no meio da multidão, pode ter medo do seu parceiro te necligenciar, não enchergar quem você é não apreciar as coisas que você faz, que não celebre a sua individualidade.Aqui o foco é trabalhar na energia de indepêndencia não importar no que as pessoas acham de você ou no quanto elas te aplaudem mas sim você por você." },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "Perfeccionismo obsessivo, críticas severas e controle excessivo. Para pessoas com a lilith em virgem pode se referir a pessoas extremanente perfeccionistas, uma pessoa que tem o olho muito bom para as coisas e conseguem enxergar além do que as pessoas querem e precisam realmente. isso pode te dar muito controle uma pessoa meticulosa que busca a perfeição absoluta em tudo que você faz. O lado mais tenso desse posicionamento é que você pode ser alguém extremanente ansioso, pode ser perfeccionista em um nível tão grande que chega até ser compulsivo, pessoas com lilith em virgem também podem ter muito medo de ter intimidades e chegam a se reprimir por existir esse nível extresante de perfeccionismo extremo. É necessario compreender que perfeição não existe e que tudo pode ser coisa da sua cabeça." },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "Dependência emocional, dificuldade em decidir e manipulação nas relações.Para pessoas com lilith em libra podem se referir a pesssoas com um enorme senso de justiça oque pode te deixar revoltado quando vê que as pessoas não estão sendo tratadas como deveriam, como elas merecem ser tratadas, despressa grosseiria, todo tipo de violência é algo que pode te revoltar muito. podem ser pessoas muito racionais equilibradas e o seu poder vem muito disso, principalmente nos teus relacionamentos. por exemplo se estiver em uma relação que você ver que não está sendo tratada com respeito com reprocidade pode te deixar extremante bravo. O lado mais tenso desse posicionamento é que pode ter tendência a manipulação principalmente em questões ligadas ao seu charme a sua graça... lilith em libra também tem um fraco por ser muito apreciado, por ser querido, amado. é muito importante você olhar para essa energia e se libertar para que sua autoestima não dependa do quanto as pessoas gostam de você." },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "Ciúmes, obsessões, intensidade sexual e manipulação emocional profunda. Para pessoas como esse posicionamento isso pode significar que você pode ser alguém extremamente profundo, extremamente intensa principalmente quando se trata de relacionamentos. Possui uma aversão e quase um odio por superficialidade, e tem tendencia a se refovoltar quando não consegue ir fundo nas coisas ou nas pessoas. é o tipo de pessoa que sempre está em busca de uma transformação em tudo que você faz, com esse posicionamento a vida pode ser muito intensa ou é 8 ou 80... esse posicionamento para lilith é um dos mais poderosos, é um posicionamento que faz a pessoa ser muito magnetica e muito sensual também. Podem ser pessoas bem misteriosas que as outras pessoas não conseguem ler e entender com muita facilidade. O lado mais pesado desse posicionamento é que pode ser uma pessoa bem desconfiada, muito auto-protetora tem medo das pessoas te machucarem e de não ter controle sobre as situações e o medo de não conseguir se conectar com as pessoas de não conseguir encontrar alguém que não consiga entender a sua intensidade. Então é importante trabalhar essa energia de intensidade porque nem tudo é 8 e 80 sempre." },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "Comportamento irresponsável, desrespeito a limites e insubordinação. Se você tem lilith em sargitário isso pode significar que você provavelmente é uma pessoa extremanente otimista, extremamente livre com um espirito aventureiro. e o seu poder vem muito disso, da liberdade mesmo. você se revolta muito quando as pessoas tentam te prender, tanto emocionalmente quando intelectualmente. Normalmente pessoas com lilith em sargitario tem um senso de si muito grande, principalmente no que acredita. essas pessoas querem esprementar a vida criar elas mesmas as suas crenças e aprender quem são no mundo sozinhas, pessoas com lilith em sargitário também podem ser pessoas muito desafiadoras também. não é qualquer coisa que as pessoas te dizem que você aceita, você gosta de ter sua própria opnião sobre as coisas. o lado mais tenso desse posicionamento é que tem muito medo das pessoas te reprimirem e não conseguir expresar suas ideias, e não conseguir aprender com liberdade, oque pode dificultar um pouco a conexão com as outras pessoas, por ser um medo muito inerente das outras pessoas te controlarem, e é preciso prestar atenção nessa energia porque nem sempre as pessoas estão querendo te controlar, existe um pequeno medo de compromisso aqui nesse posicionamento." },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "Ambição desmedida, frieza emocional e manipulação através do status. Se você tem a lilith em aquario pode significar que você pode ser uma pessoa extremanente discilinadada e com um foco muito grande nos seus objetivos. uma pessoa extremamente determinada e é dai que vem o seu poder, são pessoas que tem uma vontade muito grande de ser bem sucedidas e de alcançar o poder e o status mesmo na sociedade sabe? e se rebelam muito com essa ideia de que não pode alcançar oque você quer são pessoas que constroem realmete o sucesso muito independentemente independente do que as outras pesoas pensam sobre ti e suas capacidades. So a parte que tem que tomar um pouco de cuidado com esse posicionamento é o medo extremo de falhar, de não conseguir ser bem sucedido de não conseguir alcançar os objetivos. então essas pessoas podem ser extremante workholic ser muito obsecada por trabalho, por ter boas conexões de ter pessoas boas a sua volta de ter o poder o status. e também tem tendência a se importar muito com os status das outras pessoas, pessoas com esse posicionamento também podem ser pesoas extremamente exigentes e até um pouco mais fria, principalmente quando se trata em relacionamentos. aqui é importante deixar fluir um pouco mais as coisas, a tentar se conectar mais profundamente com sigo mesmo nessa parte mais emocional, e não acabar negligenciando essa parte da vida." },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "Rebeldia extrema, desapego emocional e individualismo excessivo. Pessoas com lilith em aquario pode ter tendencias a serem muito individualistas, uma pessoa extremamente inovadora,e progressista que poder vir a se revoltar muito quando com o status, tudo que é pré estabelecido, que você acrediata que não é justo, que não traz uma igualdade social são coisas que revoltam muito pessoas com lilith em aquario. São pessoas que presão muito por serem genuinas, por serem elas mesma, até mesmo por serem diferentes. e o poder dessa lilith vem da diferença da mudança. Só que o lado mais tenso desse posicionamento é que pode possuir um medo extremo de ser confinado das pessoas robarem a sua liberdade das pessoas, sua força de expressão, de não deixarem ser você mesma. de forçarem a se conformar com oque está pré estabelecido no mundo, ao pondo de você se tornar um rebelde sem causa; alguém que se rebela contra tudo e contra todos. então é importante trabalhar nessa energia." },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "Desejos que fogem da realidade, atração por relações complicadas e manipulação emocional. Pessoas com lilith em peixes tem o poder muito ligado a empatia e da sua intuição. isso pode indicar ser uma pessoa extremanente criativa, extremamente imaginativa e espiritualizada e muito sonhadora também. Toda vez que as pessoas tentam te colocar numa caixa assim e tentam reprimir os seus sonhos a sua criatividade isso te deixa muito revoltado porque isso tira muito o seu senso de idêntidade do que elas criam. A parte mais tensa desse posicionamento é que essas pessoas podem ter muito medo da realidade, do 3d do mundo real, muito medo da rejeição de não serem compreendidas, de as pessoas não terem compaixão contigo é um medo muito grande e pode fazer de você alguém muito fantasiosa até um pouco ingenua, é importante prestarr a atensão nessa energia para não ficar no mundo da lua." }
+      ]
+    }, {
+      "id": "meioDoCeu",
+      "nome": "Meio Do Céu",
+      "simbolo": "Mᶜ",
+      "introducao": "Na astrologia o meio do céu marca o ponto mais alto do mapa astral geralmente esse ponto se localiza na Casa 10 porém também pode ser encontrado nas casas 9 e 11,indicando ambição, vocação,reputação profissional e o legado que se deseja deixar. O signo em que você encontra o MC pode revelar como você busca sucesso e seu próposito de vida, oque influência diretamente em seus talentos e estilo de liderança.",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "Busca independência, liderança e pioneirismo. Raramente aceita ordens, pois precisa de autonomia e ação rápida na carreira. Cargos como o de empresário, esportista ou militar, que exigem coragem e iniciativa, destacam-se para quem possui esse Meio do Céu." },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "Foca em estabilidade, segurança material e construção sólida. Trabalha com persistência e paciência. Carreiras com foco em Finanças, agricultura, artes visuais, moda, gastronomia ou arquitetura destacam-se para quem possui esse Meio do Céu." },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "Carreira baseada em comunicação, versatilidade e networking. Cargos como jornalista, escritor, professor, marketing, relações públicas, palestrante e áreas de comunicação destacam-se para quem possui esse Meio do Céu." },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "Valoriza a intuição, o cuidado e o ambiente familiar no trabalho; busca segurança emocional. Profissões com foco em psicologia, enfermagem, nutrição, RH, gastronomia, áreas de cuidado social e história destacam-se para quem possui esse Meio do Céu." },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "Busca destaque, liderança e reconhecimento através de criatividade e magnetismo. Carreiras como ator, artista, líder de equipe, empreendedor, palestrante ou áreas que exigem criatividade e palco destacam-se para quem possui esse Meio do Céu" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "Foca na perfeição, utilidade e organização técnica/social; trabalha com dedicação e qualidade. Carreiras que envolvem saúde, nutrição, administração, estatística, editor, ou áreas técnicas que exigem detalhismo e organização, destacam-se para quem possui esse Meio do Céu." },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "Valoriza a diplomacia, a harmonia e as parcerias; busca sucesso através de bons relacionamentos e justiça. Carreiras que envolvem Direito, Relações Públicas, moda, design, ou áreas que exigem mediação, justiça e beleza, destacam-se para quem possui esse Meio do Céu" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "Atua com intensidade e investigação, buscando carreiras que exijam transformação e profundidade. Áreas que envolvem psicologia, investigação, finanças, cura, pesquisa científica ou áreas esotéricas são as que mais se destacam para quem possui esse Meio do Céu." },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "Foca em expansão, ensino, turismo ou áreas que permitem liberdade e conhecimento. Profissões que envolvem turismo, direito internacional, filosofia, comércio exterior, ensino superior e carreiras jurídicas são as que mais se destacam para quem possui esse Meio do Céu." },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "Foca em disciplina, ambição e reconhecimento; busca posições de autoridade e status. Cargos executivos, administração, engenharia, política ou carreiras corporativas sólidas são os que mais se destacam para quem possui esse Meio do Céu." },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "Valoriza a inovação, o humanitarismo e atividades que tragam mudanças sociais. Profissões inovadoras, tecnologia, ciência, ativismo social e audiovisual são as áreas que mais se destacam para quem possui esse Meio do Céu." },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "Foca em empatia, criatividade e espiritualidade; busca carreiras de auxílio ou artísticas. Carreiras com foco em artes, fotografia, psicologia, terapias holísticas, medicina alternativa e cinema são as que mais se destacam para quem possui esse Meio do Céu." }
+      ]
+    },{
+      "id": "ascendente",
+      "nome": "Ascendente",
+      "simbolo": "Aˢᶜ",
+      "introducao": "",
+      "signos": [
+        { "signo": "Áries", "simbolo": "♈", "imagem": "../imagens/aries.png", "texto": "" },
+        { "signo": "Touro", "simbolo": "♉", "imagem": "../imagens/taurus.png", "texto": "" },
+        { "signo": "Gêmeos", "simbolo": "♊", "imagem": "../imagens/gemini.png", "texto": "" },
+        { "signo": "Câncer", "simbolo": "♋", "imagem": "../imagens/cancer.png", "texto": "" },
+        { "signo": "Leão", "simbolo": "♌", "imagem": "../imagens/leo.png", "texto": "" },
+        { "signo": "Virgem", "simbolo": "♍", "imagem": "../imagens/virgo.png", "texto": "" },
+        { "signo": "Libra", "simbolo": "♎", "imagem": "../imagens/libra.png", "texto": "" },
+        { "signo": "Escorpião", "simbolo": "♏", "imagem": "../imagens/escorpiao.png", "texto": "" },
+        { "signo": "Sagitário", "simbolo": "♐", "imagem": "../imagens/sargittarius.png", "texto": "" },
+        { "signo": "Capricórnio", "simbolo": "♑", "imagem": "../imagens/capricorn.png", "texto": "" },
+        { "signo": "Aquário", "simbolo": "♒", "imagem": "../imagens/aquarius.png", "texto": "" },
+        { "signo": "Peixes", "simbolo": "♓", "imagem": "../imagens/pisces.png", "texto": "" }
+      ]
+    }
+  ]
+}
