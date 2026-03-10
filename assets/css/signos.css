@@ -50,9 +50,11 @@ header {
     border-bottom: 1px solid var(--border);
 }
 .vura_logo {
-    width: 52px; height: 52px; object-fit: contain;
-    filter: drop-shadow(0 0 8px var(--teal));
-    transition: filter 0.3s;
+    max-width: 90px;
+    max-height: 90px;
+    padding: 0;
+    object-fit: cover;
+    
 }
 .vura_logo:hover { filter: drop-shadow(0 0 16px var(--teal-lit)); }
 
@@ -336,4 +338,29 @@ footer > p {
     .sign-section { grid-template-columns: 1fr; }
     .sign-img-wrap { flex-direction: row; justify-content: flex-start; margin-bottom: 14px; }
     .sign-img-wrap img { width: 56px; height: 56px; }
+}
+/* Intro block com imagem do signo */
+.intro-block-inner {
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.intro-signo-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    filter: drop-shadow(0 0 10px rgba(72,168,154,0.25));
+    flex-shrink: 0;
+}
+
+/* Mobile: imagem em cima do texto */
+@media (max-width: 560px) {
+    .intro-block-inner {
+        flex-direction: column;
+        align-items: center;
+    }
 }

@@ -4,196 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vura Astrology</title>
-    <link rel="shortcut icon" href="imagens/apple-touch-icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
     <header>
-        <figure>
-            <img class="vura_logo" src="imagens/logo_transparent.png">
-        </figure>
-        <nav class="nav_list">
-            <ul class="menu-principal">
-                <li><a href="#">Signos</a></li>
-                <li><a href="#">Casas astrológicas <i style="font-size: 1rem;" class="fa-solid fa-chevron-down"></i></a>
-                <ul class="submenu">
-                        <li><a href="#introducao">Introdução Casas Astrológicas</a></li>
-                        <li><a href="#house1">Casa 1</a></li>
-                        <li><a href="#house2">Casa 2</a></li>
-                        <li><a href="#house3">Casa 3</a></li>
-                        <li><a href="#house4">Casa 4</a></li>
-                        <li><a href="#house5">Casa 5</a></li>
-                        <li><a href="#house6">Casa 6</a></li>
-                        <li><a href="#house7">Casa 7</a></li>
-                        <li><a href="#house8">Casa 8</a></li>
-                        <li><a href="#house9">Casa 9</a></li>
-                        <li><a href="#house10">Casa 10</a></li>
-                        <li><a href="#house11">Casa 11</a></li>
-                        <li><a href="#house12">Casa 12</a></li>
-                    </ul>
-                </li>
+        <nav class="vura-nav">
+            <div class="nav-inner">
 
-                <li class="dropdown"><a href="#"> Astros e posicionamentos <i style="font-size: 1rem;" class="fa-solid fa-chevron-down"></i></a>
-                    <ul class="submenu">
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=sol">Sol ⊙</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=lua">Lua ☾ </a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=mercurio">Mercúrio ☿ </a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=venus">Vênus ♀</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=marte">Marte ♂</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=jupiter">Júpter ♃</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=saturno">Saturno ♄</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=urano">Urano ♅</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=netuno">Netuno ♆</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=plutao">Plutão ♇</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=quiron">Quiron ⚷</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=lilith">Lilith ⚸</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=meioDoCeu">Meio do Céu MC</a></li>
-                        <li><a href="./posicionamentos/posicionamentos.html?astro=ascendente">Ascendente</a></li>
-                       
-                        
-                    </ul>
-                </li>
-            </ul>
-                
-        </nav>
-        <div class="login">
-            <p class="mobile_menu"><span class="material-symbols-outlined">menu</span></p>
-        </div>
+                <!-- Logo-->
+                <figure>
+                    <img class="vura_logo" src="./assets/imagens/logo_transparent.png">
+                </figure>
 
+                <!-- Menu -->
+                <ul class="nav-menu">
 
+                    <li><a href="#">Signos</a></li>
 
-        <div class="mobileM">
-            <div class="user">
-                <div class="user_log">
-                    <span class="material-symbols-outlined">account_circle</span>
-                    <h2> Meu Vura</h2>
-                </div>
-                <div class="user_data">
-                    <p><i class="fa-regular fa-user"></i>Perfil de Utilizador 
-                        <span><i style="font-size: 1rem;" class="fa-solid fa-chevron-down"></i><i class="fa-solid fa-chevron-up"></i></span>
-                    </p>
-                    <ul class="perfil_config">
-                        <li>Gerenciamento da conta</li>
-                        <li><i class="fa-solid fa-database"></i> Dados Armazenados</li>
-                        <li>Central de ajuda</li>
-                        <li><button style="cursor: pointer;" class="log-out"><i class="fa-solid fa-right-from-bracket"></i>Sair</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mobile2">
-                <ul>
-                    <li>Signos</li>
-                    <li>Casas Astrológicas</li>
-                    <li>Astros e posicionamentos</li>
+                    <li>
+                        <a href="#">Casas Astrológicas <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="nav-submenu">
+                            <li><a href="#introducao">Introdução Casas Astrológicas</a></li>
+                            <li><a href="#house1">Casa 1</a></li>
+                            <li><a href="#house2">Casa 2</a></li>
+                            <li><a href="#house3">Casa 3</a></li>
+                            <li><a href="#house4">Casa 4</a></li>
+                            <li><a href="#house5">Casa 5</a></li>
+                            <li><a href="#house6">Casa 6</a></li>
+                            <li><a href="#house7">Casa 7</a></li>
+                            <li><a href="#house8">Casa 8</a></li>
+                            <li><a href="#house9">Casa 9</a></li>
+                            <li><a href="#house10">Casa 10</a></li>
+                            <li><a href="#house11">Casa 11</a></li>
+                            <li><a href="#house12">Casa 12</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">Astros e Posicionamentos <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="nav-submenu">
+                            <li><a href="./posicionamentos.html?astro=sol">Sol ⊙</a></li>
+                            <li><a href="./posicionamentos.html?astro=lua">Lua ☾</a></li>
+                            <li><a href="./posicionamentos.html?astro=mercurio">Mercúrio ☿</a></li>
+                            <li><a href="./posicionamentos.html?astro=venus">Vênus ♀</a></li>
+                            <li><a href="./posicionamentos.html?astro=marte">Marte ♂</a></li>
+                            <li><a href="./posicionamentos.html?astro=jupiter">Júpiter ♃</a></li>
+                            <li><a href="./posicionamentos.html?astro=saturno">Saturno ♄</a></li>
+                            <li><a href="./posicionamentos.html?astro=urano">Urano ♅</a></li>
+                            <li><a href="./posicionamentos.html?astro=netuno">Netuno ♆</a></li>
+                            <li><a href="./posicionamentos.html?astro=plutao">Plutão ♇</a></li>
+                            <li><a href="./posicionamentos.html?astro=quiron">Quíron ⚷</a></li>
+                            <li><a href="./posicionamentos.html?astro=lilith">Lilith ⚸</a></li>
+                            <li><a href="./posicionamentos.html?astro=meioDoCeu">Meio do Céu MC</a></li>
+                            <li><a href="./posicionamentos.html?astro=ascendente">Ascendente</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Conta / Perfil -->
+                    <li class="nav-profile">
+                        <button class="nav-profile-btn">
+                            <span class="nav-profile-icon"><i class="fa-solid fa-user"></i></span>
+                            Conta
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <ul class="nav-profile-dropdown">
+                            <li class="user-header">
+                                <p>Meu Vura</p>
+                                <span>Bem-vindo(a)!</span>
+                            </li>
+                            <li><a href="#"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
+                            <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
+                            <li><a href="#"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
+                            <li><a href="#"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
+                            <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
+                            <hr class="nav-divider">
+                            <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                        </ul>
+                    </li>
 
                 </ul>
 
+                <!-- Hamburguer mobile -->
+                <button class="nav-mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+
             </div>
-
-        </div> 
-        
-        
-
+        </nav>
     </header>
+
     <main>
-        
         <section class="click-cards">
             <div class="card">
-                <a href="signos/aries.html">
+                <a href="./signos.html?signo=aries">
                     <h2>Áries♈</h2>
                     <p>Impulsivo e corajoso."Sai da frente que eu tô passando!"</p>
                 </a>
             </div>
 
-
             <div class="card">
-                <a href="signos/taurus.html">
+                <a href="./signos.html?signo=taurus">
                     <h2>Touro♉</h2>
                     <p>Determinado e sensível."Não tenho tudo que amo, mas amo tudo que tenho"</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/gemini.html">
+                <a href="./signos.html?signo=gemini">
                     <h2>Gêmeos♊</h2>
                     <p>Comunicativo e mutável."Vi, li e preciso contar pra alguém"</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/cancer.html">
+                <a href="./signos.html?signo=cancer">
                     <h2>Câncer♋</h2>
                     <p>A emoção, o acolhimento e a proteção."Sinto muito, só quero cuidar de quem amo."</p>
                 </a>
             </div>
 
-        
-
             <div class="card">
-                <a href="signos/leo.html">
+                <a href="./signos.html?signo=leo">
                     <h2>Leão♌</h2>
-                    <p>A criatividade, o brilho e a autoconfiaça."Adoro brilhar e ser reconhecido pelo que sou."</p>
+                    <p>A criatividade, o brilho e a autoconfiança."Adoro brilhar e ser reconhecido pelo que sou."</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/virgo.html">
+                <a href="./signos.html?signo=virgo">
                     <h2>Virgem♍</h2>
-                    <p>A organização, a análize e a perfeição."Deixa que eu organizo tudo melhor."</p>
+                    <p>A organização, a análise e a perfeição."Deixa que eu organizo tudo melhor."</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/libra.html">
+                <a href="./signos.html?signo=libra">
                     <h2>Libra♎</h2>
                     <p>O equilíbrio, a diplomacia e a estética."Será que isso é justo? Preciso equilibrar."</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/scorpio.html">
+                <a href="./signos.html?signo=escorpiao">
                     <h2>Escorpião♏</h2>
                     <p>A intensidade, a transformação e a resiliência."Eu sei que você está mentindo."</p>
                 </a>
             </div>
-       
 
-
-           
             <div class="card">
-                <a href="signos/sargittarius.html">
+                <a href="./signos.html?signo=sagitario">
                     <h2>Sagitário♐</h2>
-                    <p>Otimista, aventureiro e sincero.Busca conhecimento. "Vamos viajar?"</p>
+                    <p>Otimista, aventureiro e sincero. Busca conhecimento. "Vamos viajar?"</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/capricorn.html">
+                <a href="./signos.html?signo=capricorn">
                     <h2>Capricórnio♑</h2>
-                    <p>Ambicioso, disciplinado e focado. Foca no logo prazo. "Isso  não vai dar me dar lucro"</p>
+                    <p>Ambicioso, disciplinado e focado. Foca no longo prazo. "Isso não vai me dar lucro."</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/aquarius.html">
+                <a href="./signos.html?signo=aquarius">
                     <h2>Aquário♒</h2>
                     <p>Original, inovador e humanitário. Ama liberdade. "Isso é muito antiquado."</p>
                 </a>
             </div>
 
             <div class="card">
-                <a href="signos/pisces.html">
+                <a href="./signos.html?signo=pisces">
                     <h2>Peixes♓</h2>
-                    <p>Empático, sonhador e sensível.Conectado ao emocional."Sonhei com algo estranho ontem."</p>
+                    <p>Empático, sonhador e sensível. Conectado ao emocional. "Sonhei com algo estranho ontem."</p>
                 </a>
             </div>
-
-
+        </section>
     </main>
-    <footer>
 
+    <footer>
         <div class="social_redes">
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
@@ -201,7 +192,6 @@
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
         </div>
         <p>Vura&copy; 2026.</p>
-
         <div class="footer_contents">
             <a href="#">HOME |</a>
             <a href="#">Sobre |</a>
@@ -209,11 +199,7 @@
             <a href="#">Política de Privacidade |</a>
             <a href="#">Fale Conosco</a>
         </div>
-        
-
-
     </footer>
-
 
 </body>
 </html>
