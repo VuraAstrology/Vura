@@ -155,7 +155,7 @@ function loadAstro(id, data) {
 ═══════════════════════════════════════════════ */
 async function init() {
     try {
-        const res  = await fetch('data/posicionamentos.json');
+        const res  = await fetch('./assets/data/posicionamentos.json');
         if (!res.ok) throw new Error('JSON not found');
         const data = await res.json();
 
