@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vura Astrology</title>
-    <link rel="shortcut icon" href="/imagens/apple-touch-icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/menu.css">
+    <link rel="stylesheet" href="./assets/css/signos.css">
+    <link rel="stylesheet" href="./assets/css/menu.css"> 
+    <link rel="shortcut icon" href="../assets/imagens/apple-touch-icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Pinyon+Script&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="./assets/css/mandala.css" />
+    <title>Vura Astrology</title>
 </head>
-
 <body>
 
+    <!-- ── HEADER ── -->
     <header>
-      <nav class="vura-nav">
+        <nav class="vura-nav">
             <div class="nav-inner">
 
-                <!-- Logo-->
+                <!-- Logo -->
                 <figure>
                     <img class="vura_logo" src="./assets/imagens/logo_transparent.png">
                 </figure>
@@ -98,67 +98,23 @@
         </nav>
     </header>
 
+    <!-- ── PAGE HERO ── -->
+    <div class="page-hero">
+        <a href="../index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
+        </a>
+        <span id="hero-glyph"></span>
+        <h1 id="hero-title"></h1>
+        <div class="divider"></div>
+    </div>
 
-  <div class="conteudo">
-    <main class="mandala-pagina">
-      <header class="mandala-cabecalho">
-        <h1 class="mandala-titulo">Mandala Astral</h1>
-        <p class="mandala-subtitulo">Preencha os dados abaixo e gere sua mandala em SVG.</p>
-      </header>
-
-      <section class="mandala-cartao" aria-label="Formulário de geração da mandala">
-        <form id="formMandala" class="mandala-formulario" autocomplete="off">
-
-          <div class="mandala-campo">
-            <label for="name" class="mandala-label">Nome</label>
-            <input id="name" name="name" class="mandala-input" required placeholder="Ex: Daniel" />
-          </div>
-
-          <div class="mandala-linha-2">
-            <div class="mandala-campo">
-              <label for="date" class="mandala-label">Data de nascimento</label>
-              <input id="date" name="date" class="mandala-input" type="date" required />
-            </div>
-
-            <div class="mandala-campo">
-              <label for="time" class="mandala-label">Hora de nascimento</label>
-              <input id="time" name="time" class="mandala-input" type="time" required />
-            </div>
-          </div>
-
-          <div class="mandala-campo mandala-autocomplete">
-            <label for="city" class="mandala-label">Cidade de nascimento</label>
-            <input
-              id="city"
-              name="city"
-              class="mandala-input"
-              required
-              placeholder="Digite sua cidade..."
-              aria-autocomplete="list"
-              aria-controls="cityList"
-              aria-expanded="false"
-            />
-
-            <div id="cityList" class="mandala-lista-sugestoes" hidden></div>
-
-            <input id="lat" type="hidden" name="lat" />
-            <input id="lng" type="hidden" name="lng" />
-            <input id="tz" type="hidden" name="tz" />
-          </div>
-
-          <button class="mandala-botao" type="submit">Gerar Mandala</button>
-          <p id="status" class="mandala-status" role="status" aria-live="polite"></p>
-        </form>
-      </section>
-
-      <section class="mandala-resultado" aria-label="Resultado da mandala">
-        <div id="output" class="mandala-caixa-svg" aria-label="Mandala gerada"></div>
-      </section>
+    <!-- ── MAIN ── -->
+    <main id="main-content">
+        <div class="loading">Carregando</div>
     </main>
-  </div>
 
-   <footer>
-
+    <!-- ── FOOTER ── -->
+    <footer>
         <div class="social_redes">
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
@@ -166,7 +122,6 @@
             <a href="#"><i class="fa-brands fa-tiktok"></i></a>
         </div>
         <p>Vura&copy; 2026.</p>
-
         <div class="footer_contents">
             <a href="#">HOME |</a>
             <a href="#">Sobre |</a>
@@ -174,9 +129,10 @@
             <a href="#">Política de Privacidade |</a>
             <a href="#">Fale Conosco</a>
         </div>
-
-
     </footer>
-  <script src="./assets/js/mandala.js"></script>
+
+  <script src="./assets/js/signos.js"></script>
+
+
 </body>
 </html>
