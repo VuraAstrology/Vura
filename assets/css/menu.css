@@ -1,0 +1,299 @@
+/* ── NAV OVERRIDES (new menu, replaces old header/nav styles) ── */
+:root {
+    --teal:       #48A89A;
+    --teal-light: #7ef5de;
+    --teal-dim:   rgba(72, 168, 154, 0.10);
+    --teal-glow:  rgba(126, 245, 222, 0.15);
+    --text:       #c8dfd8;
+    --muted:      rgba(200, 223, 216, 0.45);
+    --border:     rgba(72, 168, 154, 0.25);
+    --nav-bg:     rgba(3, 8, 13, 0.96);
+    --drop-bg:    #0a1520;
+}
+
+/* Reset only what we need on header */
+header {
+    padding: 0 !important;
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* ── STICKY NAV BAR ── */
+.vura-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(180deg, #03080d 0%, #0a1520 100%);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+        0 1px 0 rgba(72, 168, 154, 0.18),
+        0 8px 40px rgba(3, 8, 13, 0.9),
+        inset 0 -1px 0 rgba(126, 245, 222, 0.06);
+}
+
+.nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 68px;
+}
+
+/* ── BRAND / LOGO ── */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+}
+
+.nav-brand img {
+    width: 100px;
+    height: 100px;
+}
+
+.nav-brand:hover img {
+}
+
+.nav-brand-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    transition: color 0.25s;
+}
+
+.nav-brand:hover .nav-brand-text { color: var(--teal-light); }
+
+/* ── MENU PRINCIPAL ── */
+ul.nav-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    height: 68px;
+    margin: 0; padding: 0;
+}
+
+ul.nav-menu > li {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+ul.nav-menu > li > a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: color 0.25s;
+    white-space: nowrap;
+    position: relative;
+}
+
+ul.nav-menu > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    transition: width 0.35s ease;
+}
+
+ul.nav-menu > li:hover > a { color: var(--teal-light); }
+ul.nav-menu > li:hover > a::after { width: 70%; }
+
+ul.nav-menu > li > a .fa-chevron-down {
+    font-size: 0.55rem !important;
+    transition: transform 0.3s ease;
+    color: var(--teal);
+    opacity: 0.6;
+}
+ul.nav-menu > li:hover > a .fa-chevron-down { transform: rotate(180deg); }
+
+/* ── SUBMENU ── */
+.nav-submenu {
+    display: none;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    background: #0a1520;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--teal);
+    min-width: 255px;
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.75), 0 0 40px rgba(72,168,154,0.06);
+    animation: navDropIn 0.2s ease forwards;
+}
+
+@keyframes navDropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+ul.nav-menu > li:hover .nav-submenu { display: block; }
+
+.nav-submenu li a {
+    display: block;
+    padding: 0.55rem 1.3rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: color 0.2s, background 0.2s, padding-left 0.2s;
+    border-left: 2px solid transparent;
+}
+
+.nav-submenu li a:hover {
+    color: var(--teal-light);
+    background: var(--teal-dim);
+    padding-left: 1.7rem;
+    border-left-color: var(--teal);
+}
+
+.nav-submenu li + li { border-top: 1px solid rgba(72,168,154,0.06); }
+
+/* ── PROFILE PILL ── */
+.nav-profile {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 0.75rem;
+}
+
+.nav-profile-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    color: var(--muted);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+}
+
+.nav-profile-btn:hover {
+    border-color: var(--teal);
+    background: var(--teal-dim);
+    color: var(--teal-light);
+    box-shadow: 0 0 16px var(--teal-glow);
+}
+
+.nav-profile-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d2e28, #0a1f1a);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    color: var(--teal);
+}
+
+.nav-profile-btn .fa-chevron-down {
+    font-size: 0.55rem;
+    transition: transform 0.3s;
+    color: var(--teal);
+    opacity: 0.6;
+}
+.nav-profile:hover .nav-profile-btn .fa-chevron-down { transform: rotate(180deg); }
+
+.nav-profile-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% - 1px);
+    right: 0;
+    background: #0a1520;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--teal);
+    min-width: 210px;
+    border-radius: 0 0 10px 10px;
+    padding: 0.5rem 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.75), 0 0 30px rgba(72,168,154,0.05);
+    animation: navDropIn 0.2s ease forwards;
+    list-style: none;
+}
+
+.nav-profile:hover .nav-profile-dropdown { display: block; }
+
+.nav-profile-dropdown .user-header {
+    padding: 0.8rem 1.3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.25rem;
+}
+.nav-profile-dropdown .user-header p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+}
+.nav-profile-dropdown .user-header span {
+    font-size: 0.68rem;
+    color: var(--muted);
+}
+
+.nav-profile-dropdown li a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 1.3rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s, padding-left 0.2s;
+    border-left: 2px solid transparent;
+}
+.nav-profile-dropdown li a:hover {
+    color: var(--teal-light);
+    background: var(--teal-dim);
+    padding-left: 1.6rem;
+    border-left-color: var(--teal);
+}
+.nav-profile-dropdown li a i { width: 14px; font-size: 0.75rem; color: var(--teal); opacity: 0.7; }
+.nav-profile-dropdown li + li { border-top: 1px solid rgba(72,168,154,0.06); }
+.nav-profile-dropdown .nav-divider { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
+
+/* ── MOBILE TOGGLE ── */
+.nav-mobile-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    color: var(--teal);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.nav-mobile-toggle:hover {
+    background: var(--teal-dim);
+    box-shadow: 0 0 12px var(--teal-glow);
+}
+
+@media (max-width: 780px) {
+    ul.nav-menu { display: none; }
+    .nav-mobile-toggle { display: flex; align-items: center; }
+}

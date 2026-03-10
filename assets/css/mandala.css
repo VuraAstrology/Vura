@@ -30,7 +30,7 @@ body{
 }
 
 /* Cabeçalho */
-.mandala-cabecalho{ margin-bottom:14px; }
+.mandala-cabecalho{ margin-bottom:14px; z-index: 1;}
 .mandala-titulo{ margin:0; font-size:32px; }
 .mandala-subtitulo{ margin:6px 0 0; color:var(--texto-suave); }
 
