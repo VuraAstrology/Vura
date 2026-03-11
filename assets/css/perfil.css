@@ -1,32 +1,34 @@
-/* ── Reset & base ── */
+/* ── Reset geral: remove margin, padding e ajusta box-sizing em todos os elementos ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── Variáveis globais de cor e estilo reutilizadas em todo o arquivo ── */
 :root {
-  --bg:           #060e0b;
-  --card:         #0d1f17;
-  --border:       rgba(0, 82, 77, 0.70);
-  --border-focus: rgba(0, 82, 77, 1);
-  --text:         #ffffff;
-  --muted:        rgba(255, 255, 255, 0.6);
-  --accent:       #D4FFFE;
-  --accent-dark:  #A9F0EC;
-  --input-bg:     rgba(52, 101, 75, 0.40);
-  --input-text:   #A9F0EC;
-  --glow:         rgba(126, 245, 222, 0.18);
+  --bg:           #060e0b;                  /* Cor de fundo da página */
+  --card:         #0d1f17;                  /* Cor de fundo base do card (referência) */
+  --border:       rgba(0, 82, 77, 0.70);   /* Cor padrão das bordas */
+  --border-focus: rgba(0, 82, 77, 1);      /* Cor da borda quando o input está em foco */
+  --text:         #ffffff;                  /* Cor principal dos textos */
+  --muted:        rgba(255, 255, 255, 0.6);/* Cor de textos secundários/apagados */
+  --accent:       #D4FFFE;                  /* Cor de destaque (botão, títulos, radio ativo) */
+  --accent-dark:  #A9F0EC;                  /* Variação mais escura do destaque (texto dos inputs) */
+  --input-bg:     rgba(52, 101, 75, 0.40); /* Fundo dos campos de input */
+  --input-text:   #A9F0EC;                  /* Cor do texto digitado nos inputs */
+  --glow:         rgba(126, 245, 222, 0.18);/* Brilho suave usado em hovers */
 }
 
+/* ── Container principal da página: centraliza o conteúdo verticalmente ── */
 .conteudo {
   background: var(--bg);
   color: var(--text);
   font-family: 'Raleway', sans-serif;
-  min-height: 100vh;
+  min-height: 100vh;         /* Ocupa toda a altura da tela */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-bottom: 60px;
+  align-items: center;       /* Centraliza horizontalmente */
+  padding-bottom: 60px;      /* Espaço no final da página */
 }
 
-/* ── Page title ── */
+/* ── Título da página "Editar perfil" ── */
 h1 {
   font-family: 'Cinzel', serif;
   font-weight: 400;
@@ -37,29 +39,30 @@ h1 {
   margin: 32px 0 24px;
 }
 
-/* ── Card ── */
+/* ── Card principal que envolve todo o formulário ── */
 .card {
-  width: calc(100% - 32px);
-  max-width: 460px;
-  background: linear-gradient(160deg, #00524D 10%, #7EF5DE 100%);
+  width: calc(100% - 32px);  /* Largura total menos margem lateral */
+  max-width: 460px;           /* Largura máxima em telas grandes */
+  background: linear-gradient(160deg, #00524D 10%, #7EF5DE 100%); /* Gradiente verde escuro → verde claro */
   border: 1px solid rgba(0, 82, 77, 0.40);
   border-radius: 18px;
   padding: 30px 26px 36px;
   position: relative;
-  overflow: hidden;
-  animation: fadeUp .45s ease both;
+  overflow: hidden;           /* Garante que o ::before não vaze do card */
+  animation: fadeUp .45s ease both; /* Animação de entrada ao carregar */
 }
 
+/* ── Brilho decorativo no canto superior direito do card ── */
 .card::before {
   content: '';
   position: absolute;
   top: -60px; right: -60px;
   width: 180px; height: 180px;
   background: radial-gradient(circle, rgba(126, 245, 222, 0.10) 0%, transparent 70%);
-  pointer-events: none;
+  pointer-events: none; /* Não interfere em cliques */
 }
 
-/* ── Avatar ── */
+/* ── Área do avatar: foto de perfil + botão de editar ── */
 .avatar-area {
   display: flex;
   flex-direction: column;
@@ -67,6 +70,7 @@ h1 {
   margin-bottom: 24px;
 }
 
+/* ── Círculo do avatar com gradiente verde ── */
 .avatar-ring {
   width: 76px; height: 76px;
   border-radius: 50%;
@@ -83,11 +87,13 @@ h1 {
   transition: transform .3s, box-shadow .3s;
 }
 
+/* ── Efeito de zoom e brilho ao passar o mouse no avatar ── */
 .avatar-ring:hover {
   transform: scale(1.05);
   box-shadow: 0 0 22px var(--glow);
 }
 
+/* ── Ícone de lápis no canto inferior direito do avatar ── */
 .avatar-edit-badge {
   position: absolute;
   bottom: 2px; right: 2px;
@@ -102,6 +108,7 @@ h1 {
 
 .avatar-edit-badge svg { width: 10px; }
 
+/* ── Texto "Alterar foto" abaixo do avatar ── */
 .avatar-name {
   margin-top: 8px;
   font-size: 12px;
@@ -110,73 +117,79 @@ h1 {
   color: var(--muted);
 }
 
-/* ── Divider ── */
+/* ── Linha divisória entre o avatar e os campos do formulário ── */
 .divider {
   border: none;
   border-top: 1px solid rgba(0, 82, 77, 0.70);
   margin: 0 0 22px;
 }
 
-/* ── Fields ── */
+/* ── Wrapper de cada campo do formulário (label + input) ── */
 .field { margin-bottom: 16px; }
 
+/* ── Label acima de cada input (ex: NOME, EMAIL) ── */
 .field label {
   display: inline-block;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.8px;
-  text-transform: uppercase;
+  text-transform: uppercase;   /* Texto em maiúsculas */
   color: #ffffff;
-  border-bottom: 1px solid rgba(0, 82, 77, 0.70);
+  border-bottom: 1px solid rgba(0, 82, 77, 0.70); /* Linha sutil abaixo do label */
   padding-bottom: 3px;
   margin-bottom: 7px;
 }
 
+/* ── Estilo base de todos os campos de texto, email, senha e data ── */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="date"] {
   width: 100%;
-  background: rgba(52, 101, 75, 0.40);
+  background: rgba(52, 101, 75, 0.40);  /* Verde escuro translúcido */
   border: 1px solid rgba(0, 82, 77, 0.70);
   border-radius: 9px;
   padding: 12px 15px;
-  color: var(--input-text);
+  color: var(--input-text);             /* Texto digitado em verde claro */
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  outline: none;
+  outline: none;                        /* Remove o outline padrão do browser */
   transition: border-color .25s, background .25s, box-shadow .25s;
-  -webkit-appearance: none;
+  -webkit-appearance: none;            /* Remove estilo nativo no iOS/Safari */
 }
 
+/* ── Cor do placeholder (texto de exemplo dentro do input) ── */
 input::placeholder { color: rgba(169, 240, 236, 0.55); }
 
+/* ── Estilo do input quando está sendo preenchido (em foco) ── */
 input:focus {
   border-color: rgba(0, 82, 77, 1);
   background: rgba(52, 101, 75, 0.55);
-  box-shadow: 0 0 0 3px rgba(0, 82, 77, 0.18);
+  box-shadow: 0 0 0 3px rgba(0, 82, 77, 0.18); /* Anel de foco suave */
 }
 
+/* ── Ícone de calendário do input de data: tint verde ── */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(.8) sepia(1) saturate(2) hue-rotate(140deg);
   cursor: pointer;
   opacity: .7;
 }
 
-/* ── Radio group — pill style ── */
+/* ── Grupo de opções de gênero (Feminino, Masculino, Não binário) ── */
 .radio-group {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Quebra linha em telas pequenas */
 }
 
+/* ── Cada opção de rádio estilizada como pílula ── */
 .radio-option {
   display: flex;
   align-items: center;
   gap: 7px;
   border: 1.5px solid rgba(0, 82, 77, 0.70);
-  border-radius: 9999px;
+  border-radius: 9999px;  /* Formato pílula */
   padding: 8px 16px;
   cursor: pointer;
   transition: border-color .2s, background .2s, color .2s;
@@ -185,12 +198,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
-  user-select: none;
+  user-select: none;      /* Impede seleção acidental do texto */
   background: transparent;
 }
 
+/* ── Esconde o input nativo (usamos o estilo customizado abaixo) ── */
 .radio-option input { display: none; }
 
+/* ── Círculo decorativo ao lado do texto da opção ── */
 .radio-dot {
   width: 13px; height: 13px;
   border-radius: 50%;
@@ -201,26 +216,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   flex-shrink: 0;
 }
 
+/* ── Ponto interno que aparece quando a opção está selecionada ── */
 .radio-dot::after {
   content: '';
   width: 5px; height: 5px;
   border-radius: 50%;
   background: currentColor;
-  opacity: 0;
+  opacity: 0;              /* Invisível por padrão */
   transition: opacity .2s;
 }
 
+/* ── Estilo da pílula quando a opção está selecionada ── */
 .radio-option:has(input:checked) {
   border-color: var(--accent);
   background: rgba(0, 82, 77, 0.35);
   color: var(--accent);
 }
 
+/* ── Torna o ponto interno visível quando selecionado ── */
 .radio-option:has(input:checked) .radio-dot::after {
   opacity: 1;
 }
 
-/* ── Section title ── */
+/* ── Título da seção "Editar Senha" ── */
 .section-title {
   font-family: 'Cinzel', serif;
   font-size: 16px;
@@ -231,14 +249,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 26px 0 18px;
 }
 
-/* ── Password toggle ── */
+/* ── Wrapper do input de senha (precisa de position para o botão de olho) ── */
 .input-wrap { position: relative; }
+
+/* ── Padding extra à direita para não sobrepor o ícone de mostrar senha ── */
 .input-wrap input { padding-right: 42px; }
 
+/* ── Botão do ícone de olho para mostrar/ocultar senha ── */
 .toggle-pass {
   position: absolute;
   right: 12px; top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); /* Centraliza verticalmente */
   background: none;
   border: none;
   cursor: pointer;
@@ -248,15 +269,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transition: color .2s;
 }
 
+/* ── Ícone de olho fica mais brilhante ao passar o mouse ── */
 .toggle-pass:hover { color: var(--accent); }
 .toggle-pass svg { width: 16px; }
 
-/* ── Save button ── */
+/* ── Botão de salvar as alterações ── */
 .btn-save {
   width: 100%;
   margin-top: 26px;
   padding: 14px;
-  background: linear-gradient(135deg, #00524D, #34654B);
+  background: linear-gradient(135deg, #00524D, #34654B); /* Gradiente verde */
   border: 1px solid rgba(212, 255, 254, 0.25);
   border-radius: 10px;
   color: #D4FFFE;
@@ -269,22 +291,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transition: all .3s;
 }
 
+/* ── Botão fica mais claro e sobe levemente ao passar o mouse ── */
 .btn-save:hover {
   background: linear-gradient(135deg, #006e67, #3d7a5a);
   box-shadow: 0 4px 20px rgba(126, 245, 222, 0.20);
   transform: translateY(-1px);
 }
 
+/* ── Botão volta à posição normal ao clicar ── */
 .btn-save:active { transform: translateY(0); }
 
-/* ── Animation ── */
+/* ── Animação de entrada: o card sobe suavemente ao carregar a página ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Logo ── */
+/* ── Tamanho da logo no menu de navegação ── */
 .vura_logo {
-  height: 90px;
-  width: 90px;
+  height: 42px;
+  width: auto; /* Mantém proporção original */
 }
