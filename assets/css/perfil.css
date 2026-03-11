@@ -4,14 +4,15 @@
 :root {
   --bg:           #060e0b;
   --card:         #0d1f17;
-  --border:       rgba(72, 180, 120, 0.18);
-  --border-focus: rgba(72, 180, 120, 0.55);
-  --text:         #edd4d4;
-  --muted:        rgba(180, 220, 200, 0.45);
-  --accent:       #4ecb84;
-  --accent-dark:  #2a9e61;
-  --input-bg:     rgba(20, 55, 35, 0.45);
-  --glow:         rgba(78, 203, 132, 0.14);
+  --border:       rgba(0, 82, 77, 0.70);
+  --border-focus: rgba(0, 82, 77, 1);
+  --text:         #ffffff;
+  --muted:        rgba(255, 255, 255, 0.6);
+  --accent:       #D4FFFE;
+  --accent-dark:  #A9F0EC;
+  --input-bg:     rgba(52, 101, 75, 0.40);
+  --input-text:   #A9F0EC;
+  --glow:         rgba(126, 245, 222, 0.18);
 }
 
 .conteudo {
@@ -36,12 +37,12 @@ h1 {
   margin: 32px 0 24px;
 }
 
-/* ── Card ── */    
+/* ── Card ── */
 .card {
   width: calc(100% - 32px);
   max-width: 460px;
-  background: linear-gradient(160deg, #00524DE5 ,#509c8d );
-  border: 1px solid var(--border);
+  background: linear-gradient(160deg, #00524D 10%, #7EF5DE 100%);
+  border: 1px solid rgba(0, 82, 77, 0.40);
   border-radius: 18px;
   padding: 30px 26px 36px;
   position: relative;
@@ -54,7 +55,7 @@ h1 {
   position: absolute;
   top: -60px; right: -60px;
   width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(203, 128, 78, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(126, 245, 222, 0.10) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -69,14 +70,14 @@ h1 {
 .avatar-ring {
   width: 76px; height: 76px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1e6b41, #2a9e61);
+  background: linear-gradient(135deg, #00524D, #34654B);
   border: 2px solid var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Cinzel', serif;
   font-size: 26px;
-  color: #c4f0d8;
+  color: var(--accent);
   position: relative;
   cursor: pointer;
   transition: transform .3s, box-shadow .3s;
@@ -96,7 +97,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #091610;
+  border: 2px solid #00524D;
 }
 
 .avatar-edit-badge svg { width: 10px; }
@@ -112,7 +113,7 @@ h1 {
 /* ── Divider ── */
 .divider {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(0, 82, 77, 0.70);
   margin: 0 0 22px;
 }
 
@@ -120,12 +121,14 @@ h1 {
 .field { margin-bottom: 16px; }
 
 .field label {
-  display: block;
+  display: inline-block;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(0, 82, 77, 0.70);
+  padding-bottom: 3px;
   margin-bottom: 7px;
 }
 
@@ -134,11 +137,11 @@ input[type="email"],
 input[type="password"],
 input[type="date"] {
   width: 100%;
-  background: var(--input-bg);
-  border: 1px solid var(--border);
+  background: rgba(52, 101, 75, 0.40);
+  border: 1px solid rgba(0, 82, 77, 0.70);
   border-radius: 9px;
   padding: 12px 15px;
-  color: var(--text);
+  color: var(--input-text);
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -147,21 +150,21 @@ input[type="date"] {
   -webkit-appearance: none;
 }
 
-input::placeholder { color: var(--muted); }
+input::placeholder { color: rgba(169, 240, 236, 0.55); }
 
 input:focus {
-  border-color: var(--border-focus);
-  background: rgba(20, 65, 40, 0.5);
-  box-shadow: 0 0 0 3px rgba(78, 203, 132, .07);
+  border-color: rgba(0, 82, 77, 1);
+  background: rgba(52, 101, 75, 0.55);
+  box-shadow: 0 0 0 3px rgba(0, 82, 77, 0.18);
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(.55) sepia(1) saturate(2) hue-rotate(100deg);
+  filter: invert(.8) sepia(1) saturate(2) hue-rotate(140deg);
   cursor: pointer;
-  opacity: .55;
+  opacity: .7;
 }
 
-/* ── Radio group — pill style (como na screenshot) ── */
+/* ── Radio group — pill style ── */
 .radio-group {
   display: flex;
   gap: 8px;
@@ -172,7 +175,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   align-items: center;
   gap: 7px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid rgba(0, 82, 77, 0.70);
   border-radius: 9999px;
   padding: 8px 16px;
   cursor: pointer;
@@ -181,7 +184,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: 600;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.7);
   user-select: none;
   background: transparent;
 }
@@ -196,7 +199,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: border-color .2s;
 }
 
 .radio-dot::after {
@@ -208,10 +210,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transition: opacity .2s;
 }
 
-/* Checked state */
 .radio-option:has(input:checked) {
   border-color: var(--accent);
-  background: rgba(78, 203, 132, 0.12);
+  background: rgba(0, 82, 77, 0.35);
   color: var(--accent);
 }
 
@@ -241,7 +242,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--muted);
+  color: rgba(169, 240, 236, 0.55);
   padding: 4px;
   display: flex;
   transition: color .2s;
@@ -255,10 +256,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
   margin-top: 26px;
   padding: 14px;
-  background: linear-gradient(135deg, #1e6b41, #2a9e61);
-  border: 1px solid rgba(78, 203, 132, .28);
+  background: linear-gradient(135deg, #00524D, #34654B);
+  border: 1px solid rgba(212, 255, 254, 0.25);
   border-radius: 10px;
-  color: #c4f0d8;
+  color: #D4FFFE;
   font-family: 'Raleway', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -269,8 +270,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .btn-save:hover {
-  background: linear-gradient(135deg, #245e3c, #31b570);
-  box-shadow: 0 4px 20px rgba(78, 203, 132, .18);
+  background: linear-gradient(135deg, #006e67, #3d7a5a);
+  box-shadow: 0 4px 20px rgba(126, 245, 222, 0.20);
   transform: translateY(-1px);
 }
 
@@ -282,7 +283,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.vura_logo{
-    height: 90px;
-    width: 90px;
+/* ── Logo ── */
+.vura_logo {
+  height: 90px;
+  width: 90px;
 }
