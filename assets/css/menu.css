@@ -51,7 +51,12 @@ header {
     gap: 0.65rem;
     text-decoration: none;
 }
-.nav-brand img { width: 100px; height: 100px; }
+.nav-brand img {
+    width: auto;
+    height: 42px;
+    max-width: 120px;
+    object-fit: contain;
+}
 .nav-brand-text {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
