@@ -1,0 +1,288 @@
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #060e0b;
+  --card:         #0d1f17;
+  --border:       rgba(72, 180, 120, 0.18);
+  --border-focus: rgba(72, 180, 120, 0.55);
+  --text:         #edd4d4;
+  --muted:        rgba(180, 220, 200, 0.45);
+  --accent:       #4ecb84;
+  --accent-dark:  #2a9e61;
+  --input-bg:     rgba(20, 55, 35, 0.45);
+  --glow:         rgba(78, 203, 132, 0.14);
+}
+
+.conteudo {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+}
+
+/* ── Page title ── */
+h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 3px;
+  text-align: center;
+  color: var(--text);
+  margin: 32px 0 24px;
+}
+
+/* ── Card ── */    
+.card {
+  width: calc(100% - 32px);
+  max-width: 460px;
+  background: linear-gradient(160deg, #00524DE5 ,#509c8d );
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px 26px 36px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .45s ease both;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(203, 128, 78, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Avatar ── */
+.avatar-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.avatar-ring {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e6b41, #2a9e61);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  color: #c4f0d8;
+  position: relative;
+  cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.avatar-ring:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 22px var(--glow);
+}
+
+.avatar-edit-badge {
+  position: absolute;
+  bottom: 2px; right: 2px;
+  width: 22px; height: 22px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #091610;
+}
+
+.avatar-edit-badge svg { width: 10px; }
+
+.avatar-name {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+/* ── Divider ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 22px;
+}
+
+/* ── Fields ── */
+.field { margin-bottom: 16px; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 15px;
+  color: var(--text);
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  transition: border-color .25s, background .25s, box-shadow .25s;
+  -webkit-appearance: none;
+}
+
+input::placeholder { color: var(--muted); }
+
+input:focus {
+  border-color: var(--border-focus);
+  background: rgba(20, 65, 40, 0.5);
+  box-shadow: 0 0 0 3px rgba(78, 203, 132, .07);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(.55) sepia(1) saturate(2) hue-rotate(100deg);
+  cursor: pointer;
+  opacity: .55;
+}
+
+/* ── Radio group — pill style (como na screenshot) ── */
+.radio-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1.5px solid var(--border);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+  background: transparent;
+}
+
+.radio-option input { display: none; }
+
+.radio-dot {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color .2s;
+}
+
+.radio-dot::after {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+/* Checked state */
+.radio-option:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(78, 203, 132, 0.12);
+  color: var(--accent);
+}
+
+.radio-option:has(input:checked) .radio-dot::after {
+  opacity: 1;
+}
+
+/* ── Section title ── */
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-align: center;
+  margin: 26px 0 18px;
+}
+
+/* ── Password toggle ── */
+.input-wrap { position: relative; }
+.input-wrap input { padding-right: 42px; }
+
+.toggle-pass {
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  display: flex;
+  transition: color .2s;
+}
+
+.toggle-pass:hover { color: var(--accent); }
+.toggle-pass svg { width: 16px; }
+
+/* ── Save button ── */
+.btn-save {
+  width: 100%;
+  margin-top: 26px;
+  padding: 14px;
+  background: linear-gradient(135deg, #1e6b41, #2a9e61);
+  border: 1px solid rgba(78, 203, 132, .28);
+  border-radius: 10px;
+  color: #c4f0d8;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, #245e3c, #31b570);
+  box-shadow: 0 4px 20px rgba(78, 203, 132, .18);
+  transform: translateY(-1px);
+}
+
+.btn-save:active { transform: translateY(0); }
+
+/* ── Animation ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.vura_logo{
+    height: 90px;
+    width: 90px;
+}
