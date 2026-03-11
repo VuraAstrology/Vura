@@ -15,7 +15,7 @@
 
                 <!-- Logo -->
                 <figure>
-                    <a href="/index.html">
+                    <a href="./index.html">
                         <img class="vura_logo" src="./assets/imagens/logo_transparent.png" alt="Vura">
                     </a>
                 </figure>
