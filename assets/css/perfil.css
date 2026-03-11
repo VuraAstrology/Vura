@@ -156,7 +156,6 @@ input[type="date"] {
   font-weight: 400;
   outline: none;                        /* Remove o outline padrão do browser */
   transition: border-color .25s, background .25s, box-shadow .25s;
-  -webkit-appearance: none;            /* Remove estilo nativo no iOS/Safari */
 }
 
 /* ── Cor do placeholder (texto de exemplo dentro do input) ── */
