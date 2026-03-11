@@ -51,15 +51,7 @@ header {
     gap: 0.65rem;
     text-decoration: none;
 }
-
-.nav-brand img {
-    width: 100px;
-    height: 100px;
-}
-
-.nav-brand:hover img {
-}
-
+.nav-brand img { width: 100px; height: 100px; }
 .nav-brand-text {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
@@ -67,7 +59,6 @@ header {
     letter-spacing: 0.2em;
     transition: color 0.25s;
 }
-
 .nav-brand:hover .nav-brand-text { color: var(--teal-light); }
 
 /* ── MENU PRINCIPAL ── */
@@ -161,15 +152,21 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     transition: color 0.2s, background 0.2s, padding-left 0.2s;
     border-left: 2px solid transparent;
 }
-
 .nav-submenu li a:hover {
     color: var(--teal-light);
     background: var(--teal-dim);
     padding-left: 1.7rem;
     border-left-color: var(--teal);
 }
-
 .nav-submenu li + li { border-top: 1px solid rgba(72,168,154,0.06); }
+
+/* ── NAV RIGHT (perfil + hambúrguer — sempre visíveis) ── */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 100%;
+}
 
 /* ── PROFILE PILL ── */
 .nav-profile {
@@ -177,7 +174,6 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     height: 100%;
     display: flex;
     align-items: center;
-    margin-left: 0.75rem;
 }
 
 .nav-profile-btn {
@@ -195,7 +191,6 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     font-size: 0.75rem;
     letter-spacing: 0.06em;
 }
-
 .nav-profile-btn:hover {
     border-color: var(--teal);
     background: var(--teal-dim);
@@ -236,7 +231,6 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     animation: navDropIn 0.2s ease forwards;
     list-style: none;
 }
-
 .nav-profile:hover .nav-profile-dropdown { display: block; }
 
 .nav-profile-dropdown .user-header {
@@ -293,7 +287,143 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     box-shadow: 0 0 12px var(--teal-glow);
 }
 
+/* ══════════════════════════════════════════════
+   MOBILE  ≤ 780px
+══════════════════════════════════════════════ */
 @media (max-width: 780px) {
-    ul.nav-menu { display: none; }
+
+    .nav-inner {
+        padding: 0 1rem;
+        height: 60px;
+    }
+
+    figure img.vura_logo { width: 52px; height: 52px; }
+
+    /* Hambúrguer aparece */
     .nav-mobile-toggle { display: flex; align-items: center; }
+
+    /* ── MENU PRINCIPAL: drawer absoluto abaixo da navbar ── */
+    ul.nav-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        height: auto;
+        background: #0a1520;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 0.4rem 0 0.8rem;
+        gap: 0;
+        z-index: 999;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+    }
+
+    ul.nav-menu.nav-menu--open { display: flex; }
+
+    ul.nav-menu > li {
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    ul.nav-menu > li > a {
+        padding: 0.75rem 1.3rem;
+        font-size: 0.82rem;
+        height: auto;
+        justify-content: space-between;
+        border-radius: 0;
+    }
+
+    ul.nav-menu > li > a::after { display: none; }
+    ul.nav-menu > li > a:active { color: var(--teal-light); }
+
+    /* Desativa hover do desktop */
+    ul.nav-menu > li:hover > a { color: var(--muted); }
+    ul.nav-menu > li:hover > a::after { width: 0; }
+    ul.nav-menu > li:hover .nav-submenu { display: none; }
+
+    /* Submenu inline */
+    .nav-submenu {
+        position: static;
+        border: none;
+        border-top: 1px solid rgba(72,168,154,0.08);
+        border-left: 2px solid var(--teal);
+        border-radius: 0;
+        min-width: unset;
+        padding: 0; margin: 0;
+        box-shadow: none;
+        animation: none;
+        background: rgba(72, 168, 154, 0.03);
+    }
+
+    ul.nav-menu > li.sub--open > a { color: var(--teal-light); }
+    ul.nav-menu > li.sub--open .nav-submenu { display: block !important; }
+    ul.nav-menu > li.sub--open > a .fa-chevron-down { transform: rotate(180deg); }
+
+    .nav-submenu li a { padding: 0.6rem 1.8rem; font-size: 0.74rem; border-left: none; }
+    .nav-submenu li a:hover { padding-left: 2.1rem; }
+
+    /* ── PERFIL dentro do drawer ── */
+    li.nav-profile {
+        border-top: 1px solid var(--border);
+        margin-top: 0.3rem;
+        padding-top: 0.3rem;
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        position: relative;
+    }
+
+    /* Botão vira row full-width */
+    .nav-profile-btn {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        padding: 0.75rem 1.3rem;
+        justify-content: flex-start;
+        gap: 0.65rem;
+        font-size: 0.82rem;
+        background: none;
+        box-shadow: none;
+        color: var(--muted);
+    }
+
+    .nav-profile-btn .fa-chevron-down { margin-left: auto; }
+
+    .nav-profile-btn:hover {
+        border-color: transparent;
+        background: var(--teal-dim);
+        box-shadow: none;
+        color: var(--teal-light);
+    }
+
+    /* Desativa hover CSS no dropdown */
+    .nav-profile:hover .nav-profile-dropdown { display: none; }
+    .nav-profile:hover .nav-profile-btn .fa-chevron-down { transform: none; }
+
+    /* Dropdown vira lista inline */
+    .nav-profile-dropdown {
+        position: static;
+        border: none;
+        border-top: 1px solid rgba(72,168,154,0.08);
+        border-left: 2px solid var(--teal);
+        border-radius: 0;
+        min-width: unset;
+        padding: 0; margin: 0;
+        box-shadow: none;
+        animation: none;
+        background: rgba(72, 168, 154, 0.03);
+    }
+
+    .nav-profile-dropdown li a { padding: 0.6rem 1.8rem; font-size: 0.74rem; border-left: none; }
+    .nav-profile-dropdown li a:hover { padding-left: 2.1rem; }
+    .nav-profile-dropdown .user-header { padding: 0.65rem 1.8rem; }
+
+    /* Estado aberto via JS */
+    .nav-profile.sub--open .nav-profile-dropdown { display: block !important; }
+    .nav-profile.sub--open .nav-profile-btn { color: var(--teal-light); background: var(--teal-dim); }
+    .nav-profile.sub--open .nav-profile-btn .fa-chevron-down { transform: rotate(180deg); }
 }

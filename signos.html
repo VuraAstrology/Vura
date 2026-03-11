@@ -13,95 +13,13 @@
 </head>
 <body>
 
-    <!-- ── HEADER ── -->
-    <header>
-        <nav class="vura-nav">
-            <div class="nav-inner">
-
-                <!-- Logo -->
-                <figure>
-                    <img class="vura_logo" src="./assets/imagens/logo_transparent.png">
-                </figure>
-
-                <!-- Menu -->
-                <ul class="nav-menu">
-
-                    <li><a href="./index.html">Signos</a></li>
-
-                    <li>
-                        <a href="#">Casas Astrológicas <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="nav-submenu">
-                            <li><a href="#introducao">Introdução Casas Astrológicas</a></li>
-                            <li><a href="#house1">Casa 1</a></li>
-                            <li><a href="#house2">Casa 2</a></li>
-                            <li><a href="#house3">Casa 3</a></li>
-                            <li><a href="#house4">Casa 4</a></li>
-                            <li><a href="#house5">Casa 5</a></li>
-                            <li><a href="#house6">Casa 6</a></li>
-                            <li><a href="#house7">Casa 7</a></li>
-                            <li><a href="#house8">Casa 8</a></li>
-                            <li><a href="#house9">Casa 9</a></li>
-                            <li><a href="#house10">Casa 10</a></li>
-                            <li><a href="#house11">Casa 11</a></li>
-                            <li><a href="#house12">Casa 12</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#">Astros e Posicionamentos <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="nav-submenu">
-                            <li><a href="./posicionamentos.html?astro=sol">Sol ⊙</a></li>
-                            <li><a href="./posicionamentos.html?astro=lua">Lua ☾</a></li>
-                            <li><a href="./posicionamentos.html?astro=mercurio">Mercúrio ☿</a></li>
-                            <li><a href="./posicionamentos.html?astro=venus">Vênus ♀</a></li>
-                            <li><a href="./posicionamentos.html?astro=marte">Marte ♂</a></li>
-                            <li><a href="./posicionamentos.html?astro=jupiter">Júpiter ♃</a></li>
-                            <li><a href="./posicionamentos.html?astro=saturno">Saturno ♄</a></li>
-                            <li><a href="./posicionamentos.html?astro=urano">Urano ♅</a></li>
-                            <li><a href="./posicionamentos.html?astro=netuno">Netuno ♆</a></li>
-                            <li><a href="./posicionamentos.html?astro=plutao">Plutão ♇</a></li>
-                            <li><a href="./posicionamentos.html?astro=quiron">Quíron ⚷</a></li>
-                            <li><a href="./posicionamentos.html?astro=lilith">Lilith ⚸</a></li>
-                            <li><a href="./posicionamentos.html?astro=meioDoCeu">Meio do Céu MC</a></li>
-                            <li><a href="./posicionamentos.html?astro=ascendente">Ascendente</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Conta / Perfil -->
-                    <li class="nav-profile">
-                        <button class="nav-profile-btn">
-                            <span class="nav-profile-icon"><i class="fa-solid fa-user"></i></span>
-                            Conta
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <ul class="nav-profile-dropdown">
-                            <li class="user-header">
-                                <p>Meu Vura</p>
-                                <span>Bem-vindo(a)!</span>
-                            </li>
-                            <li><a href="#"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
-                            <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
-                            <li><a href="#"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
-                            <li><a href="#"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
-                            <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
-                            <hr class="nav-divider">
-                            <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-
-                <!-- Hamburguer mobile -->
-                <button class="nav-mobile-toggle"><i class="fa-solid fa-bars"></i></button>
-
-            </div>
-        </nav>
-    </header>
+    <!-- Menu: apenas esta div em todas as páginas -->
+    <div id="vura-nav"></div>
 
     <!-- ── PAGE HERO ── -->
     <div class="page-hero">
         <a href="./index.html" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i> Voltar
+            <i class="fa-solid fa-angles-left"></i> Voltar
         </a>
         <span id="hero-glyph"></span>
         <h1 id="hero-title"></h1>
@@ -132,6 +50,7 @@
     </footer>
 
   <script src="./assets/js/signos.js"></script>
+  <script src="./assets/js/menu.js"></script>
 
 
 </body>
