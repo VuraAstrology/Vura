@@ -76,7 +76,7 @@
                                 <p>Meu Vura</p>
                                 <span>Bem-vindo(a)!</span>
                             </li>
-                            <li><a href="#"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
+                            <li><a href="./mandala.html"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
                             <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
                             <li><a href="#"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
                             <li><a href="./perfil.html"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
