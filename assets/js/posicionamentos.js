@@ -1,52 +1,4 @@
 /* ═══════════════════════════════════════════════
-    HAMBURGER / MOBILE TOGGLE
-═══════════════════════════════════════════════ */
-const hamburger    = document.querySelector('.nav-mobile-toggle');
-const mobileDrawer = document.getElementById('mobileDrawer');
-
-hamburger.addEventListener('click', () => {
-    const isOpen = hamburger.classList.toggle('open');
-    mobileDrawer.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    mobileDrawer.setAttribute('aria-hidden', !isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-});
-
-mobileDrawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileDrawer.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', false);
-        mobileDrawer.setAttribute('aria-hidden', true);
-        document.body.style.overflow = '';
-    });
-});
-
-document.querySelectorAll('.mobile-item[data-target]').forEach(item => {
-    item.addEventListener('click', () => {
-        const submenu = document.getElementById(item.dataset.target);
-        const isOpen  = submenu.classList.toggle('open');
-        item.classList.toggle('active', isOpen);
-        document.querySelectorAll('.mobile-submenu').forEach(sm => {
-            if (sm !== submenu && sm.classList.contains('open')) {
-                sm.classList.remove('open');
-                sm.previousElementSibling.classList.remove('active');
-            }
-        });
-    });
-});
-
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
-        hamburger.classList.remove('open');
-        mobileDrawer.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', false);
-        mobileDrawer.setAttribute('aria-hidden', true);
-        document.body.style.overflow = '';
-    }
-});
-
-/* ═══════════════════════════════════════════════
     DATA & RENDERING
 ═══════════════════════════════════════════════ */
 
@@ -61,40 +13,37 @@ function setAstroParam(id) {
 }
 
 function buildNavLinks(data) {
-    const desktopMenu = document.getElementById('desktop-astros-menu');
-    const mobileMenu  = document.getElementById('sub-astros');
-    const selectorEl  = document.getElementById('astroSelector');
+    // Popula os submenus do nav.js com os astros do JSON
+    // nav.js já injetou o menu; os <ul> abaixo existem no DOM agora
+    // nav.js usa um único <ul id="desktop-astros-menu"> para desktop e mobile
+    const navMenu    = document.getElementById('desktop-astros-menu');
+    const selectorEl = document.getElementById('astroSelector');
 
-    desktopMenu.innerHTML = '';
-    mobileMenu.innerHTML  = '';
-    selectorEl.innerHTML  = '';
+    if (navMenu)     navMenu.innerHTML    = '';
+    if (selectorEl)  selectorEl.innerHTML = '';
 
     data.posicionamentos.forEach(p => {
-        // desktop submenu
-        const li = document.createElement('li');
-        const a  = document.createElement('a');
-        a.href        = `?astro=${p.id}`;
-        a.textContent = `${p.nome} ${p.simbolo}`;
-        a.addEventListener('click', e => { e.preventDefault(); loadAstro(p.id, data); });
-        li.appendChild(a);
-        desktopMenu.appendChild(li);
 
-        // mobile submenu
-        const mli = document.createElement('li');
-        const ma  = document.createElement('a');
-        ma.href        = `?astro=${p.id}`;
-        ma.textContent = `${p.nome} ${p.simbolo}`;
-        ma.addEventListener('click', e => { e.preventDefault(); loadAstro(p.id, data); });
-        mli.appendChild(ma);
-        mobileMenu.appendChild(mli);
+        // ── Submenu do nav (desktop hover + mobile drawer) ──
+        if (navMenu) {
+            const li = document.createElement('li');
+            const a  = document.createElement('a');
+            a.href        = `?astro=${p.id}`;
+            a.textContent = `${p.nome} ${p.simbolo}`;
+            a.addEventListener('click', e => { e.preventDefault(); loadAstro(p.id, data); });
+            li.appendChild(a);
+            navMenu.appendChild(li);
+        }
 
-        // pill selector
-        const pill = document.createElement('button');
-        pill.className       = 'astro-pill';
-        pill.dataset.astroId = p.id;
-        pill.innerHTML       = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
-        pill.addEventListener('click', () => loadAstro(p.id, data));
-        selectorEl.appendChild(pill);
+        // ── Pill selector ──
+        if (selectorEl) {
+            const pill = document.createElement('button');
+            pill.className       = 'astro-pill';
+            pill.dataset.astroId = p.id;
+            pill.innerHTML       = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
+            pill.addEventListener('click', () => loadAstro(p.id, data));
+            selectorEl.appendChild(pill);
+        }
     });
 }
 
@@ -102,7 +51,7 @@ function loadAstro(id, data) {
     const pos     = data.posicionamentos.find(p => p.id === id);
     const content = document.getElementById('pageContent');
 
-    // update active pill
+    // Atualiza pill ativa
     document.querySelectorAll('.astro-pill').forEach(p => {
         p.classList.toggle('active', p.dataset.astroId === id);
     });
@@ -151,11 +100,11 @@ function loadAstro(id, data) {
 }
 
 /* ═══════════════════════════════════════════════
-    INIT — fetch JSON then render
+    INIT — fetch JSON e renderiza
 ═══════════════════════════════════════════════ */
 async function init() {
     try {
-        const res  = await fetch('./assets/data/posicionamentos.json');
+        const res = await fetch('./assets/data/posicionamentos.json');
         if (!res.ok) throw new Error('JSON not found');
         const data = await res.json();
 
