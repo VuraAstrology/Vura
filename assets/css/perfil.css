@@ -43,8 +43,8 @@ h1 {
 .card {
   width: calc(100% - 32px);  /* Largura total menos margem lateral */
   max-width: 460px;           /* Largura máxima em telas grandes */
-  background: linear-gradient(160deg, #002D2A 10%, #45867A 100%); /* Gradiente verde escuro → verde claro */
-  border: 1px solid rgba(0, 82, 77, 0.40);
+  background: linear-gradient(160deg, #002826 10%, #45867A 100%); /* Gradiente verde escuro → verde claro */
+  border: 3px solid rgb(255, 255, 255);
   border-radius: 18px;
   padding: 30px 26px 36px;
   position: relative;
@@ -58,7 +58,6 @@ h1 {
   position: absolute;
   top: -60px; right: -60px;
   width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(126, 245, 222, 0.10) 0%, transparent 70%);
   pointer-events: none; /* Não interfere em cliques */
 }
 
@@ -146,9 +145,10 @@ input[type="email"],
 input[type="password"],
 input[type="date"] {
   width: 100%;
-  background: rgba(52, 101, 75, 0.40);  /* Verde escuro translúcido */
+  background: #154034;  /* Verde escuro translúcido */
   border: 1px solid rgba(0, 82, 77, 0.70);
   border-radius: 9px;
+  border: 1px solid white;
   padding: 12px 15px;
   color: var(--input-text);             /* Texto digitado em verde claro */
   font-family: 'Raleway', sans-serif;
@@ -159,12 +159,12 @@ input[type="date"] {
 }
 
 /* ── Cor do placeholder (texto de exemplo dentro do input) ── */
-input::placeholder { color: rgba(169, 240, 236, 0.55); }
+input::placeholder { color: #7cbbb5e3; }
 
 /* ── Estilo do input quando está sendo preenchido (em foco) ── */
 input:focus {
-  border-color: rgba(0, 82, 77, 1);
-  background: rgba(52, 101, 75, 0.55);
+  border-color: #5db2a6;
+  background: #9bedcd54;
   box-shadow: 0 0 0 3px rgba(0, 82, 77, 0.18); /* Anel de foco suave */
 }
 
@@ -249,7 +249,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* ── Wrapper do input de senha (precisa de position para o botão de olho) ── */
-.input-wrap { position: relative; }
+.input-wrap { 
+  position: relative; 
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.input-wrap:focus{
+  border-color: #5db2a6;
+
+}
+
+
 
 /* ── Padding extra à direita para não sobrepor o ícone de mostrar senha ── */
 .input-wrap input { padding-right: 42px; }
@@ -277,10 +288,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
   margin-top: 26px;
   padding: 14px;
-  background: linear-gradient(135deg, #00524D, #34654B); /* Gradiente verde */
-  border: 1px solid rgba(212, 255, 254, 0.25);
+  background: linear-gradient(135deg, #00524d, #000); /* Gradiente verde */
+  border: 1.5px solid rgba(4, 14, 17, 0.492);
   border-radius: 10px;
-  color: #D4FFFE;
+  color: #fff;
   font-family: 'Raleway', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -292,10 +303,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* ── Botão fica mais claro e sobe levemente ao passar o mouse ── */
 .btn-save:hover {
-  background: linear-gradient(135deg, #006e67, #3d7a5a);
+  background: linear-gradient(135deg, #000, #00524D);
   box-shadow: 0 4px 20px rgba(126, 245, 222, 0.20);
   transform: translateY(-1px);
 }
+
 
 /* ── Botão volta à posição normal ao clicar ── */
 .btn-save:active { transform: translateY(0); }
