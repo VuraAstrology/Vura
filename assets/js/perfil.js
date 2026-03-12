@@ -17,7 +17,7 @@ btn.innerHTML = isPass
 function salvar() {
 const btn = document.querySelector('.btn-save');
 btn.textContent = '✓ Salvo!';
-btn.style.background = 'linear-gradient(135deg, #1a5e38, #22874f)';
+btn.style.background = 'linear-gradient(135deg, #9ef2aa, #004334)';
 setTimeout(() => {
     btn.textContent = 'Salvar alterações';
     btn.style.background = '';
