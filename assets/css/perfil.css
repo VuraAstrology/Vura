@@ -43,7 +43,7 @@ h1 {
 .card {
   width: calc(100% - 32px);  /* Largura total menos margem lateral */
   max-width: 460px;           /* Largura máxima em telas grandes */
-  background: linear-gradient(160deg, #00524D 10%, #7EF5DE 100%); /* Gradiente verde escuro → verde claro */
+  background: linear-gradient(160deg, #002D2A 10%, #45867A 100%); /* Gradiente verde escuro → verde claro */
   border: 1px solid rgba(0, 82, 77, 0.40);
   border-radius: 18px;
   padding: 30px 26px 36px;
