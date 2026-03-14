@@ -17,6 +17,26 @@ function definirStatus(mensagem) {
   elStatus.textContent = mensagem || "";
 }
 
+// ================= RETRY COM BACKOFF =================
+async function fetchComRetry(url, options, maxTentativas = 3) {
+  for (let tentativa = 0; tentativa < maxTentativas; tentativa++) {
+    const resp = await fetch(url, options);
+
+    if (resp.status !== 429) return resp;
+
+    // Lê o retry_after_ms sugerido pela API, com fallback de 1200ms
+    let data = {};
+    try { data = await resp.clone().json(); } catch (_) {}
+    const retryMs  = data?.response?.retry_after_ms ?? 1200;
+    const jitter   = Math.random() * 300;
+    const delay    = retryMs * Math.pow(2, tentativa) + jitter;
+
+    definirStatus(`Limite da API atingido — aguardando ${Math.round(delay / 1000)}s (tentativa ${tentativa + 1}/${maxTentativas})...`);
+    await new Promise((r) => setTimeout(r, delay));
+  }
+  throw new Error("Limite de tentativas excedido. Tente novamente em alguns segundos.");
+}
+
 // ================= AUTOCOMPLETE =================
 function mostrarSugestoes(cidades) {
   if (!cidades || cidades.length === 0) {
@@ -111,19 +131,21 @@ formulario.addEventListener("submit", async (e) => {
     definirStatus("Gerando mandala...");
     elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px;">🔄 Gerando visual...</div>`;
 
-    // Faz as duas chamadas ao mesmo tempo
-    const [respostaSvg, respostaNatal] = await Promise.all([
-      fetch(`${API_BASE}/api/api-mandala`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }),
-      fetch(`${API_BASE}/api/api-natal`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-    ]);
+    // ✅ Chamadas sequenciais — respeita o limite de 1 req/s da FreeAstroAPI
+    const respostaSvg = await fetchComRetry(`${API_BASE}/api/api-mandala`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    definirStatus("Mandala gerada, carregando interpretação...");
+    await new Promise((r) => setTimeout(r, 1100)); // garante > 1s entre chamadas
+
+    const respostaNatal = await fetchComRetry(`${API_BASE}/api/api-natal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
     const dadosSvg   = await respostaSvg.json();
     const dadosNatal = await respostaNatal.json();
