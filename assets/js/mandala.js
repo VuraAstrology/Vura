@@ -183,11 +183,19 @@ formulario.addEventListener("submit", async (e) => {
 // ================= TRADUCAO VIA MYMEMORY =================
 
 // Envia um trecho curto (ate 450 chars) para a MyMemory
-async function traduzirChunk(trecho) {
+async function traduzirChunk(trecho, tentativa = 0) {
   if (!trecho?.trim()) return trecho;
   try {
     const url  = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(trecho)}&langpair=en|pt-BR`;
     const resp = await fetch(url);
+
+    // Rate limit: espera e tenta de novo (ate 3x com backoff)
+    if (resp.status === 429 && tentativa < 3) {
+      const espera = 2000 * Math.pow(2, tentativa); // 2s, 4s, 8s
+      await new Promise((r) => setTimeout(r, espera));
+      return traduzirChunk(trecho, tentativa + 1);
+    }
+
     const data = await resp.json();
     if (data.responseStatus === 200 || data.responseStatus === 206) {
       return data.responseData.translatedText || trecho;
@@ -224,7 +232,7 @@ async function traduzirTexto(texto) {
   const traduzidos = [];
   for (const g of grupos) {
     traduzidos.push(await traduzirChunk(g));
-    await new Promise((r) => setTimeout(r, 300));
+    await new Promise((r) => setTimeout(r, 1100));
   }
 
   return traduzidos.join(" ");
@@ -241,14 +249,14 @@ async function traduzirSecoes(secoes) {
       const campoTitulo = "title" in item ? "title" : "key";
       if (item[campoTitulo]) {
         item[campoTitulo] = await traduzirTexto(item[campoTitulo]);
-        await new Promise((r) => setTimeout(r, 300));
+        await new Promise((r) => setTimeout(r, 1100));
       }
 
       // Traduz body (secoes principais) ou content (secao aspects)
       const campoCorpo = "body" in item ? "body" : "content";
       if (item[campoCorpo]) {
         item[campoCorpo] = await traduzirTexto(item[campoCorpo]);
-        await new Promise((r) => setTimeout(r, 300));
+        await new Promise((r) => setTimeout(r, 1100));
       }
     }
   }
