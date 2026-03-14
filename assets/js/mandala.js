@@ -136,7 +136,7 @@ formulario.addEventListener("submit", async (e) => {
     });
 
     definirStatus("Mandala gerada, carregando interpretacao...");
-    await new Promise((r) => setTimeout(r, 1100));
+    await new Promise((r) => setTimeout(r, 500));
 
     const respostaNatal = await fetchComRetry(`${API_BASE}/api/api-natal`, {
       method: "POST",
@@ -186,21 +186,26 @@ formulario.addEventListener("submit", async (e) => {
 async function traduzirChunk(trecho, tentativa = 0) {
   if (!trecho?.trim()) return trecho;
   try {
-    const url  = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(trecho)}&langpair=en|pt-BR`;
+    // Endpoint nao oficial do Google Translate - sem API key, sem limite fixo por IP
+    const url = "https://translate.googleapis.com/translate_a/single"
+      + "?client=gtx&sl=en&tl=pt&dt=t&q="
+      + encodeURIComponent(trecho);
+
     const resp = await fetch(url);
 
-    // Rate limit: espera e tenta de novo (ate 3x com backoff)
     if (resp.status === 429 && tentativa < 3) {
-      const espera = 2000 * Math.pow(2, tentativa); // 2s, 4s, 8s
+      const espera = 2000 * Math.pow(2, tentativa);
       await new Promise((r) => setTimeout(r, espera));
       return traduzirChunk(trecho, tentativa + 1);
     }
 
+    if (!resp.ok) return trecho;
+
     const data = await resp.json();
-    if (data.responseStatus === 200 || data.responseStatus === 206) {
-      return data.responseData.translatedText || trecho;
-    }
-    return trecho;
+
+    // Resposta e um array aninhado: [[["texto traduzido", "texto original", ...]]]
+    const traduzido = data?.[0]?.map((parte) => parte?.[0]).filter(Boolean).join("");
+    return traduzido || trecho;
   } catch {
     return trecho;
   }
@@ -232,7 +237,7 @@ async function traduzirTexto(texto) {
   const traduzidos = [];
   for (const g of grupos) {
     traduzidos.push(await traduzirChunk(g));
-    await new Promise((r) => setTimeout(r, 1100));
+    await new Promise((r) => setTimeout(r, 500));
   }
 
   return traduzidos.join(" ");
@@ -249,14 +254,14 @@ async function traduzirSecoes(secoes) {
       const campoTitulo = "title" in item ? "title" : "key";
       if (item[campoTitulo]) {
         item[campoTitulo] = await traduzirTexto(item[campoTitulo]);
-        await new Promise((r) => setTimeout(r, 1100));
+        await new Promise((r) => setTimeout(r, 500));
       }
 
       // Traduz body (secoes principais) ou content (secao aspects)
       const campoCorpo = "body" in item ? "body" : "content";
       if (item[campoCorpo]) {
         item[campoCorpo] = await traduzirTexto(item[campoCorpo]);
-        await new Promise((r) => setTimeout(r, 1100));
+        await new Promise((r) => setTimeout(r, 500));
       }
     }
   }
