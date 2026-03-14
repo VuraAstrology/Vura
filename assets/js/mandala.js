@@ -24,14 +24,13 @@ async function fetchComRetry(url, options, maxTentativas = 3) {
 
     if (resp.status !== 429) return resp;
 
-    // Lê o retry_after_ms sugerido pela API, com fallback de 1200ms
     let data = {};
     try { data = await resp.clone().json(); } catch (_) {}
-    const retryMs  = data?.response?.retry_after_ms ?? 1200;
-    const jitter   = Math.random() * 300;
-    const delay    = retryMs * Math.pow(2, tentativa) + jitter;
+    const retryMs = data?.response?.retry_after_ms ?? 1200;
+    const jitter  = Math.random() * 300;
+    const delay   = retryMs * Math.pow(2, tentativa) + jitter;
 
-    definirStatus(`Limite da API atingido — aguardando ${Math.round(delay / 1000)}s (tentativa ${tentativa + 1}/${maxTentativas})...`);
+    definirStatus(`Limite da API atingido - aguardando ${Math.round(delay / 1000)}s (tentativa ${tentativa + 1}/${maxTentativas})...`);
     await new Promise((r) => setTimeout(r, delay));
   }
   throw new Error("Limite de tentativas excedido. Tente novamente em alguns segundos.");
@@ -48,7 +47,7 @@ function mostrarSugestoes(cidades) {
   listaCidades.hidden = false;
   listaCidades.innerHTML = cidades.map((cidade, idx) => `
     <button type="button" data-idx="${idx}">
-      ${cidade.name} (${cidade.country}) — ${cidade.timezone}
+      ${cidade.name} (${cidade.country}) - ${cidade.timezone}
     </button>
   `).join("");
 
@@ -91,7 +90,6 @@ inputCidade.addEventListener("input", () => {
   }, 250);
 });
 
-// Fecha sugestões ao clicar fora
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".mandala-autocomplete")) mostrarSugestoes([]);
 });
@@ -120,7 +118,6 @@ formulario.addEventListener("submit", async (e) => {
     lat:    cidadeSelecionada.lat,
     lng:    cidadeSelecionada.lng,
     tz_str: cidadeSelecionada.timezone,
-    // valores fixos
     house_system: "placidus",
     zodiac_type:  "tropical",
     theme_type:   "light",
@@ -130,17 +127,16 @@ formulario.addEventListener("submit", async (e) => {
 
   try {
     definirStatus("Gerando mandala...");
-    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px;">🔄 Gerando visual...</div>`;
+    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px;">Gerando visual...</div>`;
 
-    // ✅ Chamadas sequenciais — respeita o limite de 1 req/s da FreeAstroAPI
     const respostaSvg = await fetchComRetry(`${API_BASE}/api/api-mandala`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    definirStatus("Mandala gerada, carregando interpretação...");
-    await new Promise((r) => setTimeout(r, 1100)); // garante > 1s entre chamadas
+    definirStatus("Mandala gerada, carregando interpretacao...");
+    await new Promise((r) => setTimeout(r, 1100));
 
     const respostaNatal = await fetchComRetry(`${API_BASE}/api/api-natal`, {
       method: "POST",
@@ -157,9 +153,8 @@ formulario.addEventListener("submit", async (e) => {
     if (!respostaSvg.ok) throw new Error(dadosSvg?.error || "Falha ao gerar mandala.");
 
     const svg = dadosSvg.svg || dadosSvg.chart_svg || dadosSvg.output_svg || dadosSvg?.result?.svg || dadosSvg?.data?.svg;
-    if (!svg) throw new Error("SVG não encontrado na resposta.");
+    if (!svg) throw new Error("SVG nao encontrado na resposta.");
 
-    // Monta o SVG
     elResultado.innerHTML = `<div id="svgWrapper">${svg}</div>`;
 
     const svgEl = elResultado.querySelector("svg");
@@ -173,51 +168,83 @@ formulario.addEventListener("submit", async (e) => {
       svgEl.style.cssText = "width:100%; height:auto; display:block;";
     }
 
-    // Monta os cards de interpretação (se vieram)
     if (respostaNatal.ok && dadosNatal?.interpretation?.sections) {
-      definirStatus("Traduzindo interpretação...");
-      const secoestraduzidas = await traduzirSecoes(dadosNatal.interpretation.sections);
-      elResultado.appendChild(montarCards(secoestraduzidas));
+      definirStatus("Traduzindo interpretacao...");
+      const secoesTraduzidas = await traduzirSecoes(dadosNatal.interpretation.sections);
+      elResultado.appendChild(montarCards(secoesTraduzidas));
     }
 
-    definirStatus("Pronto ✅");
+    definirStatus("Pronto!");
   } catch (erro) {
     definirStatus(erro.message);
   }
 });
 
-// ================= TRADUÇÃO VIA MYMEMORY (gratuita, sem cadastro) =================
-async function traduzirTexto(texto) {
-  if (!texto?.trim()) return texto;
+// ================= TRADUCAO VIA MYMEMORY =================
+
+// Envia um trecho curto (ate 450 chars) para a MyMemory
+async function traduzirChunk(trecho) {
+  if (!trecho?.trim()) return trecho;
   try {
-    const url  = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=en|pt-BR`;
+    const url  = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(trecho)}&langpair=en|pt-BR`;
     const resp = await fetch(url);
     const data = await resp.json();
-    // responseStatus 200 = sucesso; também aceita 206 (match parcial)
     if (data.responseStatus === 200 || data.responseStatus === 206) {
-      return data.responseData.translatedText || texto;
+      return data.responseData.translatedText || trecho;
     }
-    return texto;
+    return trecho;
   } catch {
-    return texto; // fallback silencioso
+    return trecho;
   }
+}
+
+// Textos longos sao quebrados em grupos de frases de ate 450 chars
+// A MyMemory rejeita silenciosamente textos maiores que isso
+async function traduzirTexto(texto) {
+  if (!texto?.trim()) return texto;
+
+  const LIMITE = 450;
+  if (texto.length <= LIMITE) return traduzirChunk(texto);
+
+  // Quebra por fim de frase mantendo a pontuacao
+  const frases = texto.match(/[^.!?]+[.!?]+/g) || [texto];
+  const grupos = [];
+  let grupo = "";
+
+  for (const frase of frases) {
+    if ((grupo + frase).length > LIMITE && grupo) {
+      grupos.push(grupo.trim());
+      grupo = frase;
+    } else {
+      grupo += frase;
+    }
+  }
+  if (grupo.trim()) grupos.push(grupo.trim());
+
+  const traduzidos = [];
+  for (const g of grupos) {
+    traduzidos.push(await traduzirChunk(g));
+    await new Promise((r) => setTimeout(r, 300));
+  }
+
+  return traduzidos.join(" ");
 }
 
 async function traduzirSecoes(secoes) {
   const secoesTraduzidas = structuredClone(secoes);
 
-  for (const [chave, itens] of Object.entries(secoesTraduzidas)) {
+  for (const [, itens] of Object.entries(secoesTraduzidas)) {
     if (!itens?.length) continue;
 
     for (const item of itens) {
-      // Traduz title/key
+      // Traduz title (presente em todos) ou key (fallback)
       const campoTitulo = "title" in item ? "title" : "key";
       if (item[campoTitulo]) {
         item[campoTitulo] = await traduzirTexto(item[campoTitulo]);
-        await new Promise((r) => setTimeout(r, 300)); // respeita rate limit da MyMemory
+        await new Promise((r) => setTimeout(r, 300));
       }
 
-      // Traduz body/content
+      // Traduz body (secoes principais) ou content (secao aspects)
       const campoCorpo = "body" in item ? "body" : "content";
       if (item[campoCorpo]) {
         item[campoCorpo] = await traduzirTexto(item[campoCorpo]);
@@ -229,17 +256,16 @@ async function traduzirSecoes(secoes) {
   return secoesTraduzidas;
 }
 
-// ================= CARDS DE INTERPRETAÇÃO =================
+// ================= CARDS DE INTERPRETACAO =================
 
-// Nomes legíveis para cada seção
 const nomesSecoes = {
-  core_self:          "Core Self",
-  mind:               "Mind & Communication",
-  love_relating:      "Love & Relationships",
-  work_path:          "Work & Life Path",
-  social_collective:  "Social & Collective",
-  karmic_healing:     "Karmic & Healing",
-  aspects:            "Aspects",
+  core_self:          "Eu Central",
+  mind:               "Mente & Comunicacao",
+  love_relating:      "Amor & Relacionamentos",
+  work_path:          "Trabalho & Caminho de Vida",
+  social_collective:  "Social & Coletivo",
+  karmic_healing:     "Karmico & Cura",
+  aspects:            "Aspectos",
 };
 
 function montarCards(secoes) {
