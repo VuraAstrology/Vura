@@ -125,6 +125,7 @@ formulario.addEventListener("submit", async (e) => {
     zodiac_type:  "tropical",
     theme_type:   "light",
     size: 900,
+    lang: "pt",
   };
 
   try {
@@ -174,7 +175,9 @@ formulario.addEventListener("submit", async (e) => {
 
     // Monta os cards de interpretação (se vieram)
     if (respostaNatal.ok && dadosNatal?.interpretation?.sections) {
-      elResultado.appendChild(montarCards(dadosNatal.interpretation.sections));
+      definirStatus("Traduzindo interpretação...");
+      const secoestraduzidas = await traduzirSecoes(dadosNatal.interpretation.sections);
+      elResultado.appendChild(montarCards(secoestraduzidas));
     }
 
     definirStatus("Pronto ✅");
@@ -182,6 +185,66 @@ formulario.addEventListener("submit", async (e) => {
     definirStatus(erro.message);
   }
 });
+
+// ================= TRADUÇÃO VIA CLAUDE =================
+async function traduzirSecoes(secoes) {
+  // Extrai todos os textos numa lista plana para traduzir em um único request
+  const entradas = [];
+  for (const [chave, itens] of Object.entries(secoes)) {
+    if (!itens?.length) continue;
+    itens.forEach((item, idx) => {
+      entradas.push({ chave, idx, campo: "title", texto: item.title || item.key || "" });
+      entradas.push({ chave, idx, campo: "body",  texto: item.body  || item.content || "" });
+    });
+  }
+
+  if (entradas.length === 0) return secoes;
+
+  const listaTextos = entradas
+    .map((e, i) => `[${i}] ${e.texto}`)
+    .join("\n");
+
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: `Você é um tradutor especializado em astrologia.
+Traduza cada item numerado do inglês para o português brasileiro.
+Mantenha os termos astrológicos corretos (ex: "Rising Sign" = "Ascendente", "Moon" = "Lua", "Sun" = "Sol", "House" = "Casa", "Trine" = "Trígono", "Square" = "Quadratura", "Conjunction" = "Conjunção", "Opposition" = "Oposição", "Sextile" = "Sextil").
+Retorne APENAS um JSON válido no formato: {"translations": ["tradução 0", "tradução 1", ...]}
+Sem explicações, sem markdown, sem texto extra.`,
+        messages: [{ role: "user", content: listaTextos }],
+      }),
+    });
+
+    const data = await resp.json();
+    const raw  = data.content?.[0]?.text || "{}";
+    const clean = raw.replace(/```json|```/g, "").trim();
+    const { translations } = JSON.parse(clean);
+
+    // Reconstrói as seções com os textos traduzidos
+    const secoesTraduzidas = structuredClone(secoes);
+    entradas.forEach((e, i) => {
+      const item = secoesTraduzidas[e.chave]?.[e.idx];
+      if (!item || !translations[i]) return;
+      if (e.campo === "title") {
+        if ("title" in item) item.title = translations[i];
+        else item.key = translations[i];
+      } else {
+        if ("body" in item) item.body = translations[i];
+        else item.content = translations[i];
+      }
+    });
+    return secoesTraduzidas;
+
+  } catch (err) {
+    console.warn("Tradução falhou, exibindo em inglês:", err);
+    return secoes; // fallback: exibe em inglês se a tradução falhar
+  }
+}
 
 // ================= CARDS DE INTERPRETAÇÃO =================
 
