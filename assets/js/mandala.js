@@ -186,64 +186,47 @@ formulario.addEventListener("submit", async (e) => {
   }
 });
 
-// ================= TRADUÇÃO VIA CLAUDE =================
-async function traduzirSecoes(secoes) {
-  // Extrai todos os textos numa lista plana para traduzir em um único request
-  const entradas = [];
-  for (const [chave, itens] of Object.entries(secoes)) {
-    if (!itens?.length) continue;
-    itens.forEach((item, idx) => {
-      entradas.push({ chave, idx, campo: "title", texto: item.title || item.key || "" });
-      entradas.push({ chave, idx, campo: "body",  texto: item.body  || item.content || "" });
-    });
-  }
-
-  if (entradas.length === 0) return secoes;
-
-  const listaTextos = entradas
-    .map((e, i) => `[${i}] ${e.texto}`)
-    .join("\n");
-
+// ================= TRADUÇÃO VIA MYMEMORY (gratuita, sem cadastro) =================
+async function traduzirTexto(texto) {
+  if (!texto?.trim()) return texto;
   try {
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system: `Você é um tradutor especializado em astrologia.
-Traduza cada item numerado do inglês para o português brasileiro.
-Mantenha os termos astrológicos corretos (ex: "Rising Sign" = "Ascendente", "Moon" = "Lua", "Sun" = "Sol", "House" = "Casa", "Trine" = "Trígono", "Square" = "Quadratura", "Conjunction" = "Conjunção", "Opposition" = "Oposição", "Sextile" = "Sextil").
-Retorne APENAS um JSON válido no formato: {"translations": ["tradução 0", "tradução 1", ...]}
-Sem explicações, sem markdown, sem texto extra.`,
-        messages: [{ role: "user", content: listaTextos }],
-      }),
-    });
-
+    const url  = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=en|pt-BR`;
+    const resp = await fetch(url);
     const data = await resp.json();
-    const raw  = data.content?.[0]?.text || "{}";
-    const clean = raw.replace(/```json|```/g, "").trim();
-    const { translations } = JSON.parse(clean);
-
-    // Reconstrói as seções com os textos traduzidos
-    const secoesTraduzidas = structuredClone(secoes);
-    entradas.forEach((e, i) => {
-      const item = secoesTraduzidas[e.chave]?.[e.idx];
-      if (!item || !translations[i]) return;
-      if (e.campo === "title") {
-        if ("title" in item) item.title = translations[i];
-        else item.key = translations[i];
-      } else {
-        if ("body" in item) item.body = translations[i];
-        else item.content = translations[i];
-      }
-    });
-    return secoesTraduzidas;
-
-  } catch (err) {
-    console.warn("Tradução falhou, exibindo em inglês:", err);
-    return secoes; // fallback: exibe em inglês se a tradução falhar
+    // responseStatus 200 = sucesso; também aceita 206 (match parcial)
+    if (data.responseStatus === 200 || data.responseStatus === 206) {
+      return data.responseData.translatedText || texto;
+    }
+    return texto;
+  } catch {
+    return texto; // fallback silencioso
   }
+}
+
+async function traduzirSecoes(secoes) {
+  const secoesTraduzidas = structuredClone(secoes);
+
+  for (const [chave, itens] of Object.entries(secoesTraduzidas)) {
+    if (!itens?.length) continue;
+
+    for (const item of itens) {
+      // Traduz title/key
+      const campoTitulo = "title" in item ? "title" : "key";
+      if (item[campoTitulo]) {
+        item[campoTitulo] = await traduzirTexto(item[campoTitulo]);
+        await new Promise((r) => setTimeout(r, 300)); // respeita rate limit da MyMemory
+      }
+
+      // Traduz body/content
+      const campoCorpo = "body" in item ? "body" : "content";
+      if (item[campoCorpo]) {
+        item[campoCorpo] = await traduzirTexto(item[campoCorpo]);
+        await new Promise((r) => setTimeout(r, 300));
+      }
+    }
+  }
+
+  return secoesTraduzidas;
 }
 
 // ================= CARDS DE INTERPRETAÇÃO =================
