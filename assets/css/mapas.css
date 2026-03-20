@@ -1,0 +1,198 @@
+*{
+    margin: 0;                       
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: #060e0b;
+    color: aliceblue;
+}
+
+main{
+    width: 100%;
+}
+/* ── Tamanho da logo no menu de navegação ── */
+.vura_logo {
+  height: 90px;
+  width: auto; /* Mantém proporção original */
+  align-items: flex-end;
+}
+
+.card{
+    background: linear-gradient(to bottom, #002826 10%, #45867A 100%);   
+    padding: 30px;
+    max-width: 95%;
+    margin-left: auto;       /* cards com os registros deletar/ adicionar*/
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid white;
+    
+}
+
+ h2{    /* texto inicial*/
+      font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 25px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 32px 0 24px;
+
+}
+
+
+#dados_armazenados{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dados_armazenados p{
+    color: #adf8ea;
+    font-size: medium;
+    font-weight: 150;
+}
+
+
+#adicionar{ /* botão de adicionar um novo mapa a lista de registros armazendos*/
+    background-color: #01aba0;      
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+
+#deletar{
+    background-color: #00524D;
+    width: 90%;
+    padding: 13px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    
+    
+    
+   
+}
+
+#container-card{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+  
+}
+
+
+
+.instrucoes{
+    color: #14BAA9;
+}
+
+
+.lista_delet{
+    color: #B396E7;
+}
+
+
+#confirmacao{
+    color: #AFFFF6;
+}
+
+
+#apagar{
+    margin-top: 35px;
+}
+
+
+.todos_registros {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px; /* Espaço entre a lista e o botão de deletar */
+}
+
+
+
+/* Container de cada item da lista */
+.map-item {
+    display: flex;                /* Alinha os filhos em linha */
+    justify-content: space-between; /* Empurra o texto para um lado e o check para o outro */
+    align-items: center;          /* Centraliza verticalmente o ícone, texto e check */
+    
+    background: rgba(0, 194, 203, 0.05); /* Exemplo de cor de fundo */
+    border: 1px solid #00c2cb;     /* Sua cor de destaque */
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    width: 90%;                   /* Para alinhar com a largura do seu botão */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Garante que o ícone e o nome fiquem juntos na esquerda */
+.info-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;                    /* Espaço entre o emoji/badge e o nome */
+}
+
+/* Opcional: Ajuste do tamanho do checkbox para não ficar pequeno demais */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;            /* Garante um respiro do texto */
+}
+
+
+
+/* Container que segura o ícone, nome e botões */
+.info-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* O ícone do Google */
+.icon-vura {
+    color: #00c2cb; /* Sua cor ciano */
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+}
+
+/* O item da lista (Flexbox para o checkbox ficar do lado) */
+.map-item {
+    display: flex;
+    justify-content: space-between; /* Texto na esquerda, Check na direita */
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #335555;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Classe de destaque para o usuário principal */
+.destaque-usuario {
+    border: 1.5px solid #00c2cb !important;
+    background: rgba(0, 194, 203, 0.05) !important;
+}
+
+/* Garante que a tela suma quando necessário */
+.escondido {
+    display: none !important;
+}
