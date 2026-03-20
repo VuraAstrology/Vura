@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/mapas.css">
+    <link rel="stylesheet" href="./assets/css/menu.css">
+    <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Mapas extras e dados armazenados</title>
+</head>
+<body>
+
+    <!--Aba de navegação padrão do site da Vura -->
+
+    <div id="vura-nav"></div>
+
+
+
+    <!---tela de armanezamento de dados para gerenciamento de registros onde o usuário pode visualizar os dados e registros armazenados e realizar alterações (apagar ou adicionar um novo mapa) -->
+
+    <main>
+
+        <section id="gerenciamento">
+            <h2>Dados Armazenados</h2>
+
+            <div id="dados_armazenados">
+                <p>Gerenciamento de mapas cadastrados</p>
+                <button onclick="adicionar()" id="adicionar">Adicionar mapa +</button>
+            </div>
+            <div class="card" id="container-card">
+                <div class="todos_registros"></div>
+                <button id="deletar" class="btn-main btn-cancel" onclick="irParaEliminar()">Apagar Registros Assinalados</button> 
+            </div>
+        </section>
+
+
+
+        <!---tela de apagar registros  assinalados, com a lista de dados que o usuário deseja apagar e confirmar a senha para a modificação de registros-->
+
+        <section id="apagar" class="escondido">
+            <h2>Deletar registros:</h2>
+
+            <div class="card">
+                <p class="instrucoes">Você deseja apagar os dados do perfil de utilizador <u>usuariovura@gmail.com</u> :</p>
+                <ul id="lista-apagar" class="lista_delet"></ul>
+
+                <p id="confirmacao" class="instrucoes">Tem certeza que deseja eliminar esses dados astrologicos?</p>
+                <p class="instrucoes">Por favor ensira sua senha Vura:</p>
+
+                <input type="password" class="vura_senha" placeholder="••••••••">
+
+
+                <!---linha sutil de separação  para a confirmação da senha-->
+
+                <hr style="border: 0.1px solid #00fff731; margin: 20px 0; ;">
+
+                <!---Confirmação de registro e atualização dos dados armazenados pelo usuário-->
+
+                <p class="instrucoes">Confirmar atualização de Registros</p>
+
+                <div class="yn">
+                    <button class="btn-main btn-confirmar" onclick="finalizar()">Sim</button>
+                    <button class="btn-main btn-cancelar" onclick="voltar()">Não</button>
+                </div>
+
+                
+            </div>
+        </section>
+
+    </main>
+    
+
+
+
+    <script src="./assets/js/mapas.js"></script>
+    <script src="./assets/js/menu.js"></script>
+</body>
+</html>
