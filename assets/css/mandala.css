@@ -16,7 +16,9 @@
 }
 
 * { box-sizing: border-box; }
-
+main{
+  background-image: none;
+}
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -269,3 +271,4 @@ body {
 .mandala-btn:active {
   transform: translateY(1px);
 }
+
