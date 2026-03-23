@@ -12,6 +12,22 @@ const listaCidades = pegarEl("cityList");
 let cidadeSelecionada = null;
 let timerDebounce = null;
 
+// ================= MAPEAMENTO API → JSON LOCAL =================
+const mapaId = {
+  sun:      "sol",
+  moon:     "lua",
+  mercury:  "mercurio",
+  venus:    "venus",
+  mars:     "marte",
+  jupiter:  "jupiter",
+  saturn:   "saturno",
+  uranus:   "urano",
+  neptune:  "netuno",
+  pluto:    "plutao",
+  lilith:   "lilith",
+  chiron:   "quiron",
+};
+
 // ================= STATUS =================
 function definirStatus(mensagem) {
   elStatus.textContent = mensagem || "";
@@ -127,20 +143,29 @@ formulario.addEventListener("submit", async (e) => {
 
   try {
     definirStatus("Gerando mandala...");
-    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px;">Gerando visual...</div>`;
+    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px; padding: 20px;">Gerando visual...</div>`;
 
-    const respostaSvg = await fetchComRetry(`${API_BASE}/api/api-mandala`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    // Dispara as duas chamadas em paralelo
+    const [respostaSvg, respostaNatal] = await Promise.all([
+      fetchComRetry(`${API_BASE}/api/api-mandala`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }),
+      fetchComRetry(`${API_BASE}/api/api-natal`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }),
+    ]);
 
-    const dadosSvg = await respostaSvg.json();
+    const dadosSvg   = await respostaSvg.json();
+    const dadosNatal = await respostaNatal.json();
 
     if (!respostaSvg.ok) throw new Error(dadosSvg?.error || "Falha ao gerar mandala.");
 
     const svg = dadosSvg.svg || dadosSvg.chart_svg || dadosSvg.output_svg || dadosSvg?.result?.svg || dadosSvg?.data?.svg;
-    if (!svg) throw new Error("SVG nao encontrado na resposta.");
+    if (!svg) throw new Error("SVG não encontrado na resposta.");
 
     elResultado.innerHTML = `<div id="svgWrapper">${svg}</div>`;
 
@@ -155,8 +180,130 @@ formulario.addEventListener("submit", async (e) => {
       svgEl.style.cssText = "width:100%; height:auto; display:block;";
     }
 
+    // Monta cards se a api-natal respondeu com sucesso
+    if (respostaNatal.ok && dadosNatal?.planets) {
+      definirStatus("Carregando posicionamentos...");
+      const dados = await carregarJsonLocal();
+      if (dados) {
+        const cards = montarCardsPostcionamentos(dadosNatal, dados);
+        elResultado.appendChild(cards);
+      }
+    }
+
     definirStatus("Pronto!");
   } catch (erro) {
     definirStatus(erro.message);
   }
 });
+
+// ================= CARREGAR JSON LOCAL =================
+async function carregarJsonLocal() {
+  try {
+    const resp = await fetch("./assets/data/posicionamentos.json");
+    if (!resp.ok) throw new Error("Não foi possível carregar os posicionamentos.");
+    return await resp.json();
+  } catch (erro) {
+    console.error(erro);
+    return null;
+  }
+}
+
+// ================= FILTRAR E MONTAR CARDS =================
+function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
+  const container = document.createElement("div");
+  container.className = "posicionamentos-container";
+
+  // Índice rápido: { "sol": { "áries": { texto, simbolo, imagem }, ... }, ... }
+  const indice = {};
+  for (const planeta of jsonLocal.posicionamentos) {
+    indice[planeta.id] = {};
+    for (const signo of planeta.signos) {
+      indice[planeta.id][signo.signo.toLowerCase()] = signo;
+    }
+  }
+
+  // Mapa de sign_id da API para nome do signo no JSON
+  const mapaSiglo = {
+    aries:       "áries",
+    taurus:      "touro",
+    gemini:      "gêmeos",
+    cancer:      "câncer",
+    leo:         "leão",
+    virgo:       "virgem",
+    libra:       "libra",
+    scorpio:     "escorpião",
+    sagittarius: "sagitário",
+    capricorn:   "capricórnio",
+    aquarius:    "aquário",
+    pisces:      "peixes",
+  };
+
+  // Monta lista de posicionamentos: planetas + ascendente + meio do céu
+  const posicionamentos = [];
+
+  // Planetas
+  for (const planeta of dadosNatal.planets) {
+    const idLocal = mapaId[planeta.id];
+    if (!idLocal) continue;
+
+    const nomeSigno = mapaSiglo[planeta.sign_id];
+    if (!nomeSigno) continue;
+
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === idLocal);
+    const dadosSigno   = indice[idLocal]?.[nomeSigno];
+    if (!dadosPlaneta || !dadosSigno) continue;
+
+    posicionamentos.push({
+      planeta: dadosPlaneta,
+      signo:   dadosSigno,
+      retrogrado: planeta.retrograde,
+    });
+  }
+
+  // Ascendente
+  const asc = dadosNatal.angles_details?.asc;
+  if (asc) {
+    const nomeSigno = mapaSiglo[asc.sign_id];
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "ascendente");
+    const dadosSigno   = indice["ascendente"]?.[nomeSigno];
+    if (dadosPlaneta && dadosSigno) {
+      posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
+    }
+  }
+
+  // Meio do Céu
+  const mc = dadosNatal.angles_details?.mc;
+  if (mc) {
+    const nomeSigno = mapaSiglo[mc.sign_id];
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "meioDoCeu");
+    const dadosSigno   = indice["meioDoCeu"]?.[nomeSigno];
+    if (dadosPlaneta && dadosSigno) {
+      posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
+    }
+  }
+
+  // Renderiza os cards
+  for (const { planeta, signo, retrogrado } of posicionamentos) {
+    const card = document.createElement("div");
+    card.className = "posicionamento-card";
+
+    card.innerHTML = `
+      <div class="posicionamento-card-header">
+        <div class="posicionamento-simbolos">
+          <span class="posicionamento-simbolo-planeta">${planeta.simbolo}</span>
+          <span class="posicionamento-seta">→</span>
+          <span class="posicionamento-simbolo-signo">${signo.simbolo}</span>
+        </div>
+        <div class="posicionamento-titulo">
+          <h3>${planeta.nome} em ${signo.signo}${retrogrado ? " <span class='retrogrado'>℞</span>" : ""}</h3>
+        </div>
+      </div>
+      <p class="posicionamento-introducao">${planeta.introducao}</p>
+      <p class="posicionamento-texto">${signo.texto}</p>
+    `;
+
+    container.appendChild(card);
+  }
+
+  return container;
+}
