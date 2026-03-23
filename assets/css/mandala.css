@@ -408,3 +408,11 @@ body {
   color: var(--texto-suave);
   font-weight: 300;
 }
+
+/* ── ÁREA EXTERNA DE POSICIONAMENTOS ── */
+.posicionamentos-area {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
