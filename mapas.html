@@ -44,13 +44,17 @@
             <h2>Deletar registros:</h2>
 
             <div class="card">
-                <p class="instrucoes">Você deseja apagar os dados do perfil de utilizador <u>usuariovura@gmail.com</u> :</p>
-                <ul id="lista-apagar" class="lista_delet"></ul>
+                <div class="card-content">
+                    <p class="instrucoes">Você deseja apagar os dados do perfil de utilizador <u>usuariovura@gmail.com</u> :</p>
+                    <ul id="lista-apagar" class="lista_delet"></ul>
 
-                <p id="confirmacao" class="instrucoes">Tem certeza que deseja eliminar esses dados astrologicos?</p>
-                <p class="instrucoes">Por favor ensira sua senha Vura:</p>
+                    <p id="confirmacao" class="instrucoes">Tem certeza que deseja eliminar esses dados astrologicos?</p>
+                    <p class="instrucoes">Por favor ensira sua senha Vura:</p>
 
-                <input type="password" class="vura_senha" placeholder="••••••••">
+                    <label style="font-size: 1.2rem;" for="senha_vura">Senha Vura:</label>
+                        <input id="senha_vura" type="password" class="vura_senha" placeholder=" ••••••••">
+                </div>
+                
 
 
                 <!---linha sutil de separação  para a confirmação da senha-->
@@ -58,12 +62,14 @@
                 <hr style="border: 0.1px solid #00fff731; margin: 20px 0; ;">
 
                 <!---Confirmação de registro e atualização dos dados armazenados pelo usuário-->
+                <div class="card-confirm">
+                    <p class="instrucoes">Confirmar atualização de Registros</p>
 
-                <p class="instrucoes">Confirmar atualização de Registros</p>
+                    <div class="yn">
+                        <button class="btn-main btn-confirmar" onclick="finalizar()">Sim</button>
+                        <button class="btn-main btn-cancelar" onclick="voltar()">Não</button>
+                    </div>
 
-                <div class="yn">
-                    <button class="btn-main btn-confirmar" onclick="finalizar()">Sim</button>
-                    <button class="btn-main btn-cancelar" onclick="voltar()">Não</button>
                 </div>
 
                 
