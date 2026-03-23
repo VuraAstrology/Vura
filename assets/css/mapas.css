@@ -65,6 +65,12 @@ main{
     border-radius: 10px;
     border: 1px solid white;
     cursor: pointer;
+    font-weight: 300;
+    transition: all ease 0.5s;
+}
+
+#adicionar:hover{
+    background: linear-gradient(to right,#000, #00524D );
 }
 
 
@@ -77,10 +83,17 @@ main{
     border-radius: 10px;
     cursor: pointer;
     position: relative;
+    transition: ease 0.5s;
+    cursor: pointer;
     
     
     
    
+}
+
+#deletar:hover{
+    background: linear-gradient(to right,#000, #00524D );
+    border-color: #59eff7;
 }
 
 #container-card{
@@ -97,17 +110,21 @@ main{
 
 
 .instrucoes{
-    color: #14BAA9;
+    color: #36ddcc;
+   
 }
 
 
 .lista_delet{
     color: #B396E7;
+    font-size: 1.1rem;
+    
 }
 
 
 #confirmacao{
     color: #AFFFF6;
+    
 }
 
 
@@ -132,7 +149,7 @@ main{
     justify-content: space-between; /* Empurra o texto para um lado e o check para o outro */
     align-items: center;          /* Centraliza verticalmente o ícone, texto e check */
     
-    background: rgba(0, 194, 203, 0.05); /* Exemplo de cor de fundo */
+    background: rgba(51, 0, 203, 0.05); /* Exemplo de cor de fundo */
     border: 1px solid #00c2cb;     /* Sua cor de destaque */
     border-radius: 12px;
     padding: 12px 15px;
@@ -163,7 +180,8 @@ input[type="checkbox"] {
 .info-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
+    
 }
 
 /* O ícone do Google */
@@ -180,7 +198,7 @@ input[type="checkbox"] {
     justify-content: space-between; /* Texto na esquerda, Check na direita */
     align-items: center;
     padding: 15px;
-    border: 1px solid #335555;
+    border: 1px solid #ffffff3d;
     border-radius: 15px;
     margin-bottom: 12px;
     background: rgba(0, 0, 0, 0.2);
@@ -188,11 +206,121 @@ input[type="checkbox"] {
 
 /* Classe de destaque para o usuário principal */
 .destaque-usuario {
-    border: 1.5px solid #00c2cb !important;
-    background: rgba(0, 194, 203, 0.05) !important;
+    border: 1.5px solid #59eff7 !important;
+    background: #00fff725 !important;
 }
 
 /* Garante que a tela suma quando necessário */
 .escondido {
     display: none !important;
+}
+
+
+
+
+.actions button{
+    padding: 6px;
+    gap: 10px;
+    border-radius: 6px;
+    border: 1.5px solid white;
+    color: white;
+    font-weight: 100;
+    background: #12645f;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
+
+
+.actions button:hover{
+   background: linear-gradient(300deg, #000, #00524D);
+   border-color:#59eff7 ;
+   
+}
+
+.card-content{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto ;
+    line-height: 2;
+}
+#confirmacao{
+    padding: 20px;
+}
+
+#senha_vura{
+    padding: 15px;
+    width: 90%;
+    border-radius: 10px;
+    background: #34654b39;
+    border: 1px solid #00FFF7;
+    
+
+}
+
+#senha_vura::placeholder{
+    color: #fff;
+}
+
+#senha_vura:focus{
+    background-color: #5db2a77c;
+    border-color: #00c1cbb1;
+    color: #002826;
+    outline: none;
+}
+
+
+
+.card-confirm{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.yn{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
+}
+
+
+
+
+/* botões de sim e não formatações*/
+
+.btn-main{
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    font-family:'Cinzel', serif;
+}
+.btn-cancelar{
+    background: linear-gradient(300deg, #000, #03655e);
+    border: 1px solid #00FFF7;
+    color: white;
+    font-weight: 500;
+}
+
+
+.btn-confirmar{
+    background: linear-gradient(300deg, #00524d,#00FFF7);
+    border: 1px solid #00FFF7;
+    font-weight: 500;
+}
+
+
+.btn-confirmar:hover{
+    background: linear-gradient(300deg, #00fff7, #005254);
+}
+
+.btn-cancelar:hover{
+    background: linear-gradient(300deg, #03655e, #000);
 }
