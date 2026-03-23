@@ -272,3 +272,97 @@ body {
   transform: translateY(1px);
 }
 
+/* ── CARDS DE POSICIONAMENTOS ── */
+.posicionamentos-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.posicionamento-card {
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 24px;
+  background: rgba(3, 8, 13, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.3s;
+  animation: fadeUp 0.4s ease forwards;
+  opacity: 0;
+}
+
+.posicionamento-card:hover {
+  border-color: rgba(72, 168, 154, 0.5);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.posicionamento-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.posicionamento-simbolos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.posicionamento-simbolo-planeta {
+  font-size: 1.4rem;
+  color: var(--teal);
+  opacity: 0.9;
+}
+
+.posicionamento-seta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.posicionamento-simbolo-signo {
+  font-size: 1.2rem;
+  color: var(--teal-lit);
+  opacity: 0.8;
+}
+
+.posicionamento-titulo h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-lit);
+}
+
+.retrogrado {
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.posicionamento-introducao {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: var(--muted);
+  font-style: italic;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(72, 168, 154, 0.1);
+}
+
+.posicionamento-texto {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--texto-suave);
+  font-weight: 300;
+}
