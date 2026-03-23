@@ -274,7 +274,7 @@ body {
 /* ── SEÇÃO DE POSICIONAMENTOS ── */
 .posicionamentos-secao {
   width: 100%;
-  max-width: 900px;
+  /* max-width: 900px; */
   margin: 32px auto 0;
   border: 1px solid var(--borda);
   border-radius: 16px;
@@ -412,7 +412,7 @@ body {
 /* ── ÁREA EXTERNA DE POSICIONAMENTOS ── */
 .posicionamentos-area {
   width: 100%;
-  max-width: 980px;
+  /* max-width: 980px; */
   margin: 0 auto;
   padding: 0 20px 80px;
 }
