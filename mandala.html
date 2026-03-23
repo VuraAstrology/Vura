@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vura Astrology</title>
-    <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/menu.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./assets/css/mandala.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vura Astrology</title>
+  <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/menu.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/css/mandala.css" />
 </head>
 
 <body>
 
-    <!-- Menu: apenas esta div em todas as páginas -->
-    <div id="vura-nav"></div>
-
+  <!-- Menu: apenas esta div em todas as páginas -->
+  <div id="vura-nav"></div>
 
   <div class="conteudo">
     <main class="mandala-pagina">
       <header class="mandala-cabecalho">
         <h1 class="mandala-titulo">Mandala Astral</h1>
         <p class="mandala-subtitulo">Preencha os dados abaixo e gere sua mandala em SVG.</p>
+        <div class="mandala-divider"></div>
       </header>
 
       <section class="mandala-cartao" aria-label="Formulário de geração da mandala">
@@ -38,7 +38,6 @@
               <label for="date" class="mandala-label">Data de nascimento</label>
               <input id="date" name="date" class="mandala-input" type="date" required />
             </div>
-
             <div class="mandala-campo">
               <label for="time" class="mandala-label">Hora de nascimento</label>
               <input id="time" name="time" class="mandala-input" type="time" required />
@@ -57,9 +56,7 @@
               aria-controls="cityList"
               aria-expanded="false"
             />
-
             <div id="cityList" class="mandala-lista-sugestoes" hidden></div>
-
             <input id="lat" type="hidden" name="lat" />
             <input id="lng" type="hidden" name="lng" />
             <input id="tz" type="hidden" name="tz" />
@@ -74,28 +71,28 @@
         <div id="output" class="mandala-caixa-svg" aria-label="Mandala gerada"></div>
       </section>
     </main>
+
+    <!-- Área de posicionamentos — separada da mandala-pagina para ter largura própria -->
+    <section id="posicionamentos-area" class="posicionamentos-area"></section>
   </div>
 
-   <footer>
+  <footer>
+    <div class="social_redes">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+    <p>Vura&copy; 2026.</p>
+    <div class="footer_contents">
+      <a href="#">HOME |</a>
+      <a href="#">Sobre |</a>
+      <a href="#">Termos de Uso |</a>
+      <a href="#">Política de Privacidade |</a>
+      <a href="#">Fale Conosco</a>
+    </div>
+  </footer>
 
-        <div class="social_redes">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
-        <p>Vura&copy; 2026.</p>
-
-        <div class="footer_contents">
-            <a href="#">HOME |</a>
-            <a href="#">Sobre |</a>
-            <a href="#">Termos de Uso |</a>
-            <a href="#">Política de Privacidade |</a>
-            <a href="#">Fale Conosco</a>
-        </div>
-
-
-    </footer>
   <script src="./assets/js/mandala.js"></script>
   <script src="./assets/js/menu.js"></script>
 

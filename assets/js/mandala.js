@@ -185,8 +185,10 @@ formulario.addEventListener("submit", async (e) => {
       definirStatus("Carregando posicionamentos...");
       const dados = await carregarJsonLocal();
       if (dados) {
+        const areaPostcionamentos = document.getElementById("posicionamentos-area");
+        areaPostcionamentos.innerHTML = "";
         const cards = montarCardsPostcionamentos(dadosNatal, dados);
-        elResultado.appendChild(cards);
+        areaPostcionamentos.appendChild(cards);
       }
     }
 
