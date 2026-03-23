@@ -16,9 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-main{
-  background-image: none;
-}
+main{background-image: none;}
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -284,6 +282,8 @@ body {
   background: var(--cartao);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .posicionamentos-secao-titulo {
@@ -307,6 +307,8 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   align-items: start;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 900px) {
@@ -327,6 +329,9 @@ body {
   transition: border-color 0.3s, transform 0.2s;
   animation: fadeUp 0.4s ease forwards;
   opacity: 0;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .posicionamento-card:hover {
@@ -394,10 +399,6 @@ body {
   font-style: italic;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(72, 168, 154, 0.1);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .posicionamento-texto {
