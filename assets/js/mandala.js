@@ -210,8 +210,23 @@ async function carregarJsonLocal() {
 
 // ================= FILTRAR E MONTAR CARDS =================
 function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
+  // Contêiner externo (borda + título)
+  const secao = document.createElement("div");
+  secao.className = "posicionamentos-secao";
+
+  const titulo = document.createElement("p");
+  titulo.className = "posicionamentos-secao-titulo";
+  titulo.textContent = "Posicionamentos";
+  secao.appendChild(titulo);
+
+  const divider = document.createElement("div");
+  divider.className = "posicionamentos-secao-divider";
+  secao.appendChild(divider);
+
+  // Grid onde os cards ficam
   const container = document.createElement("div");
-  container.className = "posicionamentos-container";
+  container.className = "posicionamentos-grid";
+  secao.appendChild(container);
 
   // Índice rápido: { "sol": { "áries": { texto, simbolo, imagem }, ... }, ... }
   const indice = {};
@@ -305,5 +320,5 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     container.appendChild(card);
   }
 
-  return container;
+  return secao;
 }
