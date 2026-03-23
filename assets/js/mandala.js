@@ -12,9 +12,44 @@ const listaCidades = pegarEl("cityList");
 let cidadeSelecionada = null;
 let timerDebounce = null;
 
+// ================= MAPEAMENTO API → JSON LOCAL =================
+const mapaId = {
+  sun:      "sol",
+  moon:     "lua",
+  mercury:  "mercurio",
+  venus:    "venus",
+  mars:     "marte",
+  jupiter:  "jupiter",
+  saturn:   "saturno",
+  uranus:   "urano",
+  neptune:  "netuno",
+  pluto:    "plutao",
+  lilith:   "lilith",
+  chiron:   "quiron",
+};
+
 // ================= STATUS =================
 function definirStatus(mensagem) {
   elStatus.textContent = mensagem || "";
+}
+
+// ================= RETRY COM BACKOFF =================
+async function fetchComRetry(url, options, maxTentativas = 3) {
+  for (let tentativa = 0; tentativa < maxTentativas; tentativa++) {
+    const resp = await fetch(url, options);
+
+    if (resp.status !== 429) return resp;
+
+    let data = {};
+    try { data = await resp.clone().json(); } catch (_) {}
+    const retryMs = data?.response?.retry_after_ms ?? 1200;
+    const jitter  = Math.random() * 300;
+    const delay   = retryMs * Math.pow(2, tentativa) + jitter;
+
+    definirStatus(`Limite da API atingido - aguardando ${Math.round(delay / 1000)}s (tentativa ${tentativa + 1}/${maxTentativas})...`);
+    await new Promise((r) => setTimeout(r, delay));
+  }
+  throw new Error("Limite de tentativas excedido. Tente novamente em alguns segundos.");
 }
 
 // ================= AUTOCOMPLETE =================
@@ -28,7 +63,7 @@ function mostrarSugestoes(cidades) {
   listaCidades.hidden = false;
   listaCidades.innerHTML = cidades.map((cidade, idx) => `
     <button type="button" data-idx="${idx}">
-      ${cidade.name} (${cidade.country}) — ${cidade.timezone}
+      ${cidade.name} (${cidade.country}) - ${cidade.timezone}
     </button>
   `).join("");
 
@@ -71,7 +106,6 @@ inputCidade.addEventListener("input", () => {
   }, 250);
 });
 
-// Fecha sugestões ao clicar fora
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".mandala-autocomplete")) mostrarSugestoes([]);
 });
@@ -100,43 +134,39 @@ formulario.addEventListener("submit", async (e) => {
     lat:    cidadeSelecionada.lat,
     lng:    cidadeSelecionada.lng,
     tz_str: cidadeSelecionada.timezone,
-    // valores fixos
     house_system: "placidus",
     zodiac_type:  "tropical",
     theme_type:   "light",
     size: 900,
+    lang: "pt",
   };
 
   try {
     definirStatus("Gerando mandala...");
-    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px;">🔄 Gerando visual...</div>`;
+    elResultado.innerHTML = `<div style="color:#a9b6d3; font-size:14px; padding: 20px;">Gerando visual...</div>`;
 
-    // Faz as duas chamadas ao mesmo tempo
+    // Dispara as duas chamadas em paralelo
     const [respostaSvg, respostaNatal] = await Promise.all([
-      fetch(`${API_BASE}/api/api-mandala`, {
+      fetchComRetry(`${API_BASE}/api/api-mandala`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }),
-      fetch(`${API_BASE}/api/api-natal`, {
+      fetchComRetry(`${API_BASE}/api/api-natal`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      })
+      }),
     ]);
 
     const dadosSvg   = await respostaSvg.json();
     const dadosNatal = await respostaNatal.json();
-
-    console.log("SVG:", dadosSvg);
-    console.log("Natal:", dadosNatal);
 
     if (!respostaSvg.ok) throw new Error(dadosSvg?.error || "Falha ao gerar mandala.");
 
     const svg = dadosSvg.svg || dadosSvg.chart_svg || dadosSvg.output_svg || dadosSvg?.result?.svg || dadosSvg?.data?.svg;
     if (!svg) throw new Error("SVG não encontrado na resposta.");
 
-    // Monta o SVG
     elResultado.innerHTML = `<div id="svgWrapper">${svg}</div>`;
 
     const svgEl = elResultado.querySelector("svg");
@@ -150,68 +180,147 @@ formulario.addEventListener("submit", async (e) => {
       svgEl.style.cssText = "width:100%; height:auto; display:block;";
     }
 
-    // Monta os cards de interpretação (se vieram)
-    if (respostaNatal.ok && dadosNatal?.interpretation?.sections) {
-      elResultado.appendChild(montarCards(dadosNatal.interpretation.sections));
+    // Monta cards se a api-natal respondeu com sucesso
+    if (respostaNatal.ok && dadosNatal?.planets) {
+      definirStatus("Carregando posicionamentos...");
+      const dados = await carregarJsonLocal();
+      if (dados) {
+        const areaPostcionamentos = document.getElementById("posicionamentos-area");
+        areaPostcionamentos.innerHTML = "";
+        const cards = montarCardsPostcionamentos(dadosNatal, dados);
+        areaPostcionamentos.appendChild(cards);
+      }
     }
 
-    definirStatus("Pronto ✅");
+    definirStatus("Pronto!");
   } catch (erro) {
     definirStatus(erro.message);
   }
 });
 
-// ================= CARDS DE INTERPRETAÇÃO =================
+// ================= CARREGAR JSON LOCAL =================
+async function carregarJsonLocal() {
+  try {
+    const resp = await fetch("./assets/data/posicionamentos.json");
+    if (!resp.ok) throw new Error("Não foi possível carregar os posicionamentos.");
+    return await resp.json();
+  } catch (erro) {
+    console.error(erro);
+    return null;
+  }
+}
 
-// Nomes legíveis para cada seção
-const nomesSecoes = {
-  core_self:          "Core Self",
-  mind:               "Mind & Communication",
-  love_relating:      "Love & Relationships",
-  work_path:          "Work & Life Path",
-  social_collective:  "Social & Collective",
-  karmic_healing:     "Karmic & Healing",
-  aspects:            "Aspects",
-};
+// ================= FILTRAR E MONTAR CARDS =================
+function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
+  // Contêiner externo (borda + título)
+  const secao = document.createElement("div");
+  secao.className = "posicionamentos-secao";
 
-function montarCards(secoes) {
+  const titulo = document.createElement("p");
+  titulo.className = "posicionamentos-secao-titulo";
+  titulo.textContent = "Posicionamentos";
+  secao.appendChild(titulo);
+
+  const divider = document.createElement("div");
+  divider.className = "posicionamentos-secao-divider";
+  secao.appendChild(divider);
+
+  // Grid onde os cards ficam
   const container = document.createElement("div");
-  container.className = "interpretacao-container";
+  container.className = "posicionamentos-grid";
+  secao.appendChild(container);
 
-  for (const [chave, itens] of Object.entries(secoes)) {
-    if (!itens || itens.length === 0) continue;
-
-    const secao = document.createElement("div");
-    secao.className = "interpretacao-secao";
-
-    const titulo = document.createElement("h2");
-    titulo.className = "interpretacao-titulo";
-    titulo.textContent = nomesSecoes[chave] || chave;
-    secao.appendChild(titulo);
-
-    const grid = document.createElement("div");
-    grid.className = "interpretacao-grid";
-
-    itens.forEach((item) => {
-      const card = document.createElement("div");
-      card.className = "interpretacao-card";
-
-      const tituloCard = document.createElement("h3");
-      tituloCard.className = "interpretacao-card-titulo";
-      tituloCard.textContent = item.title || item.key || "";
-
-      const corpo = document.createElement("p");
-      corpo.className = "interpretacao-card-corpo";
-      corpo.textContent = item.body || item.content || "";
-
-      card.appendChild(tituloCard);
-      card.appendChild(corpo);
-      grid.appendChild(card);
-    });
-
-    secao.appendChild(grid);
-    container.appendChild(secao);
+  // Índice rápido: { "sol": { "áries": { texto, simbolo, imagem }, ... }, ... }
+  const indice = {};
+  for (const planeta of jsonLocal.posicionamentos) {
+    indice[planeta.id] = {};
+    for (const signo of planeta.signos) {
+      indice[planeta.id][signo.signo.toLowerCase()] = signo;
+    }
   }
 
-  return container;
+  // Mapa de sign_id da API para nome do signo no JSON
+  const mapaSiglo = {
+    aries:       "áries",
+    taurus:      "touro",
+    gemini:      "gêmeos",
+    cancer:      "câncer",
+    leo:         "leão",
+    virgo:       "virgem",
+    libra:       "libra",
+    scorpio:     "escorpião",
+    sagittarius: "sagitário",
+    capricorn:   "capricórnio",
+    aquarius:    "aquário",
+    pisces:      "peixes",
+  };
+
+  // Monta lista de posicionamentos: planetas + ascendente + meio do céu
+  const posicionamentos = [];
+
+  // Planetas
+  for (const planeta of dadosNatal.planets) {
+    const idLocal = mapaId[planeta.id];
+    if (!idLocal) continue;
+
+    const nomeSigno = mapaSiglo[planeta.sign_id];
+    if (!nomeSigno) continue;
+
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === idLocal);
+    const dadosSigno   = indice[idLocal]?.[nomeSigno];
+    if (!dadosPlaneta || !dadosSigno) continue;
+
+    posicionamentos.push({
+      planeta: dadosPlaneta,
+      signo:   dadosSigno,
+      retrogrado: planeta.retrograde,
+    });
+  }
+
+  // Ascendente
+  const asc = dadosNatal.angles_details?.asc;
+  if (asc) {
+    const nomeSigno = mapaSiglo[asc.sign_id];
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "ascendente");
+    const dadosSigno   = indice["ascendente"]?.[nomeSigno];
+    if (dadosPlaneta && dadosSigno) {
+      posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
+    }
+  }
+
+  // Meio do Céu
+  const mc = dadosNatal.angles_details?.mc;
+  if (mc) {
+    const nomeSigno = mapaSiglo[mc.sign_id];
+    const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "meioDoCeu");
+    const dadosSigno   = indice["meioDoCeu"]?.[nomeSigno];
+    if (dadosPlaneta && dadosSigno) {
+      posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
+    }
+  }
+
+  // Renderiza os cards
+  for (const { planeta, signo, retrogrado } of posicionamentos) {
+    const card = document.createElement("div");
+    card.className = "posicionamento-card";
+
+    card.innerHTML = `
+      <div class="posicionamento-card-header">
+        <div class="posicionamento-simbolos">
+          <span class="posicionamento-simbolo-planeta">${planeta.simbolo}</span>
+          <span class="posicionamento-seta">→</span>
+          <span class="posicionamento-simbolo-signo">${signo.simbolo}</span>
+        </div>
+        <div class="posicionamento-titulo">
+          <h3>${planeta.nome} em ${signo.signo}${retrogrado ? " <span class='retrogrado'>℞</span>" : ""}</h3>
+        </div>
+      </div>
+      <p class="posicionamento-introducao">${planeta.introducao}</p>
+      <p class="posicionamento-texto">${signo.texto}</p>
+    `;
+
+    container.appendChild(card);
+  }
+
+  return secao;
 }
