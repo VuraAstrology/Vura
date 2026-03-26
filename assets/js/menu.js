@@ -28,19 +28,18 @@
                     <li>
                         <a href="#">Casas Astrológicas <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="nav-submenu">
-                            <li><a href="./casas.html#introducao">Introdução Casas Astrológicas</a></li>
-                            <li><a href="./casas.html#house1">Casa 1</a></li>
-                            <li><a href="./casas.html#house2">Casa 2</a></li>
-                            <li><a href="./casas.html#house3">Casa 3</a></li>
-                            <li><a href="./casas.html#house4">Casa 4</a></li>
-                            <li><a href="./casas.html#house5">Casa 5</a></li>
-                            <li><a href="./casas.html#house6">Casa 6</a></li>
-                            <li><a href="./casas.html#house7">Casa 7</a></li>
-                            <li><a href="./casas.html#house8">Casa 8</a></li>
-                            <li><a href="./casas.html#house9">Casa 9</a></li>
-                            <li><a href="./casas.html#house10">Casa 10</a></li>
-                            <li><a href="./casas.html#house11">Casa 11</a></li>
-                            <li><a href="./casas.html#house12">Casa 12</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa1">Casa 1</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa2">Casa 2</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa3">Casa 3</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa4">Casa 4</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa5">Casa 5</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa6">Casa 6</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa7">Casa 7</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa8">Casa 8</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa9">Casa 9</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa10">Casa 10</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa11">Casa 11</a></li>
+                            <li><a href="./casasAstrologicas.html?casa=casa12">Casa 12</a></li>
                         </ul>
                     </li>
 
