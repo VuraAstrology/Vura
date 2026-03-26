@@ -17,6 +17,9 @@
 
 * { box-sizing: border-box; }
 main{background-image: none;}
+header{
+  z-index: auto;
+}
 body {
   margin: 0;
   font-family: var(--font-body);
