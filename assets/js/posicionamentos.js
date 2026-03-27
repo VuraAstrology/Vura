@@ -17,7 +17,7 @@ function buildNavLinks(data) {
     // nav.js já injetou o menu; os <ul> abaixo existem no DOM agora
     // nav.js usa um único <ul id="desktop-astros-menu"> para desktop e mobile
     const navMenu    = document.getElementById('desktop-astros-menu');
-    const selectorEl = document.getElementById('astroSelector');
+    const selectorEl = document.getElementById('opcaoSelector');
 
     if (navMenu)     navMenu.innerHTML    = '';
     if (selectorEl)  selectorEl.innerHTML = '';
@@ -38,7 +38,7 @@ function buildNavLinks(data) {
         // ── Pill selector ──
         if (selectorEl) {
             const pill = document.createElement('button');
-            pill.className       = 'astro-pill';
+            pill.className       = 'opcao-pill';
             pill.dataset.astroId = p.id;
             pill.innerHTML       = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
             pill.addEventListener('click', () => loadAstro(p.id, data));
@@ -49,17 +49,17 @@ function buildNavLinks(data) {
 
 function loadAstro(id, data) {
     const pos     = data.posicionamentos.find(p => p.id === id);
-    const content = document.getElementById('pageContent');
+    const content = document.getElementById('conteudoDaPagina');
 
     // Atualiza pill ativa
-    document.querySelectorAll('.astro-pill').forEach(p => {
+    document.querySelectorAll('.opcao-pill').forEach(p => {
         p.classList.toggle('active', p.dataset.astroId === id);
     });
 
     if (!pos) {
         document.title = 'Posicionamentos — Vura Astrology';
-        document.getElementById('hero-glyph').textContent = '✦';
-        document.getElementById('hero-title').textContent = 'Posicionamento não encontrado';
+        document.getElementById('icone-principal').textContent = '✦';
+        document.getElementById('titulo-principal').textContent = 'Posicionamento não encontrado';
         content.innerHTML = `
             <div class="not-found">
                 <div class="big-symbol">✦</div>
@@ -70,8 +70,8 @@ function loadAstro(id, data) {
     }
 
     document.title = `${pos.nome} nos Signos — Vura Astrology`;
-    document.getElementById('hero-glyph').textContent = `${pos.nome} ${pos.simbolo}`;
-    document.getElementById('hero-title').textContent = `${pos.nome} no Mapa Astral`;
+    document.getElementById('icone-principal').textContent = `${pos.nome} ${pos.simbolo}`;
+    document.getElementById('titulo-principal').textContent = `${pos.nome} no Mapa Astral`;
 
     setAstroParam(id);
 
@@ -115,7 +115,7 @@ async function init() {
 
     } catch (err) {
         console.error(err);
-        document.getElementById('pageContent').innerHTML = `
+        document.getElementById('conteudoDaPagina').innerHTML = `
             <div class="not-found">
                 <div class="big-symbol">⚠</div>
                 <h2>Erro ao carregar dados</h2>

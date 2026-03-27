@@ -1,3 +1,15 @@
+/* ── ajusta o tamanho da logo ── */
+.vura_logo {
+    max-width: 90px;
+    max-height: 90px;
+    padding: 0;
+    object-fit: cover;
+}
+
+.vura_logo:hover { 
+    filter: drop-shadow(0 0 16px var(--teal-lit)); 
+}
+
 /* ── NAV OVERRIDES (new menu, replaces old header/nav styles) ── */
 :root {
     --teal:       #48A89A;
@@ -43,28 +55,6 @@ header {
     padding: 0 2rem;
     height: 68px;
 }
-
-/* ── BRAND / LOGO ── */
-.nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    text-decoration: none;
-}
-.nav-brand img {
-    width: auto;
-    height: 42px;
-    max-width: 120px;
-    object-fit: contain;
-}
-.nav-brand-text {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    color: var(--teal);
-    letter-spacing: 0.2em;
-    transition: color 0.25s;
-}
-.nav-brand:hover .nav-brand-text { color: var(--teal-light); }
 
 /* ── MENU PRINCIPAL ── */
 ul.nav-menu {
@@ -165,13 +155,6 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 }
 .nav-submenu li + li { border-top: 1px solid rgba(72,168,154,0.06); }
 
-/* ── NAV RIGHT (perfil + hambúrguer — sempre visíveis) ── */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    height: 100%;
-}
 
 /* ── PROFILE PILL ── */
 .nav-profile {
@@ -273,7 +256,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 }
 .nav-profile-dropdown li a i { width: 14px; font-size: 0.75rem; color: var(--teal); opacity: 0.7; }
 .nav-profile-dropdown li + li { border-top: 1px solid rgba(72,168,154,0.06); }
-.nav-profile-dropdown .nav-divider { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
+.nav-profile-dropdown .nav-divisor { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
 
 /* ── MOBILE TOGGLE ── */
 .nav-mobile-toggle {

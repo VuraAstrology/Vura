@@ -31,7 +31,7 @@ const sections = [
 async function carregarSigno() {
     const params     = new URLSearchParams(window.location.search);
     const signoParam = params.get('signo');
-    const main       = document.getElementById('main-content');
+    const main       = document.getElementById('conteudoDaPagina');
 
     if (!signoParam || !signoMap[signoParam]) {
         main.innerHTML = `
@@ -45,7 +45,7 @@ async function carregarSigno() {
 
     const { nome, imagem } = signoMap[signoParam];
 
-    document.getElementById('hero-title').textContent = `Sol, Lua e Ascendente em ${nome}`;
+    document.getElementById('titulo-principal').textContent = `Sol, Lua e Ascendente em ${nome}`;
     document.title = `${nome} — Vura Astrology`;
 
     try {

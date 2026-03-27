@@ -15,7 +15,7 @@ function setCasaParam(id) {
 
 function buildNavLinks(data) {
     const navMenu    = document.getElementById('desktop-casas-menu'); // ajuste conforme seu nav.js
-    const selectorEl = document.getElementById('casaSelector');
+    const selectorEl = document.getElementById('opcaoSelector');
 
     if (navMenu)     navMenu.innerHTML    = '';
     if (selectorEl)  selectorEl.innerHTML = '';
@@ -36,7 +36,7 @@ function buildNavLinks(data) {
         // ── Pill selector ──
         if (selectorEl) {
             const pill = document.createElement('button');
-            pill.className      = 'casa-pill';
+            pill.className      = 'opcao-pill';
             pill.dataset.casaId = c.id;
             pill.innerHTML      = `<span class="pill-numero">${c.numero}ª</span>${c.nome}`;
             pill.addEventListener('click', () => loadCasa(c.id, data));
@@ -47,17 +47,17 @@ function buildNavLinks(data) {
 
 function loadCasa(id, data) {
     const casa    = data.casas.find(c => c.id === id);
-    const content = document.getElementById('pageContent');
+    const content = document.getElementById('conteudoDaPagina');
 
     // Atualiza pill ativa
-    document.querySelectorAll('.casa-pill').forEach(p => {
+    document.querySelectorAll('.opcao-pill').forEach(p => {
         p.classList.toggle('active', p.dataset.casaId === id);
     });
 
     if (!casa) {
         document.title = 'Casas Astrológicas — Vura Astrology';
-        document.getElementById('hero-glyph').textContent = '⌂';
-        document.getElementById('hero-title').textContent = 'Casa não encontrada';
+        document.getElementById('icone-principal').textContent = '⌂';
+        document.getElementById('titulo-principal').textContent = 'Casa não encontrada';
         content.innerHTML = `
             <div class="not-found">
                 <div class="big-symbol">⌂</div>
@@ -68,18 +68,18 @@ function loadCasa(id, data) {
     }
 
     document.title = `${casa.numero}ª Casa — ${casa.nome} — Vura Astrology`;
-    document.getElementById('hero-glyph').textContent = `${casa.numero}ª Casa`;
-    document.getElementById('hero-title').textContent = `A Casa de ${casa.nome}`;
+    document.getElementById('icone-principal').textContent = `${casa.numero}ª Casa`;
+    document.getElementById('titulo-principal').textContent = `A Casa de ${casa.nome}`;
 
     setCasaParam(id);
 
     const signosHTML = casa.signos.map((s, i) => `
-        <div class="signo-section" style="animation-delay:${(i * 0.05 + 0.05).toFixed(2)}s">
-            <div class="signo-img-wrap">
+        <div class="sign-section" style="animation-delay:${(i * 0.05 + 0.05).toFixed(2)}s">
+            <div class="sign-img-wrap">
                 <img src="${s.imagem}" alt="${s.signo}" onerror="this.style.display='none'">
-                <span class="signo-glyph">${s.simbolo}</span>
+                <span class="sign-glyph">${s.simbolo}</span>
             </div>
-            <div class="signo-body">
+            <div class="sign-body">
                 <h2>${s.signo} ${s.simbolo} na ${casa.numero}ª Casa</h2>
                 <p>${s.texto}</p>
             </div>
@@ -113,7 +113,7 @@ async function init() {
 
     } catch (err) {
         console.error(err);
-        document.getElementById('pageContent').innerHTML = `
+        document.getElementById('conteudoDaPagina').innerHTML = `
             <div class="not-found">
                 <div class="big-symbol">⚠</div>
                 <h2>Erro ao carregar dados</h2>

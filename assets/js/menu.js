@@ -80,7 +80,7 @@
                             <li><a href="./mapas.html"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
                             <li><a href="./perfil.html"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
                             <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
-                            <hr class="nav-divider">
+                            <hr class="nav-divisor">
                             <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
                         </ul>
                     </li>
