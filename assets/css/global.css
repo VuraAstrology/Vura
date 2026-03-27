@@ -42,6 +42,185 @@ html { scroll-behavior: smooth; }
     --font-accent:  'Pinyon Script', cursive;
 }
 
+[data-theme="light"] {
+    --bg:         #eef4f2;        /* fundo: creme esverdeado, não branco puro */
+    --surface:    #ddeae6;        /* superfícies: um tom abaixo do fundo */
+    --border:     rgba(45, 110, 98, 0.3);   /* bordas mais visíveis */
+    --teal:       #2d6e62;        /* teal mais escuro e saturado */
+    --teal-light: #1a4a41;        /* títulos: quase verde-escuro */
+    --text:       #0f2420;        /* texto principal: bem escuro */
+    --muted:      rgba(15, 36, 32, 0.55);   /* texto secundário */
+}
+
+[data-theme="aurora"] {
+    --bg:         #0d0a1a;
+    --surface:    #160f2e;
+    --border:     rgba(155, 127, 232, 0.25);
+    --teal:       #9b7fe8;
+    --teal-light: #c4aaff;
+    --text:       #ddd0f8;
+    --muted:      rgba(200, 180, 248, 0.45);
+}
+
+[data-theme="abissal"] {
+    --bg:         #030d18;
+    --surface:    #071a2e;
+    --border:     rgba(74, 143, 196, 0.25);
+    --teal:       #4a8fc4;
+    --teal-light: #7ec8f5;
+    --text:       #c8d8e8;
+    --muted:      rgba(180, 210, 235, 0.45);
+}
+
+[data-theme="bruma"] {
+    --bg:         #eef4f2;
+    --surface:    #ddeae6;
+    --border:     rgba(45, 110, 98, 0.3);
+    --teal:       #2d6e62;
+    --teal-light: #1a4a41;
+    --text:       #0f2420;
+    --muted:      rgba(15, 36, 32, 0.55);
+}
+
+[data-theme="pergaminho"] {
+    --bg:         #f5f0e8;
+    --surface:    #ebe4d4;
+    --border:     rgba(122, 92, 46, 0.3);
+    --teal:       #7a5c2e;
+    --teal-light: #4a3518;
+    --text:       #2a1f0f;
+    --muted:      rgba(42, 31, 15, 0.55);
+}
+
+/* transição suave em todo o layout */
+*, *::before, *::after {
+    transition: background-color 0.35s, color 0.35s, border-color 0.35s;
+}
+
+
+
+/*modal dos temas*/
+#theme-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.theme-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.theme-panel-titulo {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+}
+
+.theme-panel-fechar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.theme-panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.theme-card {
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    padding: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.2s;
+    position: relative;
+    background: var(--bg);
+}
+
+.theme-card:hover { transform: scale(1.02); }
+
+.theme-card.selecionado { border-color: var(--teal); }
+
+.theme-card-preview {
+    border-radius: 6px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.theme-card-preview span {
+    height: 6px;
+    border-radius: 3px;
+    flex: 1;
+    display: block;
+}
+
+.theme-card-nome {
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+
+.theme-card-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+.theme-card-check {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--bg);
+    font-size: 9px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-card.selecionado .theme-card-check { display: flex; }
+
+.theme-panel-aplicar {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: rgba(72,168,154,0.08);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+.theme-panel-aplicar:hover { background: rgba(72,168,154,0.18); }
+
+
+
+
 /* ── fundo com a cor da variavel bg ── */
 body {
     background-color: var(--bg);
