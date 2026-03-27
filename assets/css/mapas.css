@@ -5,20 +5,6 @@
 }
 
 
-:root {
-    --bg:           #03080d;
-    --surface:      #0a1520;
-    --border:       rgba(72, 168, 154, 0.25);
-    --teal:         #48A89A;
-    --teal-lit:     #7ef5de;
-    --text:         #c8dfd8;
-    --muted:        rgba(200, 223, 216, 0.45);
-    --font-display: 'Cinzel', serif;
-    --font-body:    'Raleway', sans-serif;
-    --font-accent:  'Pinyon Script', cursive;
-}
-
-
 body{
     background-color: var(--bg);
     color: aliceblue;
