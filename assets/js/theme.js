@@ -9,40 +9,40 @@ const TEMAS = [
     cor: '#7ef5de'
   },
   {
-    id: 'aurora',
-    nome: 'Aurora',
-    desc: 'Roxo estelar',
-    attr: 'aurora',
-    previewBg: '#160f2e',
-    bars: ['#9b7fe8', '#2a1a50', '#c4aaff'],
-    cor: '#c4aaff'
+    id: 'tempestade',
+    nome: 'Tempestade Solar',
+    desc: 'Energia intensa',
+    attr: 'tempestade',
+    previewBg: '#050512',
+    bars: ['#DC143C', '#FF1493', '#FF8C00'],
+    cor: '#FF8C00'
   },
   {
-    id: 'abissal',
-    nome: 'Abissal',
-    desc: 'Azul oceano',
-    attr: 'abissal',
-    previewBg: '#071a2e',
-    bars: ['#4a8fc4', '#0d2a42', '#7ec8f5'],
-    cor: '#7ec8f5'
+    id: 'orion',
+    nome: 'Nebulosa de Orion',
+    desc: 'Pastel suave',
+    attr: 'orion',
+    previewBg: '#E6E1F0',
+    bars: ['#B39DDB', '#CCCCFF', '#FFD700'],
+    cor: '#B39DDB'
   },
   {
-    id: 'bruma',
-    nome: 'Bruma',
-    desc: 'Claro suave',
-    attr: 'bruma',
-    previewBg: '#ddeae6',
-    bars: ['#2d6e62', '#b0d0c8', '#1a4a41'],
-    cor: '#2d6e62'
+    id: 'eclipse',
+    nome: 'Eclipse Total',
+    desc: 'Alto contraste',
+    attr: 'eclipse',
+    previewBg: '#000000',
+    bars: ['#FFFFFF', '#C0C0C0', '#808080'],
+    cor: '#FFFFFF'
   },
   {
-    id: 'pergaminho',
-    nome: 'Pergaminho',
-    desc: 'Claro sépia',
-    attr: 'pergaminho',
-    previewBg: '#ebe4d4',
-    bars: ['#7a5c2e', '#c8b898', '#4a3518'],
-    cor: '#7a5c2e'
+    id: 'alvorada',
+    nome: 'Alvorada Cósmica',
+    desc: 'Claro quente',
+    attr: 'alvorada',
+    previewBg: '#FFF5ED',
+    bars: ['#FFCCBC', '#FFD54F', '#4DD0E1'],
+    cor: '#FFCCBC'
   }
 ];
 
