@@ -1,6 +1,6 @@
 .conteudoIndex {
     min-height: 100vh;
-    background: radial-gradient(#0000002d,#000) ,url("../imagens/mfundo.png");
+    background: radial-gradient(#0000002d,#000) ,url("../imagens/Gemini_Generated_Image_63v7ub63v7ub63v7.png");
     width: 100%;
     background-size: cover;       
     outline: 2px white;
@@ -29,7 +29,7 @@
     width: 260px;
     height: 260px;
     border-radius: 30px;
-    outline: 4px solid white;
+    outline: 1.7px solid #e1e7ff;
     text-align: center;
     margin-bottom: 60px;
     margin-left: auto;
@@ -38,18 +38,20 @@
     margin-right: auto;
     background: radial-gradient(
              140% 110% at 75% 20%,
-            rgba(0, 0, 0, 0.332) 15%,
-            #48a89ad1 35%,
-            #99eeb0ca 45%,
-            #1c434a92 60%
+            rgba(0, 0, 0, 0.556) 15%,
+            #45afaab7 35%,
+            #99eec8a5 45%,
+            #1c434ac3 60%
         );
     box-shadow:
-        inset 0 0 40px #7cffbd60;        
+        inset 0 0 40px #08ea883f;
+        
 }
 
 .card:hover{
     transform: translatey(-15px);
-    box-shadow: 0 0 60px #562a83;
+    box-shadow: 0 0 60px #a574e5b7;
+    
 }
 
 /* configurations for the break points for mobiles dispositives. (zodiac cards)*/
