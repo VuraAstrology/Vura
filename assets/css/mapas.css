@@ -5,12 +5,29 @@
 }
 
 
+:root {
+    --bg:           #03080d;
+    --surface:      #0a1520;
+    --border:       rgba(72, 168, 154, 0.25);
+    --teal:         #48A89A;
+    --teal-lit:     #7ef5de;
+    --text:         #c8dfd8;
+    --muted:        rgba(200, 223, 216, 0.45);
+    --font-display: 'Cinzel', serif;
+    --font-body:    'Raleway', sans-serif;
+    --font-accent:  'Pinyon Script', cursive;
+}
+
+
 body{
     background-color: #060e0b;
     color: aliceblue;
+    display: flex;
+    flex-direction: column;
 }
 
 main{
+    flex: 1 0 auto;
     width: 100%;
 }
 /* ── Tamanho da logo no menu de navegação ── */
@@ -27,7 +44,7 @@ main{
     margin-left: auto;       /* cards com os registros deletar/ adicionar*/
     margin: auto;
     border-radius: 20px;
-    border: 2px solid white;
+    border: 1.7px solid white;
     
 }
 
