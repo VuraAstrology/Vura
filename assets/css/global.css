@@ -30,7 +30,7 @@ html { scroll-behavior: smooth; }
     --surface:      #0a1520;
     --border:       rgba(72, 168, 154, 0.25);
     --teal:         #48A89A;
-    --teal-lit:     #7ef5de;
+    --teal-light:     #7ef5de;
     --text:         #c8dfd8;
     --muted:        rgba(200, 223, 216, 0.45);
     --font-display: 'Cinzel', serif;
@@ -79,7 +79,7 @@ body::before {
 }
 
 .back-btn:hover { 
-    color: var(--teal-lit); 
+    color: var(--teal-light); 
 }
 
 #icone-principal {
@@ -120,13 +120,13 @@ body::before {
 }
 
 .opcao-pill:hover { 
-    border-color: var(--teal); color: var(--teal-lit); 
+    border-color: var(--teal); color: var(--teal-light); 
 }
 
 .opcao-pill.active {
     background: rgba(72,168,154,0.12);
     border-color: var(--teal);
-    color: var(--teal-lit);
+    color: var(--teal-light);
 }
 
 .opcao-pill .pill-numero {
@@ -235,7 +235,7 @@ body::before {
 .sign-body h2 {
     font-family: var(--font-display); font-size: 1rem;
     font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--teal-lit); margin-bottom: 14px;
+    color: var(--teal-light); margin-bottom: 14px;
 }
 
 .sign-body p {
