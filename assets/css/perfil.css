@@ -1,6 +1,3 @@
-/* ── Reset geral: remove margin, padding e ajusta box-sizing em todos os elementos ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 /* ── Variáveis globais de cor e estilo reutilizadas em todo o arquivo ── */
 :root {
   --bg:           #060e0b;                  /* Cor de fundo da página */
@@ -117,7 +114,7 @@ h1 {
 }
 
 /* ── Linha divisória entre o avatar e os campos do formulário ── */
-.divider {
+.divisor {
   border: none;
   border-top: 1px solid rgba(0, 82, 77, 0.70);
   margin: 0 0 22px;

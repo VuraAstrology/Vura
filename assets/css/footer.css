@@ -1,0 +1,48 @@
+/*usa as cores do global*/
+/* ── FOOTER ── */
+footer {
+    position: relative; z-index: 1;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 40px 6% 28px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+
+.social_redes { 
+    display: flex; 
+    gap: 20px;
+}
+
+.social_redes a {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--border); color: var(--teal);
+    font-size: 1rem; text-decoration: none;
+    transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.social_redes a:hover {
+    color: var(--bg); background: var(--teal);
+    border-color: var(--teal); transform: translateY(-3px);
+}
+
+footer > p {
+    font-family: var(--font-display); font-size: 0.7rem;
+    letter-spacing: 0.2em; color: var(--muted); padding: 0;
+}
+
+.footer_contents { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 8px 20px;
+}
+
+.footer_contents a {
+    font-size: 0.72rem; letter-spacing: 0.06em;
+    color: var(--muted); text-decoration: none;
+    text-transform: uppercase; transition: color 0.2s;
+}
+
+.footer_contents a:hover { 
+    color: var(--teal-lit);
+}

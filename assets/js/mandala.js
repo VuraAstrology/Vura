@@ -221,9 +221,9 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   titulo.textContent = "Posicionamentos";
   secao.appendChild(titulo);
 
-  const divider = document.createElement("div");
-  divider.className = "posicionamentos-secao-divider";
-  secao.appendChild(divider);
+  const divisor = document.createElement("div");
+  divisor.className = "posicionamentos-secao-divisor";
+  secao.appendChild(divisor);
 
   // Grid onde os cards ficam
   const container = document.createElement("div");
