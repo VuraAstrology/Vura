@@ -21,7 +21,7 @@
 .vura-nav {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(18px);
