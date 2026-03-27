@@ -1,37 +1,37 @@
 // ── SIGNO MAP ──
 const signoMap = {
-    'aries':       { nome: 'Aries',      imagem: 'aries.png' },
-    'taurus':      { nome: 'Touro',      imagem: 'taurus.png' },
-    'gemini':      { nome: 'Gêmeos',     imagem: 'gemini.png' },
-    'cancer':      { nome: 'Câncer',     imagem: 'cancer.png' },
-    'leo':         { nome: 'Leão',       imagem: 'leo.png' },
-    'virgo':       { nome: 'Virgem',     imagem: 'virgo.png' },
-    'libra':       { nome: 'Libra',      imagem: 'libra.png' },
-    'escorpiao':   { nome: 'Escorpiao',  imagem: 'escorpiao.png' },
-    'sagitario': { nome: 'Sagitario',  imagem: 'sagitario.png' },
-    'capricorn':   { nome: 'Capricórnio',imagem: 'capricorn.png' },
-    'aquarius':    { nome: 'Aquário',    imagem: 'aquarius.png' },
-    'pisces':      { nome: 'Peixes',     imagem: 'pisces.png' }
+    'aries': { nome: 'Aries', imagem: 'aries.png' },
+    'taurus': { nome: 'Touro', imagem: 'taurus.png' },
+    'gemini': { nome: 'Gêmeos', imagem: 'gemini.png' },
+    'cancer': { nome: 'Câncer', imagem: 'cancer.png' },
+    'leo': { nome: 'Leão', imagem: 'leo.png' },
+    'virgo': { nome: 'Virgem', imagem: 'virgo.png' },
+    'libra': { nome: 'Libra', imagem: 'libra.png' },
+    'escorpiao': { nome: 'Escorpiao', imagem: 'escorpiao.png' },
+    'sagitario': { nome: 'Sagitario', imagem: 'sagitario.png' },
+    'capricorn': { nome: 'Capricórnio', imagem: 'capricorn.png' },
+    'aquarius': { nome: 'Aquário', imagem: 'aquarius.png' },
+    'pisces': { nome: 'Peixes', imagem: 'pisces.png' }
 };
 
 // Imagem específica para cada seção
 const sectionImages = {
-    sun:        'sol.png',
-    moon:       'lua.png',
+    sun: 'sol.png',
+    moon: 'lua.png',
     ascendente: 'ascendente.png'
 };
 
 const sections = [
-    { jsonKey: 'sun',        anchor: 'sol' },
-    { jsonKey: 'moon',       anchor: 'lua' },
+    { jsonKey: 'sun', anchor: 'sol' },
+    { jsonKey: 'moon', anchor: 'lua' },
     { jsonKey: 'ascendente', anchor: 'ascendente' }
 ];
 
 // ── CARREGAR SIGNO ──
 async function carregarSigno() {
-    const params     = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
     const signoParam = params.get('signo');
-    const main       = document.getElementById('conteudoDaPagina');
+    const main = document.getElementById('conteudoDaPagina');
 
     if (!signoParam || !signoMap[signoParam]) {
         main.innerHTML = `
@@ -49,8 +49,8 @@ async function carregarSigno() {
     document.title = `${nome} — Vura Astrology`;
 
     try {
-        const res   = await fetch('./assets/data/signos.json');
-        const data  = await res.json();
+        const res = await fetch('./assets/data/signos.json');
+        const data = await res.json();
         const signo = data.big_three.find(s => s.signo === nome);
 
         if (!signo) {
@@ -84,9 +84,9 @@ async function carregarSigno() {
 
         // ── Sol / Lua / Ascendente com imagem própria ──
         sections.forEach((sec, i) => {
-            const block    = signo[sec.jsonKey];
-            const delay    = (i + 1) * 0.12;
-            const secImg   = sectionImages[sec.jsonKey];
+            const block = signo[sec.jsonKey];
+            const delay = (i + 1) * 0.12;
+            const secImg = sectionImages[sec.jsonKey];
             html += `
                 <section class="sign-section" id="${sec.anchor}" style="animation-delay:${delay}s">
                     <div class="sign-img-wrap">

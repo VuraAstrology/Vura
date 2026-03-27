@@ -3,10 +3,10 @@ const API_BASE = "https://vura-wine.vercel.app";
 
 const pegarEl = (id) => document.getElementById(id);
 
-const formulario   = pegarEl("formMandala");
-const elStatus     = pegarEl("status");
-const elResultado  = pegarEl("output");
-const inputCidade  = pegarEl("city");
+const formulario = pegarEl("formMandala");
+const elStatus = pegarEl("status");
+const elResultado = pegarEl("output");
+const inputCidade = pegarEl("city");
 const listaCidades = pegarEl("cityList");
 
 let cidadeSelecionada = null;
@@ -14,18 +14,18 @@ let timerDebounce = null;
 
 // ================= MAPEAMENTO API → JSON LOCAL =================
 const mapaId = {
-  sun:      "sol",
-  moon:     "lua",
-  mercury:  "mercurio",
-  venus:    "venus",
-  mars:     "marte",
-  jupiter:  "jupiter",
-  saturn:   "saturno",
-  uranus:   "urano",
-  neptune:  "netuno",
-  pluto:    "plutao",
-  lilith:   "lilith",
-  chiron:   "quiron",
+  sun: "sol",
+  moon: "lua",
+  mercury: "mercurio",
+  venus: "venus",
+  mars: "marte",
+  jupiter: "jupiter",
+  saturn: "saturno",
+  uranus: "urano",
+  neptune: "netuno",
+  pluto: "plutao",
+  lilith: "lilith",
+  chiron: "quiron",
 };
 
 // ================= STATUS =================
@@ -41,10 +41,10 @@ async function fetchComRetry(url, options, maxTentativas = 3) {
     if (resp.status !== 429) return resp;
 
     let data = {};
-    try { data = await resp.clone().json(); } catch (_) {}
+    try { data = await resp.clone().json(); } catch (_) { }
     const retryMs = data?.response?.retry_after_ms ?? 1200;
-    const jitter  = Math.random() * 300;
-    const delay   = retryMs * Math.pow(2, tentativa) + jitter;
+    const jitter = Math.random() * 300;
+    const delay = retryMs * Math.pow(2, tentativa) + jitter;
 
     definirStatus(`Limite da API atingido - aguardando ${Math.round(delay / 1000)}s (tentativa ${tentativa + 1}/${maxTentativas})...`);
     await new Promise((r) => setTimeout(r, delay));
@@ -71,10 +71,10 @@ function mostrarSugestoes(cidades) {
     botao.addEventListener("click", () => {
       cidadeSelecionada = cidades[Number(botao.dataset.idx)];
 
-      inputCidade.value    = `${cidadeSelecionada.name} (${cidadeSelecionada.country})`;
+      inputCidade.value = `${cidadeSelecionada.name} (${cidadeSelecionada.country})`;
       pegarEl("lat").value = cidadeSelecionada.lat;
       pegarEl("lng").value = cidadeSelecionada.lng;
-      pegarEl("tz").value  = cidadeSelecionada.timezone;
+      pegarEl("tz").value = cidadeSelecionada.timezone;
 
       mostrarSugestoes([]);
       definirStatus("");
@@ -83,10 +83,10 @@ function mostrarSugestoes(cidades) {
 }
 
 inputCidade.addEventListener("input", () => {
-  cidadeSelecionada    = null;
+  cidadeSelecionada = null;
   pegarEl("lat").value = "";
   pegarEl("lng").value = "";
-  pegarEl("tz").value  = "";
+  pegarEl("tz").value = "";
 
   clearTimeout(timerDebounce);
 
@@ -95,7 +95,7 @@ inputCidade.addEventListener("input", () => {
 
   timerDebounce = setTimeout(async () => {
     try {
-      const resp  = await fetch(`${API_BASE}/api/api-geo?q=${encodeURIComponent(termo)}&limit=8`);
+      const resp = await fetch(`${API_BASE}/api/api-geo?q=${encodeURIComponent(termo)}&limit=8`);
       const dados = await resp.json();
       if (!resp.ok) throw new Error(dados?.error || "Erro ao buscar cidades.");
       mostrarSugestoes(dados.results || []);
@@ -121,22 +121,22 @@ formulario.addEventListener("submit", async (e) => {
   if (!valorData || !valorHora) { definirStatus("Preencha data e hora."); return; }
 
   const [ano, mes, dia] = valorData.split("-").map(Number);
-  const [hora, minuto]  = valorHora.split(":").map(Number);
+  const [hora, minuto] = valorHora.split(":").map(Number);
 
   const payload = {
-    name:   pegarEl("name").value.trim(),
-    year:   ano,
-    month:  mes,
-    day:    dia,
-    hour:   hora,
+    name: pegarEl("name").value.trim(),
+    year: ano,
+    month: mes,
+    day: dia,
+    hour: hora,
     minute: minuto,
-    city:   cidadeSelecionada.name,
-    lat:    cidadeSelecionada.lat,
-    lng:    cidadeSelecionada.lng,
+    city: cidadeSelecionada.name,
+    lat: cidadeSelecionada.lat,
+    lng: cidadeSelecionada.lng,
     tz_str: cidadeSelecionada.timezone,
     house_system: "placidus",
-    zodiac_type:  "tropical",
-    theme_type:   "light",
+    zodiac_type: "tropical",
+    theme_type: "light",
     size: 900,
     lang: "pt",
   };
@@ -159,7 +159,7 @@ formulario.addEventListener("submit", async (e) => {
       }),
     ]);
 
-    const dadosSvg   = await respostaSvg.json();
+    const dadosSvg = await respostaSvg.json();
     const dadosNatal = await respostaNatal.json();
 
     if (!respostaSvg.ok) throw new Error(dadosSvg?.error || "Falha ao gerar mandala.");
@@ -241,18 +241,18 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
 
   // Mapa de sign_id da API para nome do signo no JSON
   const mapaSiglo = {
-    aries:       "áries",
-    taurus:      "touro",
-    gemini:      "gêmeos",
-    cancer:      "câncer",
-    leo:         "leão",
-    virgo:       "virgem",
-    libra:       "libra",
-    scorpio:     "escorpião",
+    aries: "áries",
+    taurus: "touro",
+    gemini: "gêmeos",
+    cancer: "câncer",
+    leo: "leão",
+    virgo: "virgem",
+    libra: "libra",
+    scorpio: "escorpião",
     sagittarius: "sagitário",
-    capricorn:   "capricórnio",
-    aquarius:    "aquário",
-    pisces:      "peixes",
+    capricorn: "capricórnio",
+    aquarius: "aquário",
+    pisces: "peixes",
   };
 
   // Monta lista de posicionamentos: planetas + ascendente + meio do céu
@@ -267,12 +267,12 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     if (!nomeSigno) continue;
 
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === idLocal);
-    const dadosSigno   = indice[idLocal]?.[nomeSigno];
+    const dadosSigno = indice[idLocal]?.[nomeSigno];
     if (!dadosPlaneta || !dadosSigno) continue;
 
     posicionamentos.push({
       planeta: dadosPlaneta,
-      signo:   dadosSigno,
+      signo: dadosSigno,
       retrogrado: planeta.retrograde,
     });
   }
@@ -282,7 +282,7 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   if (asc) {
     const nomeSigno = mapaSiglo[asc.sign_id];
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "ascendente");
-    const dadosSigno   = indice["ascendente"]?.[nomeSigno];
+    const dadosSigno = indice["ascendente"]?.[nomeSigno];
     if (dadosPlaneta && dadosSigno) {
       posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
     }
@@ -293,7 +293,7 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   if (mc) {
     const nomeSigno = mapaSiglo[mc.sign_id];
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "meioDoCeu");
-    const dadosSigno   = indice["meioDoCeu"]?.[nomeSigno];
+    const dadosSigno = indice["meioDoCeu"]?.[nomeSigno];
     if (dadosPlaneta && dadosSigno) {
       posicionamentos.push({ planeta: dadosPlaneta, signo: dadosSigno, retrogrado: false });
     }
