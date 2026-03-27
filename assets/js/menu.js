@@ -122,11 +122,11 @@
 
     /* ── 4. Lógica de interação (hambúrguer, submenus, perfil) ── */
     function initInteractions() {
-        const nav          = document.querySelector('.vura-nav');
+        const nav = document.querySelector('.vura-nav');
         const mobileToggle = document.querySelector('.nav-mobile-toggle');
-        const navMenu      = document.querySelector('ul.nav-menu');
-        const profileLi    = document.querySelector('.nav-profile');
-        const profileBtn   = document.querySelector('.nav-profile-btn');
+        const navMenu = document.querySelector('ul.nav-menu');
+        const profileLi = document.querySelector('.nav-profile');
+        const profileBtn = document.querySelector('.nav-profile-btn');
 
         if (!nav || !navMenu) return;
 
@@ -143,7 +143,7 @@
 
         /* Submenus por clique no mobile */
         document.querySelectorAll('ul.nav-menu > li').forEach(li => {
-            const sub     = li.querySelector('.nav-submenu, .nav-profile-dropdown');
+            const sub = li.querySelector('.nav-submenu, .nav-profile-dropdown');
             const trigger = li.querySelector('a, button');
             if (!sub || !trigger) return;
 

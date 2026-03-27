@@ -16,19 +16,19 @@ function buildNavLinks(data) {
     // Popula os submenus do nav.js com os astros do JSON
     // nav.js já injetou o menu; os <ul> abaixo existem no DOM agora
     // nav.js usa um único <ul id="desktop-astros-menu"> para desktop e mobile
-    const navMenu    = document.getElementById('desktop-astros-menu');
+    const navMenu = document.getElementById('desktop-astros-menu');
     const selectorEl = document.getElementById('opcaoSelector');
 
-    if (navMenu)     navMenu.innerHTML    = '';
-    if (selectorEl)  selectorEl.innerHTML = '';
+    if (navMenu) navMenu.innerHTML = '';
+    if (selectorEl) selectorEl.innerHTML = '';
 
     data.posicionamentos.forEach(p => {
 
         // ── Submenu do nav (desktop hover + mobile drawer) ──
         if (navMenu) {
             const li = document.createElement('li');
-            const a  = document.createElement('a');
-            a.href        = `?astro=${p.id}`;
+            const a = document.createElement('a');
+            a.href = `?astro=${p.id}`;
             a.textContent = `${p.nome} ${p.simbolo}`;
             a.addEventListener('click', e => { e.preventDefault(); loadAstro(p.id, data); });
             li.appendChild(a);
@@ -38,9 +38,9 @@ function buildNavLinks(data) {
         // ── Pill selector ──
         if (selectorEl) {
             const pill = document.createElement('button');
-            pill.className       = 'opcao-pill';
+            pill.className = 'opcao-pill';
             pill.dataset.astroId = p.id;
-            pill.innerHTML       = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
+            pill.innerHTML = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
             pill.addEventListener('click', () => loadAstro(p.id, data));
             selectorEl.appendChild(pill);
         }
@@ -48,7 +48,7 @@ function buildNavLinks(data) {
 }
 
 function loadAstro(id, data) {
-    const pos     = data.posicionamentos.find(p => p.id === id);
+    const pos = data.posicionamentos.find(p => p.id === id);
     const content = document.getElementById('conteudoDaPagina');
 
     // Atualiza pill ativa

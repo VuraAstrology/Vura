@@ -14,19 +14,19 @@ function setCasaParam(id) {
 }
 
 function buildNavLinks(data) {
-    const navMenu    = document.getElementById('desktop-casas-menu'); // ajuste conforme seu nav.js
+    const navMenu = document.getElementById('desktop-casas-menu'); // ajuste conforme seu nav.js
     const selectorEl = document.getElementById('opcaoSelector');
 
-    if (navMenu)     navMenu.innerHTML    = '';
-    if (selectorEl)  selectorEl.innerHTML = '';
+    if (navMenu) navMenu.innerHTML = '';
+    if (selectorEl) selectorEl.innerHTML = '';
 
     data.casas.forEach(c => {
 
         // ── Submenu do nav ──
         if (navMenu) {
             const li = document.createElement('li');
-            const a  = document.createElement('a');
-            a.href        = `?casa=${c.id}`;
+            const a = document.createElement('a');
+            a.href = `?casa=${c.id}`;
             a.textContent = `${c.numero}ª Casa — ${c.nome}`;
             a.addEventListener('click', e => { e.preventDefault(); loadCasa(c.id, data); });
             li.appendChild(a);
@@ -36,9 +36,9 @@ function buildNavLinks(data) {
         // ── Pill selector ──
         if (selectorEl) {
             const pill = document.createElement('button');
-            pill.className      = 'opcao-pill';
+            pill.className = 'opcao-pill';
             pill.dataset.casaId = c.id;
-            pill.innerHTML      = `<span class="pill-numero">${c.numero}ª</span>${c.nome}`;
+            pill.innerHTML = `<span class="pill-numero">${c.numero}ª</span>${c.nome}`;
             pill.addEventListener('click', () => loadCasa(c.id, data));
             selectorEl.appendChild(pill);
         }
@@ -46,7 +46,7 @@ function buildNavLinks(data) {
 }
 
 function loadCasa(id, data) {
-    const casa    = data.casas.find(c => c.id === id);
+    const casa = data.casas.find(c => c.id === id);
     const content = document.getElementById('conteudoDaPagina');
 
     // Atualiza pill ativa

@@ -16,17 +16,17 @@ let contador = 2;
  */
 function renderizarLista() {
     const todosRegistrosDiv = document.querySelector('.todos_registros');
-    
+
     if (!todosRegistrosDiv) return; // Segurança caso a div não exista
 
     todosRegistrosDiv.innerHTML = ''; // Limpa a lista para atualizar
 
     mapas.forEach((mapa, index) => {
         const itemDiv = document.createElement('div');
-        
+
         // Adiciona classe de item e destaque se for o principal
         itemDiv.className = `map-item ${mapa.isUser ? 'destaque-usuario' : ''}`;
-        
+
         itemDiv.innerHTML = `
             <div class="info-group">
                 <span class="material-symbols-outlined icon-vura">
@@ -46,7 +46,7 @@ function renderizarLista() {
                    ${mapa.selecionado ? 'checked' : ''} 
                    onchange="alternarSelecao(${index})">
         `;
-        
+
         todosRegistrosDiv.appendChild(itemDiv);
     });
 }
@@ -75,7 +75,7 @@ window.adicionar = () => {
 // Ir para a tela de confirmação de exclusão
 window.irParaEliminar = () => {
     const selecionados = mapas.filter(m => m.selecionado);
-    
+
     if (selecionados.length === 0) {
         alert("Por favor, selecione ao menos um registro para apagar.");
         return;
@@ -105,7 +105,7 @@ window.voltar = () => {
 window.finalizar = () => {
     // Filtra o array mantendo apenas quem NÃO está selecionado
     mapas = mapas.filter(m => !m.selecionado);
-    
+
     renderizarLista();
     window.voltar();
 };
