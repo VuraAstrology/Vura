@@ -1,13 +1,6 @@
 :root {
-  --fundo:      #03080d;
-  --surface:    #0a1520;
-  --texto:      #c8dfd8;
   --texto-suave:#a9b6d3;
-  --muted:      rgba(200, 223, 216, 0.45);
-  --borda:      rgba(72, 168, 154, 0.25);
   --cartao:     rgba(10, 21, 32, 0.6);
-  --teal:       #48A89A;
-  --teal-lit:   #7ef5de;
 }
 
 
@@ -51,7 +44,7 @@
 
 /* ── CARTÃO ── */
 .mandala-cartao {
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px 24px;
   background: var(--cartao);
@@ -85,9 +78,9 @@
 .mandala-select {
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   background: rgba(3, 8, 13, 0.55);
-  color: var(--texto);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 0.9rem;
   outline: none;
@@ -118,7 +111,7 @@
   border-radius: 10px;
   cursor: pointer;
   background: rgba(72, 168, 154, 0.12);
-  color: var(--teal-lit);
+  color: var(--teal-light);
   font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 600;
@@ -155,7 +148,7 @@
   right: 0;
   z-index: 50;
   background: var(--surface);
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -166,7 +159,7 @@
   padding: 10px 14px;
   background: transparent;
   border: 0;
-  color: var(--texto);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 0.85rem;
   cursor: pointer;
@@ -175,7 +168,7 @@
 
 .mandala-lista-sugestoes button:hover {
   background: rgba(72, 168, 154, 0.08);
-  color: var(--teal-lit);
+  color: var(--teal-light);
 }
 
 /* ── ÁREA DO RESULTADO ── */
@@ -187,7 +180,7 @@
 
 .mandala-caixa-svg {
   width: 100%;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   border-radius: 16px;
   background: rgba(3, 8, 13, 0.4);
   backdrop-filter: blur(12px);
@@ -228,7 +221,7 @@
 .mandala-btn {
   padding: 9px 20px;
   border-radius: 10px;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   background: rgba(3, 8, 13, 0.55);
   color: var(--texto-suave);
   font-family: var(--font-display);
@@ -241,7 +234,7 @@
 
 .mandala-btn:hover {
   border-color: var(--teal);
-  color: var(--teal-lit);
+  color: var(--teal-light);
 }
 
 .mandala-btn:active {
@@ -254,7 +247,7 @@
   width: 100%;
   /* max-width: 900px; */
   margin: 32px auto 0;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px 24px;
   background: var(--cartao);
@@ -300,7 +293,7 @@
 
 /* ── CARD INDIVIDUAL ── */
 .posicionamento-card {
-  border: 1px solid var(--borda);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 18px;
   background: rgba(3, 8, 13, 0.35);
@@ -348,7 +341,7 @@
 
 .posicionamento-simbolo-signo {
   font-size: 1rem;
-  color: var(--teal-lit);
+  color: var(--teal-light);
   opacity: 0.8;
 }
 
@@ -359,7 +352,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--teal-lit);
+  color: var(--teal-light);
 }
 
 .retrogrado {

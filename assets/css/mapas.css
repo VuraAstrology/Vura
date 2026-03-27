@@ -1,5 +1,5 @@
 body{
-    background-color: #060e0b;
+    background-color: var(--bg);
     color: aliceblue;
 }
 

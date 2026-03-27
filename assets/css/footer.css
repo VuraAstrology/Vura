@@ -44,5 +44,5 @@ footer > p {
 }
 
 .footer_contents a:hover { 
-    color: var(--teal-lit);
+    color: var(--teal-light);
 }

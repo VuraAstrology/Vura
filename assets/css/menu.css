@@ -7,36 +7,22 @@
 }
 
 .vura_logo:hover { 
-    filter: drop-shadow(0 0 16px var(--teal-lit)); 
+    filter: drop-shadow(0 0 16px var(--teal-light)); 
 }
 
 /* ── NAV OVERRIDES (new menu, replaces old header/nav styles) ── */
 :root {
-    --teal:       #48A89A;
-    --teal-light: #7ef5de;
-    --teal-dim:   rgba(72, 168, 154, 0.10);
-    --teal-glow:  rgba(126, 245, 222, 0.15);
-    --text:       #c8dfd8;
-    --muted:      rgba(200, 223, 216, 0.45);
-    --border:     rgba(72, 168, 154, 0.25);
-    --nav-bg:     rgba(3, 8, 13, 0.96);
-    --drop-bg:    #0a1520;
-}
-
-/* Reset only what we need on header */
-header {
-    padding: 0 !important;
-    display: block !important;
-    background: transparent !important;
-    border: none !important;
+    --corDeFundoSelectsMenu:   rgba(72, 168, 154, 0.10);
+    --corDeFundoIconePerfil:  rgba(126, 245, 222, 0.15);
+    
 }
 
 /* ── STICKY NAV BAR ── */
 .vura-nav {
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background: linear-gradient(180deg, #03080d 0%, #0a1520 100%);
+    z-index: 1;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
@@ -116,7 +102,7 @@ ul.nav-menu > li:hover > a .fa-chevron-down { transform: rotate(180deg); }
     position: absolute;
     top: calc(100% - 1px);
     left: 0;
-    background: #0a1520;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-top: 2px solid var(--teal);
     min-width: 255px;
@@ -149,7 +135,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 }
 .nav-submenu li a:hover {
     color: var(--teal-light);
-    background: var(--teal-dim);
+    background: var(--corDeFundoSelectsMenu);
     padding-left: 1.7rem;
     border-left-color: var(--teal);
 }
@@ -181,9 +167,9 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 }
 .nav-profile-btn:hover {
     border-color: var(--teal);
-    background: var(--teal-dim);
+    background: var(--corDeFundoSelectsMenu);
     color: var(--teal-light);
-    box-shadow: 0 0 16px var(--teal-glow);
+    box-shadow: 0 0 16px var(--corDeFundoIconePerfil);
 }
 
 .nav-profile-icon {
@@ -209,7 +195,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     position: absolute;
     top: calc(100% - 1px);
     right: 0;
-    background: #0a1520;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-top: 2px solid var(--teal);
     min-width: 210px;
@@ -250,7 +236,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 }
 .nav-profile-dropdown li a:hover {
     color: var(--teal-light);
-    background: var(--teal-dim);
+    background: var(--corDeFundoSelectsMenu);
     padding-left: 1.6rem;
     border-left-color: var(--teal);
 }
@@ -271,8 +257,8 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
     transition: background 0.2s, box-shadow 0.2s;
 }
 .nav-mobile-toggle:hover {
-    background: var(--teal-dim);
-    box-shadow: 0 0 12px var(--teal-glow);
+    background: var(--corDeFundoSelectsMenu);
+    box-shadow: 0 0 12px var(--corDeFundoIconePerfil);
 }
 
 /* ══════════════════════════════════════════════
@@ -300,7 +286,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
         align-items: stretch;
         width: 100%;
         height: auto;
-        background: #0a1520;
+        background: var(--surface);
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
         padding: 0.4rem 0 0.8rem;
@@ -383,7 +369,7 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 
     .nav-profile-btn:hover {
         border-color: transparent;
-        background: var(--teal-dim);
+        background: var(--corDeFundoSelectsMenu);
         box-shadow: none;
         color: var(--teal-light);
     }
@@ -412,6 +398,6 @@ ul.nav-menu > li:hover .nav-submenu { display: block; }
 
     /* Estado aberto via JS */
     .nav-profile.sub--open .nav-profile-dropdown { display: block !important; }
-    .nav-profile.sub--open .nav-profile-btn { color: var(--teal-light); background: var(--teal-dim); }
+    .nav-profile.sub--open .nav-profile-btn { color: var(--teal-light); background: var(--corDeFundoSelectsMenu); }
     .nav-profile.sub--open .nav-profile-btn .fa-chevron-down { transform: rotate(180deg); }
 }
