@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vura Astrology</title>
   <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/menu.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <link rel="stylesheet" href="./assets/css/menu.css">
+  <link rel="stylesheet" href="./assets/css/footer.css">
   <link rel="stylesheet" href="./assets/css/mandala.css" />
 </head>
 
@@ -46,16 +47,8 @@
 
           <div class="mandala-campo mandala-autocomplete">
             <label for="city" class="mandala-label">Cidade de nascimento</label>
-            <input
-              id="city"
-              name="city"
-              class="mandala-input"
-              required
-              placeholder="Digite sua cidade..."
-              aria-autocomplete="list"
-              aria-controls="cityList"
-              aria-expanded="false"
-            />
+            <input id="city" name="city" class="mandala-input" required placeholder="Digite sua cidade..."
+              aria-autocomplete="list" aria-controls="cityList" aria-expanded="false" />
             <div id="cityList" class="mandala-lista-sugestoes" hidden></div>
             <input id="lat" type="hidden" name="lat" />
             <input id="lng" type="hidden" name="lng" />
@@ -76,25 +69,17 @@
     <section id="posicionamentos-area" class="posicionamentos-area"></section>
   </div>
 
-  <footer>
-    <div class="social_redes">
-      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-    </div>
-    <p>Vura&copy; 2026.</p>
-    <div class="footer_contents">
-      <a href="#">HOME |</a>
-      <a href="#">Sobre |</a>
-      <a href="#">Termos de Uso |</a>
-      <a href="#">Política de Privacidade |</a>
-      <a href="#">Fale Conosco</a>
-    </div>
-  </footer>
+
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
+
 
   <script src="./assets/js/mandala.js"></script>
   <script src="./assets/js/menu.js"></script>
+  <script src="./assets/js/footer.js"></script>
+  <script src="./assets/js/theme.js"></script>
+
 
 </body>
+
 </html>

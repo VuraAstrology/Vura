@@ -20,7 +20,7 @@
 
 
 body{
-    background-color: #060e0b;
+    background-color: var(--bg);
     color: aliceblue;
     display: flex;
     flex-direction: column;
@@ -29,13 +29,10 @@ body{
 main{
     flex: 1 0 auto;
     width: 100%;
+    height: 100vh;
 }
-/* ── Tamanho da logo no menu de navegação ── */
-.vura_logo {
-  height: 90px;
-  width: auto; /* Mantém proporção original */
-  align-items: flex-end;
-}
+
+
 
 .card{
     background: linear-gradient(to bottom, #002826 10%, #45867A 100%);   
@@ -49,7 +46,7 @@ main{
 }
 
  h2{    /* texto inicial*/
-      font-family: 'Cinzel', serif;
+    font-family: 'Cinzel', serif;
     font-weight: 400;
     font-size: 25px;
     letter-spacing: 3px;
@@ -90,7 +87,6 @@ main{
     background: linear-gradient(to right,#000, #00524D );
 }
 
-
 #deletar{
     background-color: #00524D;
     width: 90%;
@@ -102,10 +98,6 @@ main{
     position: relative;
     transition: ease 0.5s;
     cursor: pointer;
-    
-    
-    
-   
 }
 
 #deletar:hover{
@@ -120,35 +112,24 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-   
-  
 }
-
-
 
 .instrucoes{
     color: #36ddcc;
-   
 }
-
 
 .lista_delet{
     color: #B396E7;
     font-size: 1.1rem;
-    
 }
-
 
 #confirmacao{
     color: #AFFFF6;
-    
 }
-
 
 #apagar{
     margin-top: 35px;
 }
-
 
 .todos_registros {
     width: 100%;
@@ -158,14 +139,12 @@ main{
     margin-bottom: 20px; /* Espaço entre a lista e o botão de deletar */
 }
 
-
-
 /* Container de cada item da lista */
 .map-item {
     display: flex;                /* Alinha os filhos em linha */
     justify-content: space-between; /* Empurra o texto para um lado e o check para o outro */
     align-items: center;          /* Centraliza verticalmente o ícone, texto e check */
-    
+
     background: rgba(51, 0, 203, 0.05); /* Exemplo de cor de fundo */
     border: 1px solid #00c2cb;     /* Sua cor de destaque */
     border-radius: 12px;
@@ -191,14 +170,11 @@ input[type="checkbox"] {
     margin-left: 10px;            /* Garante um respiro do texto */
 }
 
-
-
 /* Container que segura o ícone, nome e botões */
 .info-group {
     display: flex;
     align-items: center;
     gap: 15px;
-    
 }
 
 /* O ícone do Google */
@@ -232,9 +208,6 @@ input[type="checkbox"] {
     display: none !important;
 }
 
-
-
-
 .actions button{
     padding: 6px;
     gap: 10px;
@@ -247,11 +220,9 @@ input[type="checkbox"] {
     transition: all ease 0.5s;
 }
 
-
 .actions button:hover{
    background: linear-gradient(300deg, #000, #00524D);
    border-color:#59eff7 ;
-   
 }
 
 .card-content{
@@ -260,6 +231,7 @@ input[type="checkbox"] {
     margin-right: auto ;
     line-height: 2;
 }
+
 #confirmacao{
     padding: 20px;
 }
@@ -270,8 +242,6 @@ input[type="checkbox"] {
     border-radius: 10px;
     background: #34654b39;
     border: 1px solid #00FFF7;
-    
-
 }
 
 #senha_vura::placeholder{
@@ -285,8 +255,6 @@ input[type="checkbox"] {
     outline: none;
 }
 
-
-
 .card-confirm{
     width: 80%;
     margin-left: auto;
@@ -296,21 +264,15 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
 }
 
 .yn{
     display: flex;
     justify-content: center;
     gap: 20px;
-    
 }
 
-
-
-
 /* botões de sim e não formatações*/
-
 .btn-main{
     padding: 10px;
     width: 100px;
@@ -319,6 +281,7 @@ input[type="checkbox"] {
     font-size: 1rem;
     font-family:'Cinzel', serif;
 }
+
 .btn-cancelar{
     background: linear-gradient(300deg, #000, #03655e);
     border: 1px solid #00FFF7;
@@ -326,13 +289,11 @@ input[type="checkbox"] {
     font-weight: 500;
 }
 
-
 .btn-confirmar{
     background: linear-gradient(300deg, #00524d,#00FFF7);
     border: 1px solid #00FFF7;
     font-weight: 500;
 }
-
 
 .btn-confirmar:hover{
     background: linear-gradient(300deg, #00fff7, #005254);

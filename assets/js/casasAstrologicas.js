@@ -1,36 +1,34 @@
 /* ═══════════════════════════════════════════════
-    DATA & RENDERING
+    casas.js — espelho de posicionamentos.js
+    Lógica idêntica, adaptada para Casas Astrológicas
 ═══════════════════════════════════════════════ */
 
-function getAstroParam() {
-    return new URLSearchParams(window.location.search).get('astro') || null;
+function getCasaParam() {
+    return new URLSearchParams(window.location.search).get('casa') || null;
 }
 
-function setAstroParam(id) {
+function setCasaParam(id) {
     const url = new URL(window.location);
-    url.searchParams.set('astro', id);
+    url.searchParams.set('casa', id);
     window.history.pushState({}, '', url);
 }
 
 function buildNavLinks(data) {
-    // Popula os submenus do nav.js com os astros do JSON
-    // nav.js já injetou o menu; os <ul> abaixo existem no DOM agora
-    // nav.js usa um único <ul id="desktop-astros-menu"> para desktop e mobile
-    const navMenu = document.getElementById('desktop-astros-menu');
+    const navMenu = document.getElementById('desktop-casas-menu'); // ajuste conforme seu nav.js
     const selectorEl = document.getElementById('opcaoSelector');
 
     if (navMenu) navMenu.innerHTML = '';
     if (selectorEl) selectorEl.innerHTML = '';
 
-    data.posicionamentos.forEach(p => {
+    data.casas.forEach(c => {
 
-        // ── Submenu do nav (desktop hover + mobile drawer) ──
+        // ── Submenu do nav ──
         if (navMenu) {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            a.href = `?astro=${p.id}`;
-            a.textContent = `${p.nome} ${p.simbolo}`;
-            a.addEventListener('click', e => { e.preventDefault(); loadAstro(p.id, data); });
+            a.href = `?casa=${c.id}`;
+            a.textContent = `${c.numero}ª Casa — ${c.nome}`;
+            a.addEventListener('click', e => { e.preventDefault(); loadCasa(c.id, data); });
             li.appendChild(a);
             navMenu.appendChild(li);
         }
@@ -39,50 +37,50 @@ function buildNavLinks(data) {
         if (selectorEl) {
             const pill = document.createElement('button');
             pill.className = 'opcao-pill';
-            pill.dataset.astroId = p.id;
-            pill.innerHTML = `<span class="pill-symbol">${p.simbolo}</span>${p.nome}`;
-            pill.addEventListener('click', () => loadAstro(p.id, data));
+            pill.dataset.casaId = c.id;
+            pill.innerHTML = `<span class="pill-numero">${c.numero}ª</span>${c.nome}`;
+            pill.addEventListener('click', () => loadCasa(c.id, data));
             selectorEl.appendChild(pill);
         }
     });
 }
 
-function loadAstro(id, data) {
-    const pos = data.posicionamentos.find(p => p.id === id);
+function loadCasa(id, data) {
+    const casa = data.casas.find(c => c.id === id);
     const content = document.getElementById('conteudoDaPagina');
 
     // Atualiza pill ativa
     document.querySelectorAll('.opcao-pill').forEach(p => {
-        p.classList.toggle('active', p.dataset.astroId === id);
+        p.classList.toggle('active', p.dataset.casaId === id);
     });
 
-    if (!pos) {
-        document.title = 'Posicionamentos — Vura Astrology';
-        document.getElementById('icone-principal').textContent = '✦';
-        document.getElementById('titulo-principal').textContent = 'Posicionamento não encontrado';
+    if (!casa) {
+        document.title = 'Casas Astrológicas — Vura Astrology';
+        document.getElementById('icone-principal').textContent = '⌂';
+        document.getElementById('titulo-principal').textContent = 'Casa não encontrada';
         content.innerHTML = `
             <div class="not-found">
-                <div class="big-symbol">✦</div>
-                <h2>Astro não encontrado</h2>
-                <p>Escolha um posicionamento acima para explorar.</p>
+                <div class="big-symbol">⌂</div>
+                <h2>Casa não encontrada</h2>
+                <p>Escolha uma casa acima para explorar.</p>
             </div>`;
         return;
     }
 
-    document.title = `${pos.nome} nos Signos — Vura Astrology`;
-    document.getElementById('icone-principal').textContent = `${pos.nome} ${pos.simbolo}`;
-    document.getElementById('titulo-principal').textContent = `${pos.nome} no Mapa Astral`;
+    document.title = `${casa.numero}ª Casa — ${casa.nome} — Vura Astrology`;
+    document.getElementById('icone-principal').textContent = `${casa.numero}ª Casa`;
+    document.getElementById('titulo-principal').textContent = `A Casa de ${casa.nome}`;
 
-    setAstroParam(id);
+    setCasaParam(id);
 
-    const signosHTML = pos.signos.map((s, i) => `
+    const signosHTML = casa.signos.map((s, i) => `
         <div class="sign-section" style="animation-delay:${(i * 0.05 + 0.05).toFixed(2)}s">
             <div class="sign-img-wrap">
                 <img src="${s.imagem}" alt="${s.signo}" onerror="this.style.display='none'">
                 <span class="sign-glyph">${s.simbolo}</span>
             </div>
             <div class="sign-body">
-                <h2>${pos.nome} em ${s.signo} ${s.simbolo}</h2>
+                <h2>${s.signo} ${s.simbolo} na ${casa.numero}ª Casa</h2>
                 <p>${s.texto}</p>
             </div>
         </div>
@@ -90,8 +88,8 @@ function loadAstro(id, data) {
 
     content.innerHTML = `
         <div class="intro-block">
-            <h2>${pos.nome} ${pos.simbolo} — visão geral</h2>
-            <p>${pos.introducao}</p>
+            <h2>${casa.numero}ª Casa — ${casa.nome} — visão geral</h2>
+            <p>${casa.introducao}</p>
         </div>
         ${signosHTML}
     `;
@@ -104,14 +102,14 @@ function loadAstro(id, data) {
 ═══════════════════════════════════════════════ */
 async function init() {
     try {
-        const res = await fetch('./assets/data/posicionamentos.json');
+        const res = await fetch('./assets/data/casas.json');
         if (!res.ok) throw new Error('JSON not found');
         const data = await res.json();
 
         buildNavLinks(data);
 
-        const param = getAstroParam() || data.posicionamentos[0].id;
-        loadAstro(param, data);
+        const param = getCasaParam() || data.casas[0].id;
+        loadCasa(param, data);
 
     } catch (err) {
         console.error(err);
@@ -119,7 +117,7 @@ async function init() {
             <div class="not-found">
                 <div class="big-symbol">⚠</div>
                 <h2>Erro ao carregar dados</h2>
-                <p>Verifique se o arquivo <code>data/posicionamentos.json</code> está no lugar certo.</p>
+                <p>Verifique se o arquivo <code>data/casas.json</code> está no lugar certo.</p>
             </div>`;
     }
 }

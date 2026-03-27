@@ -1,14 +1,7 @@
-/* ── Reset geral: remove margin, padding e ajusta box-sizing em todos os elementos ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 /* ── Variáveis globais de cor e estilo reutilizadas em todo o arquivo ── */
 :root {
-  --bg:           #060e0b;                  /* Cor de fundo da página */
   --card:         #0d1f17;                  /* Cor de fundo base do card (referência) */
-  --border:       rgba(0, 82, 77, 0.70);   /* Cor padrão das bordas */
   --border-focus: rgba(0, 82, 77, 1);      /* Cor da borda quando o input está em foco */
-  --text:         #ffffff;                  /* Cor principal dos textos */
-  --muted:        rgba(255, 255, 255, 0.6);/* Cor de textos secundários/apagados */
   --accent:       #D4FFFE;                  /* Cor de destaque (botão, títulos, radio ativo) */
   --accent-dark:  #A9F0EC;                  /* Variação mais escura do destaque (texto dos inputs) */
   --input-bg:     rgba(52, 101, 75, 0.40); /* Fundo dos campos de input */
@@ -117,7 +110,7 @@ h1 {
 }
 
 /* ── Linha divisória entre o avatar e os campos do formulário ── */
-.divider {
+.divisor {
   border: none;
   border-top: 1px solid rgba(0, 82, 77, 0.70);
   margin: 0 0 22px;
