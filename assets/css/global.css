@@ -40,26 +40,74 @@ html { scroll-behavior: smooth; }
     --font-display: 'Cinzel', serif;
     --font-body:    'Raleway', sans-serif;
     --font-accent:  'Pinyon Script', cursive;
+    --cor-font-cards: white;
+    --brilho-cards:  0 0 60px #a574e5b7;
+    --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
+    --fundo-signo : radial-gradient(#0000002d,#000) ,url("../imagens/Gemini_Generated_Image_63v7ub63v7ub63v7.png");
+    --card-teste :  radial-gradient(
+             140% 110% at 75% 20%,
+            rgba(0, 0, 0, 0.556) 15%,
+            #45afaab7 35%,
+            #99eec8a5 45%,
+            #1c434ac3 60%
+        );
+    
 }
 
 [data-theme="tempestade"] {
-    --bg: #050512;
-    --surface: #0d0d1f;
-    --border: rgba(255, 20, 147, 0.25);
-    --teal: #FF1493;        /* rosa choque */
-    --teal-light: #FF8C00;  /* laranja */
-    --text: #FFDAB9;
-    --muted: rgba(255, 218, 185, 0.5);
+    --bg: #1f0c1f;   /*cores do fundo*/
+    --surface: #100D22; /* parte de baixo do menu*/
+    --border: #642e3d;
+    --teal: #CA1158;        /* rosa choque */
+    --teal-light: #FFC1DB ;  /* TEXTOS*/
+    --text: #F0CEA9; /* TÍTULO PRINCIPAL*/
+    --muted: #ae5d6aee;
+    --cor-font-cards: white;
+    --brilho-cards:  0 0 40px  #EC385F;
+    --fundo-signo : radial-gradient(#0000005c,#2810223d,#23101e17) ,url("../imagens/tempestade_solar.jpeg");
+    --imagem-cor:   drop-shadow(0 0 18px #C11630);
+    --card-teste :radial-gradient(
+             115% 120% at 100% 28%,
+             #6B0C23 4%,
+            #dd3532c6 10%,
+            #ffecd3c6 10.15%,
+            #f8605275 6%,
+            #7b0c33d1 10%,
+            #d30b5b27 35%,
+            #f9639c62 12%,
+            #f3648175 20%,
+            #B81730 45%,
+            #A91726 50%,
+            #BF163D 40%,
+            #550A1F 60%,
+            #A71D24 70%,
+            #d30b5b34 80%
+
+        );
 }
 
 [data-theme="orion"] {
-  --bg: #F1EEF7;            /* mais claro */
-  --surface: #D6D1EB;       /* mais separado */
-  --border: rgba(120, 100, 200, 0.25);
-  --teal: #8E7CC3;          /* mais forte */
-  --teal-light: #B8AFFF;
-  --text: #2E2E5E;          /* MAIS ESCURO */
-  --muted: rgba(46, 46, 94, 0.6);
+  --bg: #DAE0F2;            /* mais claro / cor de fundo background e cor de cima do menu */
+  --surface: #E6E6FA;       /* mais separado/ COr do fundo do menu e do footer */
+  --border: #814fde;
+  --teal: #552d9e;          /* mais forte */
+  --teal-light: #4a4192;
+  --text: #552d9e;          /* MAIS ESCURO titulo principal */
+  --muted: #000000;
+  --cor-font-cards: #43267a;
+  --brilho-cards:  0 0 40px  #552d9e;
+  --fundo-signo : radial-gradient(#756fa44e,#4a31c644) ,url("../imagens/nebulosa_orion.jpeg");
+    --imagem-cor:   drop-shadow(0 0 18px #552d9e);
+  --card-teste :radial-gradient(
+             140% 110% at 20% 10%,
+             #dae0f266 25%,
+             #c6cee5 10%,
+            #cfc3e378 19%,
+            #8958d86a 20%,
+            #DAE0F2 60%,
+            #7231ae29 35%
+           
+        );
 }
 
 [data-theme="eclipse"] {
@@ -70,6 +118,16 @@ html { scroll-behavior: smooth; }
   --teal-light: #C0C0C0;
   --text: #FFFFFF;
   --muted: rgba(255, 255, 255, 0.5);
+  --fundo-signo : black;
+  --cor-font-cards: white;
+   --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
+  --card-teste :radial-gradient(
+             140% 110% at 75% 20%,
+            rgba(0, 0, 0, 0.556) 15%,
+            #45afaab7 35%,
+            #99eec8a5 45%,
+            #1c434ac3 60%
+        );
 }
 
 [data-theme="alvorada"] {
@@ -79,7 +137,16 @@ html { scroll-behavior: smooth; }
   --teal: #FFCCBC;
   --teal-light: #4DD0E1;
   --text: #5D4037;
+  --cor-font-cards: white;
   --muted: rgba(93, 64, 55, 0.5);
+   --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
+  --card-teste :radial-gradient(
+             140% 110% at 75% 20%,
+            rgba(0, 0, 0, 0.556) 15%,
+            #45afaab7 35%,
+            #99eec8a5 45%,
+            #1c434ac3 60%
+        );
 }
 
 /* transição suave em todo o layout */
@@ -397,7 +464,7 @@ body::before {
 }
 
 .sign-section:hover .sign-img-wrap img {
-    filter: drop-shadow(0 0 18px rgba(126,245,222,0.4));
+    filter: var(--imagem-cor);
 }
 
 .sign-glyph { 
