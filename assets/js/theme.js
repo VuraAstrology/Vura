@@ -1,7 +1,7 @@
 const TEMAS = [
   {
     id: 'noite',
-    nome: 'Noite',
+    nome: 'Vura',
     desc: 'Escuro profundo',
     attr: null,
     previewBg: '#0a1520',
@@ -13,18 +13,18 @@ const TEMAS = [
     nome: 'Tempestade Solar',
     desc: 'Energia intensa',
     attr: 'tempestade',
-    previewBg: '#050512',
-    bars: ['#DC143C', '#FF1493', '#FF8C00'],
-    cor: '#FF8C00'
+    previewBg: '#2A0C1E',
+    bars: ['#910826', '#AC1950', '#FFFAED'],
+    cor: '#F79DA6'
   },
   {
     id: 'orion',
     nome: 'Nebulosa de Orion',
     desc: 'Pastel suave',
     attr: 'orion',
-    previewBg: '#E6E1F0',
-    bars: ['#B39DDB', '#CCCCFF', '#FFD700'],
-    cor: '#B39DDB'
+    previewBg: '#eff7ff',
+    bars: ['#A594FD', '#C092F1', '#000541'],
+    cor: '#7F58F0'
   },
   {
     id: 'eclipse',
@@ -37,12 +37,12 @@ const TEMAS = [
   },
   {
     id: 'alvorada',
-    nome: 'Alvorada Cósmica',
-    desc: 'Claro quente',
+    nome: 'Tempestade de Inverno',
+    desc: 'Claro frio',
     attr: 'alvorada',
-    previewBg: '#FFF5ED',
-    bars: ['#FFCCBC', '#FFD54F', '#4DD0E1'],
-    cor: '#FFCCBC'
+    previewBg: '#AFD0EC',
+    bars: ['#e6f0fc', '#013C63', '#6678d4'],
+    cor: '#3886b4'
   }
 ];
 
