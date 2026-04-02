@@ -32,6 +32,7 @@ main{
 }
 
  h2{    /* texto inicial*/
+    color: var(--cor-font-cards);
     font-family: 'Cinzel', serif;
     font-weight: 400;
     font-size: 25px;

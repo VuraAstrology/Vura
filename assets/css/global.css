@@ -43,7 +43,7 @@ html { scroll-behavior: smooth; }
     --cor-font-cards: white;
     --brilho-cards:  0 0 60px #a574e5b7;
     --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
-    --fundo-signo : radial-gradient(#0000002d,#000) ,url("../imagens/Gemini_Generated_Image_63v7ub63v7ub63v7.png");
+    --fundo-signo : radial-gradient(#0000002d,#000) ,url("../imagens/vura_fundo.png");
     --card-teste :  radial-gradient(
              140% 110% at 75% 20%,
             rgba(0, 0, 0, 0.556) 15%,
@@ -63,7 +63,7 @@ html { scroll-behavior: smooth; }
     --text: #F0CEA9; /* TÍTULO PRINCIPAL*/
     --muted: #ae5d6aee;
     --cor-font-cards: white;
-    --brilho-cards:  0 0 40px  #EC385F;
+    --brilho-cards:  0 0 40px  #057569;
     --fundo-signo : radial-gradient(#0000005c,#2810223d,#23101e17) ,url("../imagens/tempestade_solar.jpeg");
     --imagem-cor:   drop-shadow(0 0 18px #C11630);
     --card-teste :radial-gradient(
@@ -72,40 +72,45 @@ html { scroll-behavior: smooth; }
             #dd3532c6 10%,
             #ffecd3c6 10.15%,
             #f8605275 6%,
-            #7b0c33d1 10%,
+            #7b0c3396 10%,
             #d30b5b27 35%,
+            #45001b34 20%,
             #f9639c62 12%,
             #f3648175 20%,
             #B81730 45%,
             #A91726 50%,
             #BF163D 40%,
-            #550A1F 60%,
-            #A71D24 70%,
-            #d30b5b34 80%
+            #4b091bc0 60%,
+            #a71d24cd 70%,
+            #45001b34 80%,
+            #230e1b 81.1%
 
         );
 }
 
 [data-theme="orion"] {
-  --bg: #DAE0F2;            /* mais claro / cor de fundo background e cor de cima do menu */
+  --bg: #Dce1f0;            /* mais claro / cor de fundo background e cor de cima do menu */
   --surface: #E6E6FA;       /* mais separado/ COr do fundo do menu e do footer */
-  --border: #814fde;
-  --teal: #552d9e;          /* mais forte */
-  --teal-light: #4a4192;
-  --text: #552d9e;          /* MAIS ESCURO titulo principal */
-  --muted: #000000;
-  --cor-font-cards: #43267a;
-  --brilho-cards:  0 0 40px  #552d9e;
+  --border: #d0bcfc;
+  --teal: #7952b4;          /* mais forte */
+  --teal-light: #0f0081;
+  --text: #552d9ee6;          /* MAIS ESCURO titulo principal */
+  --muted: #1a132a;
+  --cor-font-cards: #080808;
+  --brilho-cards:  0 0 40px  #ADEBFF;
   --fundo-signo : radial-gradient(#756fa44e,#4a31c644) ,url("../imagens/nebulosa_orion.jpeg");
     --imagem-cor:   drop-shadow(0 0 18px #552d9e);
   --card-teste :radial-gradient(
-             140% 110% at 20% 10%,
-             #dae0f266 25%,
-             #c6cee5 10%,
-            #cfc3e378 19%,
-            #8958d86a 20%,
-            #DAE0F2 60%,
-            #7231ae29 35%
+             100% 150% at 90% 2%,
+             #552d9e2d 2%,
+             #cca9e878 8%,
+             #c3beef9b 11%,
+            #cadffd9a 29%,
+            #c3beef32 20%,
+            #9187f5 50%,
+            #cadffde4 65%,
+            #552d9ee6 75%
+            
            
         );
 }
@@ -113,39 +118,45 @@ html { scroll-behavior: smooth; }
 [data-theme="eclipse"] {
   --bg: #000000;
   --surface: #0a0a0a;
-  --border: rgba(255, 255, 255, 0.2);
+  --border: rgba(255, 255, 255, 0.23);
   --teal: #FFFFFF;
   --teal-light: #C0C0C0;
   --text: #FFFFFF;
-  --muted: rgba(255, 255, 255, 0.5);
+  --muted: rgba(255, 255, 255, 0.389);
   --fundo-signo : black;
   --cor-font-cards: white;
-   --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
-  --card-teste :radial-gradient(
-             140% 110% at 75% 20%,
-            rgba(0, 0, 0, 0.556) 15%,
-            #45afaab7 35%,
-            #99eec8a5 45%,
-            #1c434ac3 60%
+  --brilho-cards:  0 0 40px  #d7caee;
+   --imagem-cor:   drop-shadow(0 0 18px rgba(238, 248, 246, 0.537));
+  --card-teste :radial-gradient( 
+             140% 110% at 75% 25%,
+             #000 5%,
+            rgba(0, 0, 0, 0.966) 15%,
+            #1b2121b7 35%,
+            #ffffffa6 38%,
+            #eef2ff63 10%,
+            #1b1f20c3 50%
         );
 }
 
 [data-theme="alvorada"] {
-  --bg: #FFF5ED;
-  --surface: #FFEDE3;
-  --border: rgba(255, 204, 188, 0.4);
-  --teal: #FFCCBC;
-  --teal-light: #4DD0E1;
-  --text: #5D4037;
-  --cor-font-cards: white;
-  --muted: rgba(93, 64, 55, 0.5);
-   --imagem-cor:   drop-shadow(0 0 18px rgba(126,245,222,0.4));
+  --bg: #eff7ff;
+  --surface: #c7d2f0;
+  --border: #3571A7;
+  --teal: #2b6a6d;
+  --teal-light: #17506a;
+  --text: #17056a; /* texto principal*/
+  --cor-font-cards: #0F2743;
+  --muted: #000000b9;
+  --brilho-cards:  0 0 40px  #ADEBFF;
+   --imagem-cor:   drop-shadow(0 0 18px #BAD6FD);
+   --fundo-signo : radial-gradient( #7C9ECC,#8fbfe5, #285F86);
   --card-teste :radial-gradient(
-             140% 110% at 75% 20%,
-            rgba(0, 0, 0, 0.556) 15%,
-            #45afaab7 35%,
-            #99eec8a5 45%,
-            #1c434ac3 60%
+             140% 110% at 75% 30%,
+            #E6F0FC 15%,
+            #8FBFE5 25%,
+            #5B88B2 45%,
+            #386f9e 60%,
+            #122c4fa5 62%
         );
 }
 
