@@ -1,121 +1,133 @@
-*{
-    margin: 0;                       
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --mapas-card-bg: var(--surface);
+    --mapas-item-bg: color-mix(in srgb, var(--bg) 75%, var(--surface) 25%);
+    --mapas-item-highlight: color-mix(in srgb, var(--teal) 16%, transparent);
+    --mapas-soft-text: color-mix(in srgb, var(--muted) 84%, var(--text) 16%);
+    --mapas-focus-ring: color-mix(in srgb, var(--teal) 24%, transparent);
 }
 
-
-body{
+body {
     background-color: var(--bg);
-    color: aliceblue;
+    color: var(--text);
     display: flex;
     flex-direction: column;
 }
 
-main{
+main {
     flex: 1 0 auto;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    padding-bottom: 54px;
 }
 
-
-
-.card{
-    background: linear-gradient(to bottom, #002826 10%, #45867A 100%);   
-    padding: 30px;
-    max-width: 95%;
-    margin-left: auto;       /* cards com os registros deletar/ adicionar*/
-    margin: auto;
-    border-radius: 20px;
-    border: 1.7px solid white;
-    
+#gerenciamento,
+#apagar {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
- h2{    /* texto inicial*/
-    color: var(--cor-font-cards);
-    font-family: 'Cinzel', serif;
+h2 {
+    color: var(--text);
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 25px;
-    letter-spacing: 3px;
+    font-size: clamp(1.35rem, 4vw, 1.8rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     text-align: center;
-    margin: 32px 0 24px;
-
+    margin: 32px 0 20px;
 }
 
+.card {
+    background: var(--mapas-card-bg);
+    padding: 28px 22px;
+    width: 100%;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--border) 45%, transparent), 0 14px 30px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
 
-#dados_armazenados{
+#dados_armazenados {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 4px 14px;
 }
 
-#dados_armazenados p{
-    color: #adf8ea;
-    font-size: medium;
-    font-weight: 150;
+#dados_armazenados p {
+    color: var(--mapas-soft-text);
+    font-size: 0.94rem;
+    font-weight: 400;
 }
 
-
-#adicionar{ /* botão de adicionar um novo mapa a lista de registros armazendos*/
-    background-color: #01aba0;      
-    color: white;
-    padding: 10px;
+#adicionar {
+    background: color-mix(in srgb, var(--teal) 20%, transparent);
+    color: var(--teal-light);
+    padding: 10px 14px;
     border-radius: 10px;
-    border: 1px solid white;
+    border: 1px solid var(--teal);
     cursor: pointer;
-    font-weight: 300;
-    transition: all ease 0.5s;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    transition: background .25s, box-shadow .25s;
 }
 
-#adicionar:hover{
-    background: linear-gradient(to right,#000, #00524D );
+#adicionar:hover {
+    background: color-mix(in srgb, var(--teal) 28%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--teal) 26%, transparent);
 }
 
-#deletar{
-    background-color: #00524D;
-    width: 90%;
-    padding: 13px;
-    color: white;
-    border: 1px solid white;
+#deletar {
+    width: min(360px, 95%);
+    padding: 12px;
+    color: var(--teal-light);
+    border: 1px solid var(--teal);
     border-radius: 10px;
+    background: color-mix(in srgb, var(--teal) 14%, transparent);
     cursor: pointer;
-    position: relative;
-    transition: ease 0.5s;
-    cursor: pointer;
+    transition: background .25s, box-shadow .25s;
 }
 
-#deletar:hover{
-    background: linear-gradient(to right,#000, #00524D );
-    border-color: #59eff7;
+#deletar:hover {
+    background: color-mix(in srgb, var(--teal) 22%, transparent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--teal) 24%, transparent);
 }
 
-#container-card{
-    width: 100%;
-    position: relative;
+#container-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
-.instrucoes{
-    color: #36ddcc;
+.instrucoes {
+    color: var(--mapas-soft-text);
 }
 
-.lista_delet{
-    color: #B396E7;
-    font-size: 1.1rem;
+.lista_delet {
+    color: var(--teal-light);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 6px 0 12px;
 }
 
-#confirmacao{
-    color: #AFFFF6;
+.item-remove-icon {
+    font-size: 14px;
+    color: var(--teal-light);
+    vertical-align: middle;
 }
 
-#apagar{
-    margin-top: 35px;
+#confirmacao {
+    color: var(--text);
+    padding: 14px 0;
+}
+
+#apagar {
+    margin-top: 30px;
 }
 
 .todos_registros {
@@ -123,169 +135,201 @@ main{
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 20px; /* Espaço entre a lista e o botão de deletar */
+    margin-bottom: 20px;
 }
 
-/* Container de cada item da lista */
 .map-item {
-    display: flex;                /* Alinha os filhos em linha */
-    justify-content: space-between; /* Empurra o texto para um lado e o check para o outro */
-    align-items: center;          /* Centraliza verticalmente o ícone, texto e check */
-
-    background: rgba(51, 0, 203, 0.05); /* Exemplo de cor de fundo */
-    border: 1px solid #00c2cb;     /* Sua cor de destaque */
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    width: 90%;                   /* Para alinhar com a largura do seu botão */
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--mapas-item-bg);
 }
 
-/* Garante que o ícone e o nome fiquem juntos na esquerda */
 .info-group {
     display: flex;
     align-items: center;
-    gap: 10px;                    /* Espaço entre o emoji/badge e o nome */
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-/* Opcional: Ajuste do tamanho do checkbox para não ficar pequeno demais */
-input[type="checkbox"] {
+.name-text {
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.badge-eu {
+    color: var(--teal-light);
+    font-size: 0.74rem;
+    font-family: var(--font-display);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.check-vura {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    margin-left: 10px;            /* Garante um respiro do texto */
+    accent-color: var(--teal);
 }
 
-/* Container que segura o ícone, nome e botões */
-.info-group {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* O ícone do Google */
 .icon-vura {
-    color: #00c2cb; /* Sua cor ciano */
+    color: var(--teal);
     font-size: 28px;
     display: flex;
     align-items: center;
 }
 
-/* O item da lista (Flexbox para o checkbox ficar do lado) */
-.map-item {
-    display: flex;
-    justify-content: space-between; /* Texto na esquerda, Check na direita */
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ffffff3d;
-    border-radius: 15px;
-    margin-bottom: 12px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-/* Classe de destaque para o usuário principal */
 .destaque-usuario {
-    border: 1.5px solid #59eff7 !important;
-    background: #00fff725 !important;
+    border: 1px solid var(--teal) !important;
+    background: var(--mapas-item-highlight) !important;
 }
 
-/* Garante que a tela suma quando necessário */
 .escondido {
     display: none !important;
 }
 
-.actions button{
-    padding: 6px;
-    gap: 10px;
-    border-radius: 6px;
-    border: 1.5px solid white;
-    color: white;
-    font-weight: 100;
-    background: #12645f;
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.actions button,
+.btn-outline {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--teal-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, var(--teal) 8%, transparent);
     cursor: pointer;
-    transition: all ease 0.5s;
+    transition: background .22s, border-color .22s;
 }
 
-.actions button:hover{
-   background: linear-gradient(300deg, #000, #00524D);
-   border-color:#59eff7 ;
+.actions button:hover,
+.btn-outline:hover {
+    background: color-mix(in srgb, var(--teal) 20%, transparent);
+    border-color: var(--teal);
 }
 
-.card-content{
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto ;
-    line-height: 2;
+.card-content,
+.card-confirm {
+    width: min(700px, 100%);
+    margin: 0 auto;
+    line-height: 1.8;
 }
 
-#confirmacao{
-    padding: 20px;
+.label-senha {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
 }
 
-#senha_vura{
-    padding: 15px;
-    width: 90%;
+#senha_vura {
+    padding: 12px 14px;
+    width: min(420px, 100%);
     border-radius: 10px;
-    background: #34654b39;
-    border: 1px solid #00FFF7;
+    background: var(--mapas-item-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
 }
 
-#senha_vura::placeholder{
-    color: #fff;
+#senha_vura::placeholder {
+    color: var(--mapas-soft-text);
 }
 
-#senha_vura:focus{
-    background-color: #5db2a77c;
-    border-color: #00c1cbb1;
-    color: #002826;
+#senha_vura:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 2px var(--mapas-focus-ring);
     outline: none;
 }
 
-.card-confirm{
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.divisor-confirmacao {
+    border: none;
+    border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    margin: 20px 0;
+}
+
+.card-confirm {
     text-align: center;
-    line-height: 2;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
-.yn{
+.yn {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
 }
 
-/* botões de sim e não formatações*/
-.btn-main{
+.btn-main {
     padding: 10px;
-    width: 100px;
+    width: 110px;
     border-radius: 10px;
-    border: none;
-    font-size: 1rem;
-    font-family:'Cinzel', serif;
+    border: 1px solid var(--teal);
+    font-size: 0.8rem;
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-.btn-cancelar{
-    background: linear-gradient(300deg, #000, #03655e);
-    border: 1px solid #00FFF7;
-    color: white;
-    font-weight: 500;
+.btn-cancelar,
+.btn-confirmar {
+    color: var(--teal-light);
+    background: color-mix(in srgb, var(--teal) 14%, transparent);
 }
 
-.btn-confirmar{
-    background: linear-gradient(300deg, #00524d,#00FFF7);
-    border: 1px solid #00FFF7;
-    font-weight: 500;
+.btn-confirmar:hover,
+.btn-cancelar:hover {
+    background: color-mix(in srgb, var(--teal) 24%, transparent);
 }
 
-.btn-confirmar:hover{
-    background: linear-gradient(300deg, #00fff7, #005254);
+[data-theme="orion"] {
+    --mapas-card-bg: color-mix(in srgb, var(--surface) 90%, #ffffff 10%);
+    --mapas-item-bg: color-mix(in srgb, var(--bg) 64%, #ffffff 36%);
 }
 
-.btn-cancelar:hover{
-    background: linear-gradient(300deg, #03655e, #000);
+[data-theme="alvorada"] {
+    --mapas-card-bg: color-mix(in srgb, var(--surface) 90%, #ffffff 10%);
+    --mapas-item-bg: color-mix(in srgb, var(--bg) 58%, #ffffff 42%);
+}
+
+[data-theme="eclipse"] {
+    --mapas-card-bg: color-mix(in srgb, var(--surface) 90%, #101010 10%);
+    --mapas-item-bg: color-mix(in srgb, var(--bg) 80%, #0c0c0c 20%);
+}
+
+@media (max-width: 760px) {
+    #dados_armazenados {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .map-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .check-vura {
+        align-self: flex-end;
+    }
+
+    .actions {
+        width: 100%;
+    }
+
+    .actions button,
+    .btn-outline {
+        flex: 1;
+    }
 }
