@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vura Astrology | Criar Conta</title>
+  <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <link rel="stylesheet" href="./assets/css/menu.css">
+  <link rel="stylesheet" href="./assets/css/footer.css">
+  <link rel="stylesheet" href="./assets/css/cadastro.css">
+</head>
+
+<body>
+  <div id="vura-nav"></div>
+
+  <main class="cadastro-pagina">
+    <header class="cadastro-cabecalho">
+      <h1 class="cadastro-titulo">Criar Conta</h1>
+      <p class="cadastro-subtitulo">Cadastre-se no Meu Vura e personalize sua experiência astral.</p>
+      <div class="cadastro-divider"></div>
+    </header>
+
+    <section class="cadastro-cartao" aria-label="Formulário de criação de conta">
+      <form class="cadastro-formulario" autocomplete="on">
+        <div class="cadastro-campo">
+          <label for="name" class="cadastro-label">Nome</label>
+          <input id="name" name="name" class="cadastro-input" type="text" placeholder="Seu nome completo" required>
+        </div>
+
+        <div class="cadastro-campo">
+          <label for="email" class="cadastro-label">E-mail</label>
+          <input id="email" name="email" class="cadastro-input" type="email" placeholder="voce@exemplo.com" required>
+        </div>
+
+        <div class="cadastro-campo">
+          <label for="password" class="cadastro-label">Senha</label>
+          <input id="password" name="password" class="cadastro-input" type="password" placeholder="••••••••" required>
+        </div>
+
+        <div class="cadastro-campo">
+          <label for="confirmPassword" class="cadastro-label">Confirmar senha</label>
+          <input id="confirmPassword" name="confirmPassword" class="cadastro-input" type="password" placeholder="••••••••" required>
+        </div>
+
+        <button class="cadastro-botao" type="submit">Criar conta</button>
+      </form>
+
+      <p class="cadastro-rodape">
+        Já possui conta?
+        <a href="./login.html" class="cadastro-link">Fazer login</a>
+      </p>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="./assets/js/menu.js"></script>
+  <script src="./assets/js/footer.js"></script>
+  <script src="./assets/js/theme.js"></script>
+</body>
+
+</html>
