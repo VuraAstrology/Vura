@@ -81,6 +81,8 @@
                                     <p>Meu Vura</p>
                                     <span>Bem-vindo(a)!</span>
                                 </li>
+                                <li><a href="./login.html"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
+                                <li><a href="./cadastro.html"><i class="fa-solid fa-user-plus"></i> Criar Conta</a></li>
                                 <li><a href="./mandala.html"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
                                 <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
                                 <li><a href="./mapas.html"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
