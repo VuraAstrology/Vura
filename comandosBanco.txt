@@ -37,3 +37,28 @@ INSERT INTO signo (nome, elemento) VALUES
 ('Câncer','Água'),
 ('Escorpião','Água'),
 ('Peixes','Água');
+
+
+-- Criação da tabela de Astro
+
+CREATE TABLE astro(
+  id_astro INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(20) NOT NULL,
+  descricao VARCHAR(150) NOT NULL
+);
+
+INSERT INTO astro(nome, descricao) VALUES
+('Sol','Sua essência e força vital'),
+('Lua','Suas emoções e instintos'),
+('Mercúrio','Sua comunicação e intelecto'),
+('Júpter','Sua expansão e sorte' ),
+('Saturno','Sua disciplina e Limites'),
+('Urano','Sua liberdade e Inovação'),
+('Netuno','Sua intuição e sonhos'),
+('Plutão','Renascimento através da transformação radical'),
+('Quíron','Cura através da aceitação'),
+('Lilith','Desejo, rebeldia e força instintiva'),
+('Meio do céu','Legado, carreira e destino público'),
+('Ascendente','Máscara social e expressão pessoal'),
+('Marte','Energia, instinto, conquista, luta, iniciativa'),
+('Vênus','Harmonia, Beleza e Desejo');
