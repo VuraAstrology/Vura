@@ -62,3 +62,27 @@ INSERT INTO astro(nome, descricao) VALUES
 ('Ascendente','Máscara social e expressão pessoal'),
 ('Marte','Energia, instinto, conquista, luta, iniciativa'),
 ('Vênus','Harmonia, Beleza e Desejo');
+
+
+
+-- Criação da Tabela de Casas 
+
+CREATE TABLE casa(
+  numero_casa INT PRIMARY KEY NOT NULL,
+  area_vida VARCHAR(200) NOT NULL
+);
+
+INSERT INTO casa(numero_casa, area_vida) VALUES
+(1, 'Representa a forma como se apresenta e age no mundo'),
+(2, 'Representa os valores, bens materiais, revelam como busca estabilidade na vida'),
+(3, 'Representa o aprendizado, as relações próximas e a forma como expressa as ideias'),
+(4, 'Representa a base, família, raízes e o lar, mostrando como expressa o senso de segurança e origem'),
+(5, 'Representa a criatividade, prazeres, romances e a expressão pessoal na vida'),
+(6, 'Foco na rotina, saúde física, hábitos diários, trabalho operacional e organização prática da vida'),
+(7, 'Rege o casamento, parcerias de negócios, contratos e como nos relacionamos com o outro'),
+(8, 'Rege transformações, heranças, intimidade, crises, finanças de terceiros, além de morte e renascimento'),
+(9, 'Rege o ensino, viagens, filosofia e a busca por sentido na vida'),
+(10, 'Rege a imagem pública, ambições e o legado que você deixa no mundo'),
+(11, 'Rege projetos coletivos, vida social e seus ideais para o futuro'),
+(12, 'Associada à espiritualidade e ao isolamento, regendo o oculto, sacrifícios e dissolução do ego');
+
