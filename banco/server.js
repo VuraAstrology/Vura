@@ -3,6 +3,10 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const pool = require('./db');
 
+const nodemailer = require('nodemailer');
+
+
+
 const app = express();
 const PORT = 3000;
 
