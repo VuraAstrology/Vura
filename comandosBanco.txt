@@ -16,3 +16,24 @@ CREATE TABLE  usuarios (
     ON UPDATE CURRENT_TIMESTAMP,
   ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+-- Criacao da tabela de Signos
+CREATE TABLE signo(
+  id_signo INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(20) NOT NULL,
+  elemento VARCHAR(10) NOT NULL
+);
+
+INSERT INTO signo (nome, elemento) VALUES
+('Áries','Fogo'),
+('Leão','Fogo'),
+('Sagitário','Fogo'),
+('Touro','Terra'),
+('Virgem','Terra'),
+('Capricórnio','Terra'),
+('Gêmeos','Ar'),
+('Libra','Ar'),
+('Aquário','Ar'),
+('Câncer','Água'),
+('Escorpião','Água'),
+('Peixes','Água');
