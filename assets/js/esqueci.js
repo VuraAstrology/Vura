@@ -4,7 +4,9 @@ formulario.addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value.trim();
     const botaoEnviar = document.getElementById('enviar');
     botaoEnviar.disabled = true;
-    botaoEnviar.textContent = 'Enviando...';
+    botaoEnviar.textContent = "Enviando..."
+    botaoEnviar.style.backgroundColor = "#021D22";
+    
 
     try{
         const resposta = await fetch('https://localhost:3000/esqueci-senha',
@@ -22,6 +24,7 @@ formulario.addEventListener('submit', async (e) => {
         alert('Ocorreu um erro, foi ímposível conectar com o Servidor no Momento!! Por favor tente mais tarde!');
     } finally{
         botaoEnviar.disabled = false;
+        botaoEnviar.style.backgroundColor = "#1d6c61";
         botaoEnviar.textContent = 'Enviar';
     }
 });
