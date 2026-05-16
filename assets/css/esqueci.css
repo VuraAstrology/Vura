@@ -65,11 +65,11 @@ input{
     padding: 10px;
     border-radius: 10px;
     background: transparent;
+    color: #93ebc8;
 }
 
 input:focus{
     border: 1px solid #AFFDF0;
-    color: #93ebc8;
     outline: none;
 }
 
@@ -92,6 +92,12 @@ input:focus{
     transition: all ease 0.3s;
     border-radius: 10px;
     margin-top: 10px;
+    
+}
+
+input::placeholder{
+    color: #a0a0a0; 
+    opacity: 1;
 }
 
 
@@ -158,3 +164,4 @@ button:hover{
     text-transform: uppercase;
     
 }
+
