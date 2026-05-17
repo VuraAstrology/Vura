@@ -1,5 +1,5 @@
 // mandala.js
-const API_BASE = "https://vura-wine.vercel.app";
+const API_BASE = "http://localhost:3000";
 
 const pegarEl = (id) => document.getElementById(id);
 
