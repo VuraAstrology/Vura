@@ -3,7 +3,6 @@
 // { svg: "<svg>...</svg>" }
 
 export default async function handler(req, res) {
-  // CORS (para permitir seu GitHub Pages chamar esta API)
   const origem = req.headers.origin || "";
   const permitidas = [
     "https://vuraastrology.github.io",
@@ -15,10 +14,8 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Vary", "Origin");
-  // Preflight do navegador
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+
+  if (req.method === "OPTIONS") return res.status(200).end();
 
   try {
     if (req.method !== "POST") {
@@ -46,46 +43,47 @@ export default async function handler(req, res) {
     }
 
     const payload = {
-      name: String(dadosEntrada.name),
-      year: Number(dadosEntrada.year),
-      month: Number(dadosEntrada.month),
-      day: Number(dadosEntrada.day),
-      hour: Number(dadosEntrada.hour),
+      name:   String(dadosEntrada.name),
+      year:   Number(dadosEntrada.year),
+      month:  Number(dadosEntrada.month),
+      day:    Number(dadosEntrada.day),
+      hour:   Number(dadosEntrada.hour),
       minute: Number(dadosEntrada.minute),
 
-      city: String(dadosEntrada.city),
-      lat: Number(dadosEntrada.lat),
-      lng: Number(dadosEntrada.lng),
+      city:   String(dadosEntrada.city),
+      lat:    Number(dadosEntrada.lat),
+      lng:    Number(dadosEntrada.lng),
       tz_str: String(dadosEntrada.tz_str),
 
-      zodiac_type: dadosEntrada.zodiac_type || "tropical",
+      zodiac_type:  dadosEntrada.zodiac_type  || "tropical",
       house_system: dadosEntrada.house_system || "placidus",
 
-      format: "svg",
-      size: Number(dadosEntrada.size || 900),
-      theme_type: dadosEntrada.theme_type || "light",
+      format:        "svg",
+      size:          Number(dadosEntrada.size || 900),
+      theme_type:    dadosEntrada.theme_type || "light",
       show_metadata: true,
 
       display_settings: {
-        chiron: true,
-        lilith: true,
+        chiron:     true,
+        lilith:     true,
         north_node: true,
         south_node: true,
-        asc: true,
-        mc: true
+        asc:        true,
+        mc:         true
       },
 
       chart_config: {
-        show_color_background: false,
+        show_color_background:       false,
         sign_ring_thickness_fraction: 0.17,
         house_ring_thickness_fraction: 0.07,
-        planet_symbol_scale: 0.40,
-        sign_symbol_scale: 0.62
+        planet_symbol_scale:          0.40,
+        sign_symbol_scale:            0.62
       }
     };
 
+    // ✅ Endpoint atualizado: natal/experimental → natal/chart/
     const resposta = await fetch(
-      "https://astro-api-1qnc.onrender.com/api/v1/natal/experimental",
+      "https://astro-api-1qnc.onrender.com/api/v1/natal/chart/",
       {
         method: "POST",
         headers: {
@@ -98,7 +96,6 @@ export default async function handler(req, res) {
 
     if (!resposta.ok) {
       const textoErro = await resposta.text();
-
       let erroParseado;
       try { erroParseado = JSON.parse(textoErro); }
       catch { erroParseado = { raw: textoErro }; }
@@ -124,14 +121,10 @@ export default async function handler(req, res) {
 async function lerBodyJson(req) {
   return new Promise((resolve, reject) => {
     let bruto = "";
-
     req.on("data", (chunk) => (bruto += chunk));
     req.on("end", () => {
-      try {
-        resolve(bruto ? JSON.parse(bruto) : {});
-      } catch (e) {
-        reject(e);
-      }
+      try { resolve(bruto ? JSON.parse(bruto) : {}); }
+      catch (e) { reject(e); }
     });
   });
 }
