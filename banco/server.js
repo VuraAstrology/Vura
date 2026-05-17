@@ -2,6 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const pool = require('./db');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const { error } = require('console');
+
+
 
 const app = express();
 const PORT = 3000;
@@ -83,6 +88,43 @@ app.post('/login', async (req, res) => {
     return res.status(500).json({ erro: 'Erro interno no servidor.' });
   }
 });
+
+
+
+// _____ESQUECI A SENHA DA MINHA CONTA _______________________________________________________________________
+app.post('/esqueci-senha', async (req, res) =>{
+  const {email} = req.body;
+  try {
+    const [row] = await pool.query('SELECT * FROM usuarios WHERE email = ?',[email]);
+    if (rows.length === 0){
+      return res.status(404).json({erro: 'Usuário não encontrado.'});
+    }
+    const usuario = rows[0];
+    const token = crypto.randomBytes(32).toString('hex');
+    const expira = new Date(Date.now() + 1000 * 60 * 15 );
+    await pool.query('INSERT INTO recuperacao_senha (usuario_id, token, expira_em) VALUES (?,?,?)',[
+      usuario.id,
+      token,
+      expira
+    ]);
+    const link = 'https://localhost:5500/resetar.html?token=${token}';
+    await transporter.sendMail({
+      to: email,
+      subject: 'Recuperação de senha Vura',
+      html:'<h1>Recupere sua senha de acesso Vura</h1><br><a href="${link}" >Redefinir senha</a>'
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({erro: 'Ocorreu um erro interno.'});
+  }
+
+});
+
+//___________________RESETAR MINHA SENHA (nova senha/atualização)___________________________________________
+
+
+
+
 
 // ─── START ────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
