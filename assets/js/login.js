@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         storage.setItem('vura_usuario', JSON.stringify(dados.usuario));
 
         alert(dados.mensagem);
-        window.location.href = './index.html'; // redireciona para a home
+        window.location.href = './mandala.html'; // redireciona para a home
       } else {
         alert(dados.erro || 'Erro ao fazer login.');
       }
