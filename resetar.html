@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resetar Senha</title>
+    <link rel="stylesheet" href="./assets/css/esqueci.css">
+    <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <main>
+       
+        <section class="redefinir_senha">
+             <header>
+                <h1 class="pag-title">Recuperar Senha</h1>
+                <p class="subtitle">Defina uma nova senha de acesso Vura:</p>
+            </header>
+            
+            <form id="formulario_corfirmar_senha">
+                <label for="password">Digite a Senha</label><br>
+
+                <div class="senha">
+
+                  <input type="password" id="password" placeholder="••••••••" required>
+
+                  <div class="eye">
+                      <span class="open-eye"><i class="fa-solid fa-eye"></i></span>
+                      <span class="close-eye"><i class="fa-solid fa-eye-slash"></i></span>
+                  </div>
+                </div><br>
+                <label for="confirmpassword">Confirme sua Nova senha de acesso</label><br>
+                <div class="senha">
+
+                  <input type="password" id="confirmpassword" placeholder="••••••••" required>
+
+                  <div class="eye">
+                      <span class="open-eye"><i class="fa-solid fa-eye"></i></span>
+                      <span class="close-eye"><i class="fa-solid fa-eye-slash"></i></span>
+                  </div>
+
+                </div><br>
+                <button type="submit" id="salvar">salvar</button>
+            </form>
+            
+        </section>
+    </main>
+
+    <script src="./assets/js/resetar.js"></script>
+    
+</body>
+</html>

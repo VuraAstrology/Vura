@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Castoro+Titling&family=Cinzel:wght@400..900&family=Condiment&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Galdeano&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quintessential&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Titan+One&family=Uncial+Antiqua&display=swap');
+
+*{
+   
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+
+main{
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    padding: 20px;
+    
+    
+}
+
+body{
+    background: black;
+    font-family: cinzel, sans-serif;
+    color: #8ca9bf;
+    font-size: 1rem;
+}
+
+
+#voltar{
+    padding: 30px;
+    margin: 30px;
+}
+
+
+
+.redefinir_senha{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(#03080d,#0b3037,#031716);
+    border-radius: 20px;
+    margin-left: auto 10px;
+    margin-top: auto 15px;
+    border: 1px solid #09272d;
+   
+}
+
+form{
+    width: 90%;
+    text-align: center;
+    padding: 20px;
+
+}
+
+input{
+    width: 100%;
+    height: 40px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    background: transparent;
+    color: #93ebc8;
+}
+
+input:focus{
+    border: 1px solid #AFFDF0;
+    outline: none;
+}
+
+
+
+
+#email{
+    border: 1px solid #5a8a9b;
+    transition: all ease 0.3s;
+    margin-top: 10px;
+}
+
+#email:focus{
+    border: 1px solid  #AFFDF0;
+}
+
+.senha{
+    display: flex;
+    outline: 1px solid #5a8a9b;
+    transition: all ease 0.3s;
+    border-radius: 10px;
+    margin-top: 10px;
+    
+}
+
+input::placeholder{
+    color: #a0a0a0; 
+    opacity: 1;
+}
+
+
+
+
+.eye{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: inline-block;
+   
+}
+
+.eye i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all ease 0.3s;
+}
+
+
+.open-eye{
+    display: none;
+}
+
+
+button{
+    width: stretch;
+    font-family: cinzel, sans-serif;
+    font-size: 1.2rem;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #1d6c61;
+    color: #AFFDF0;
+    cursor: pointer;
+    font-weight: 700;
+    border: 2px solid #AFFDF0;
+    transition: all ease 0.3s;
+   
+}
+
+button:hover{
+    background-color: #021D22;
+}
+
+
+
+
+
+.subtitle{
+    color: #bbd7c892;
+    font-size: 0.8rem;
+}
+
+
+.pag-title{
+    font-size: 1.9rem;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    
+}
+
