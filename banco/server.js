@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express    = require('express');
 const cors       = require('cors');
 const bcrypt     = require('bcrypt');
@@ -308,9 +307,7 @@ app.get('/api/mapas', async (req, res) => {
       );
       if (!rows.length) return res.status(404).json({ error: 'Mapa não encontrado.' });
       const mapa = rows[0];
-      if (typeof mapa.dados_json === 'string') {
       mapa.dados_json = JSON.parse(mapa.dados_json);
-      }
       return res.status(200).json(mapa);
     }
 
@@ -348,6 +345,68 @@ app.delete('/api/mapas', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Erro interno ao deletar mapa.' });
+  }
+});
+
+
+// ════════════════════════════════════════════════════════════
+// PERFIL — atualizar nome, email e/ou senha
+// ════════════════════════════════════════════════════════════
+app.put('/perfil', async (req, res) => {
+  const { id, nome, email, senha_atual, nova_senha } = req.body;
+
+  if (!id || !nome || !email)
+    return res.status(400).json({ erro: 'Id, nome e email são obrigatórios.' });
+
+  try {
+    // Verifica se o usuário existe
+    const [rows] = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+    if (!rows.length)
+      return res.status(404).json({ erro: 'Usuário não encontrado.' });
+
+    const usuario = rows[0];
+
+    // Verifica se o email já está em uso por outro usuário
+    const [emailRows] = await pool.query(
+      'SELECT id FROM usuarios WHERE email = ? AND id != ?', [email, id]
+    );
+    if (emailRows.length)
+      return res.status(409).json({ erro: 'Este e-mail já está em uso.' });
+
+    // Se quer mudar a senha, valida a atual
+    let novaSenhaCriptografada = null;
+    if (nova_senha) {
+      if (!senha_atual)
+        return res.status(400).json({ erro: 'Informe a senha atual.' });
+
+      const senhaCorreta = await bcrypt.compare(senha_atual, usuario.senha);
+      if (!senhaCorreta)
+        return res.status(401).json({ erro: 'Senha atual incorreta.' });
+
+      if (nova_senha.length < 6)
+        return res.status(400).json({ erro: 'A nova senha deve ter ao menos 6 caracteres.' });
+
+      novaSenhaCriptografada = await bcrypt.hash(nova_senha, 10);
+    }
+
+    // Monta a query dinamicamente
+    if (novaSenhaCriptografada) {
+      await pool.query(
+        'UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?',
+        [nome, email, novaSenhaCriptografada, id]
+      );
+    } else {
+      await pool.query(
+        'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?',
+        [nome, email, id]
+      );
+    }
+
+    return res.status(200).json({ mensagem: 'Perfil atualizado com sucesso!' });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ erro: 'Erro interno ao atualizar perfil.' });
   }
 });
 
