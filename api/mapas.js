@@ -1,13 +1,13 @@
 // api/mapas.js
 // CRUD de mapas natais por usuário
 // Rotas:
-//   POST   /api/mapas        → salva um mapa
+//   POST   /api/mapas               → salva um mapa
 //   GET    /api/mapas?usuario_id=X  → lista mapas do usuário
-//   DELETE /api/mapas?id=X   → remove um mapa (só do próprio usuário)
+//   GET    /api/mapas?id=X          → retorna um mapa completo
+//   DELETE /api/mapas?id=X&usuario_id=X → remove um mapa
 
 import mysql from 'mysql2/promise';
 
-/* ── Conexão reutilizável (pool) ── */
 let pool;
 function getPool() {
     if (!pool) {
@@ -26,19 +26,21 @@ function getPool() {
 }
 
 export default async function handler(req, res) {
-     const origem = req.headers.origin || "";
-  const permitidas = [
-    "https://vuraastrology.github.io",
-    "http://127.0.0.1:5500",
-    "http://localhost:5500",
-    "http://localhost:3000",
-  ];
-  res.setHeader("Access-Control-Allow-Origin", permitidas.includes(origem) ? origem : permitidas[0]);
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Vary", "Origin");
 
+    // ── CORS — sempre primeiro, antes de qualquer outra coisa ──
+    const origem = req.headers.origin || "";
+    const permitidas = [
+        "https://vuraastrology.github.io",
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "http://localhost:3000",
+    ];
+    res.setHeader("Access-Control-Allow-Origin", permitidas.includes(origem) ? origem : permitidas[0]);
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Vary", "Origin");
 
+    // ── Preflight — responde aqui e para, sem tocar no banco ──
     if (req.method === 'OPTIONS') return res.status(200).end();
 
     try {
@@ -56,7 +58,6 @@ export default async function handler(req, res) {
                 apelido
             } = body;
 
-            // Validação mínima
             const obrigatorios = { usuario_id, nome, data_nasc, hora_nasc, cidade, lat, lng, tz_str, dados_json };
             for (const [campo, valor] of Object.entries(obrigatorios)) {
                 if (valor === undefined || valor === null || valor === '') {
@@ -71,8 +72,8 @@ export default async function handler(req, res) {
                 [
                     Number(usuario_id),
                     String(nome),
-                    String(data_nasc),   // "YYYY-MM-DD"
-                    String(hora_nasc),   // "HH:MM"
+                    String(data_nasc),
+                    String(hora_nasc),
                     String(cidade),
                     Number(lat),
                     Number(lng),
@@ -83,30 +84,24 @@ export default async function handler(req, res) {
                 ]
             );
 
-            return res.status(201).json({
-                mensagem: 'Mapa salvo com sucesso!',
-                id: result.insertId
-            });
+            return res.status(201).json({ mensagem: 'Mapa salvo com sucesso!', id: result.insertId });
         }
 
-        /* ── GET — Listar mapas do usuário ── */
+        /* ── GET — Listar ou buscar mapa ── */
         if (req.method === 'GET') {
             const { usuario_id, id } = req.query;
 
-            // GET /api/mapas?id=X  → retorna um mapa completo (incluindo SVG e dados_json)
             if (id) {
                 const [rows] = await db.execute(
                     `SELECT * FROM mapas_natais WHERE id = ? LIMIT 1`,
                     [Number(id)]
                 );
                 if (!rows.length) return res.status(404).json({ error: 'Mapa não encontrado.' });
-
                 const mapa = rows[0];
                 mapa.dados_json = JSON.parse(mapa.dados_json);
                 return res.status(200).json(mapa);
             }
 
-            // GET /api/mapas?usuario_id=X  → lista resumida (sem SVG para economizar tráfego)
             if (!usuario_id) {
                 return res.status(400).json({ error: 'Informe usuario_id ou id na query.' });
             }
@@ -130,7 +125,6 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: 'Informe id e usuario_id na query.' });
             }
 
-            // Garante que o mapa pertence ao usuário antes de deletar
             const [result] = await db.execute(
                 `DELETE FROM mapas_natais WHERE id = ? AND usuario_id = ?`,
                 [Number(id), Number(usuario_id)]
