@@ -1,6 +1,7 @@
 // mandala.js
 const API_BASE = "http://localhost:3000";
 
+
 const pegarEl = (id) => document.getElementById(id);
 
 const formulario = pegarEl("formMandala");
@@ -235,10 +236,10 @@ formulario.addEventListener("submit", async (e) => {
       definirStatus("Carregando posicionamentos...");
       const dados = await carregarJsonLocal();
       if (dados) {
-        const areaPostcionamentos = document.getElementById("posicionamentos-area");
-        areaPostcionamentos.innerHTML = "";
-        const cards = montarCardsPostcionamentos(dadosNatal, dados);
-        areaPostcionamentos.appendChild(cards);
+        const areaPosicionamentos = document.getElementById("posicionamentos-area");
+        areaPosicionamentos.innerHTML = "";
+        const cards = montarCardsPosicionamentos(dadosNatal, dados);
+        areaPosicionamentos.appendChild(cards);
       }
     }
 
@@ -277,7 +278,7 @@ async function carregarJsonLocal() {
 }
 
 // ================= FILTRAR E MONTAR CARDS =================
-function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
+function montarCardsPosicionamentos(dadosNatal, jsonLocal) {
   const secao = document.createElement("div");
   secao.className = "posicionamentos-secao";
 
@@ -462,7 +463,7 @@ async function verificarMapaSalvo() {
         const area = document.getElementById('posicionamentos-area');
         if (area) {
           area.innerHTML = '';
-          area.appendChild(montarCardsPostcionamentos(mapa.dados_json, dados));
+          area.appendChild(montarCardsPosicionamentos(mapa.dados_json, dados));
         }
       }
     }
