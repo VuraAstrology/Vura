@@ -308,7 +308,9 @@ app.get('/api/mapas', async (req, res) => {
       );
       if (!rows.length) return res.status(404).json({ error: 'Mapa não encontrado.' });
       const mapa = rows[0];
+      if (typeof mapa.dados_json === 'string') {
       mapa.dados_json = JSON.parse(mapa.dados_json);
+      }
       return res.status(200).json(mapa);
     }
 
