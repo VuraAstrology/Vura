@@ -9,7 +9,7 @@ formulario.addEventListener('submit', async (e) => {
     
 
     try{
-        const resposta = await fetch('https://localhost:3000/esqueci-senha',
+        const resposta = await fetch('http://localhost:3000/esqueci',
             {
                 method:'POST',
                 headers: {'Content-Type':'application/json'},

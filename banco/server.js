@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_USER); // verifica se o email e a senha de acesso estão devidamente conectados com o server via nodemailer
 console.log(process.env.EMAIL_PASS);
 
 const express = require('express');
