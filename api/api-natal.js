@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
     const chaveApi = process.env.FREEASTRO_API_KEY;
     if (!chaveApi) {
-      return res.status(500).json({ error: "FREEASTRO_API_KEY não configurada na Vercel." });
+      return res.status(500).json({ error: "FREEASTRO_API_KEY não configurada." });
     }
 
     const payload = {
