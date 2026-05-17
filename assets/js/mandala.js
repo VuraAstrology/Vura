@@ -1,5 +1,5 @@
 // mandala.js
-const API_BASE = "https://vura-wine.vercel.app";
+const API_BASE =  "http://localhost:3000";
 
 const pegarEl = (id) => document.getElementById(id);
 
@@ -28,9 +28,74 @@ const mapaId = {
   chiron: "quiron",
 };
 
+const mapaSigno = {
+  aries: "áries",
+  taurus: "touro",
+  gemini: "gêmeos",
+  cancer: "câncer",
+  leo: "leão",
+  virgo: "virgem",
+  libra: "libra",
+  scorpio: "escorpião",
+  sagittarius: "sagitário",
+  capricorn: "capricórnio",
+  aquarius: "aquário",
+  pisces: "peixes",
+};
+
 // ================= STATUS =================
 function definirStatus(mensagem) {
   elStatus.textContent = mensagem || "";
+}
+
+// ================= USUÁRIO LOGADO =================
+function getUsuario() {
+  try {
+    const raw = localStorage.getItem("vura_usuario") ?? sessionStorage.getItem("vura_usuario");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+// ================= SALVAR MAPA NO BANCO =================
+async function salvarMapa({ payload, dadosNatal, svg }) {
+  const usuario = getUsuario();
+
+  // Silencioso: se não estiver logado, não salva e não mostra erro
+  if (!usuario?.id) return;
+
+  const dataNasc = `${payload.year}-${String(payload.month).padStart(2, "0")}-${String(payload.day).padStart(2, "0")}`;
+  const horaNasc = `${String(payload.hour).padStart(2, "0")}:${String(payload.minute).padStart(2, "0")}`;
+
+  try {
+    const resp = await fetch(`${API_BASE}/api/mapas`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        usuario_id: usuario.id,
+        nome: payload.name,
+        data_nasc: dataNasc,
+        hora_nasc: horaNasc,
+        cidade: payload.city,
+        lat: payload.lat,
+        lng: payload.lng,
+        tz_str: payload.tz_str,
+        dados_json: dadosNatal,
+        svg: svg,
+        apelido: payload.name, // usa o nome do formulário como apelido inicial
+      }),
+    });
+
+    if (!resp.ok) {
+      const erro = await resp.json();
+      console.warn("[salvarMapa] Erro ao salvar:", erro);
+    }
+    // Sucesso silencioso — o usuário já viu o mapa, não precisa de alert
+  } catch (erro) {
+    // Não interrompe a experiência se o banco falhar
+    console.warn("[salvarMapa] Falha na requisição:", erro);
+  }
 }
 
 // ================= RETRY COM BACKOFF =================
@@ -182,27 +247,51 @@ formulario.addEventListener("submit", async (e) => {
 
     // Monta cards se a api-natal respondeu com sucesso
     if (respostaNatal.ok && dadosNatal?.planets) {
-      definirStatus("Carregando posicionamentos...");
-      const dados = await carregarJsonLocal();
-      if (dados) {
-        const areaPostcionamentos = document.getElementById("posicionamentos-area");
-        areaPostcionamentos.innerHTML = "";
-        const cards = montarCardsPostcionamentos(dadosNatal, dados);
-        areaPostcionamentos.appendChild(cards);
+      definirStatus("Carregando posicionamentos e casas...");
+      const [dadosPosicionamentos, dadosCasas] = await Promise.all([
+        carregarPosicionamentosJson(),
+        carregarCasasJson(),
+      ]);
+
+      const areaPostcionamentos = document.getElementById("posicionamentos-area");
+      areaPostcionamentos.innerHTML = "";
+
+      if (dadosPosicionamentos) {
+        const cardsPosicionamentos = montarCardsPostcionamentos(dadosNatal, dadosPosicionamentos);
+        areaPostcionamentos.appendChild(cardsPosicionamentos);
+      }
+
+      if (dadosCasas && Array.isArray(dadosNatal?.houses)) {
+        const cardsCasas = montarCardsCasas(dadosNatal, dadosCasas);
+        areaPostcionamentos.appendChild(cardsCasas);
       }
     }
 
     definirStatus("Pronto!");
+
+    // ── Salva no banco em segundo plano (não bloqueia nem exibe erro ao usuário) ──
+    salvarMapa({ payload, dadosNatal, svg });
   } catch (erro) {
     definirStatus(erro.message);
   }
 });
 
 // ================= CARREGAR JSON LOCAL =================
-async function carregarJsonLocal() {
+async function carregarPosicionamentosJson() {
   try {
     const resp = await fetch("./assets/data/posicionamentos.json");
     if (!resp.ok) throw new Error("Não foi possível carregar os posicionamentos.");
+    return await resp.json();
+  } catch (erro) {
+    console.error(erro);
+    return null;
+  }
+}
+
+async function carregarCasasJson() {
+  try {
+    const resp = await fetch("./assets/data/casas.json");
+    if (!resp.ok) throw new Error("Não foi possível carregar as casas.");
     return await resp.json();
   } catch (erro) {
     console.error(erro);
@@ -240,21 +329,6 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   }
 
   // Mapa de sign_id da API para nome do signo no JSON
-  const mapaSiglo = {
-    aries: "áries",
-    taurus: "touro",
-    gemini: "gêmeos",
-    cancer: "câncer",
-    leo: "leão",
-    virgo: "virgem",
-    libra: "libra",
-    scorpio: "escorpião",
-    sagittarius: "sagitário",
-    capricorn: "capricórnio",
-    aquarius: "aquário",
-    pisces: "peixes",
-  };
-
   // Monta lista de posicionamentos: planetas + ascendente + meio do céu
   const posicionamentos = [];
 
@@ -263,7 +337,7 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     const idLocal = mapaId[planeta.id];
     if (!idLocal) continue;
 
-    const nomeSigno = mapaSiglo[planeta.sign_id];
+    const nomeSigno = mapaSigno[planeta.sign_id];
     if (!nomeSigno) continue;
 
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === idLocal);
@@ -280,7 +354,7 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   // Ascendente
   const asc = dadosNatal.angles_details?.asc;
   if (asc) {
-    const nomeSigno = mapaSiglo[asc.sign_id];
+    const nomeSigno = mapaSigno[asc.sign_id];
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "ascendente");
     const dadosSigno = indice["ascendente"]?.[nomeSigno];
     if (dadosPlaneta && dadosSigno) {
@@ -291,7 +365,7 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   // Meio do Céu
   const mc = dadosNatal.angles_details?.mc;
   if (mc) {
-    const nomeSigno = mapaSiglo[mc.sign_id];
+    const nomeSigno = mapaSigno[mc.sign_id];
     const dadosPlaneta = jsonLocal.posicionamentos.find(p => p.id === "meioDoCeu");
     const dadosSigno = indice["meioDoCeu"]?.[nomeSigno];
     if (dadosPlaneta && dadosSigno) {
@@ -319,6 +393,62 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
       <p class="posicionamento-texto">${signo.texto}</p>
     `;
 
+    container.appendChild(card);
+  }
+
+  return secao;
+}
+
+function montarCardsCasas(dadosNatal, jsonCasas) {
+  const secao = document.createElement("div");
+  secao.className = "posicionamentos-secao";
+
+  const titulo = document.createElement("p");
+  titulo.className = "posicionamentos-secao-titulo";
+  titulo.textContent = "Casas Astrológicas";
+  secao.appendChild(titulo);
+
+  const divisor = document.createElement("div");
+  divisor.className = "posicionamentos-secao-divisor";
+  secao.appendChild(divisor);
+
+  const container = document.createElement("div");
+  container.className = "posicionamentos-grid";
+  secao.appendChild(container);
+
+  const indiceCasas = {};
+  for (const casa of jsonCasas.casas || []) {
+    indiceCasas[casa.id] = {};
+    for (const signo of casa.signos || []) {
+      indiceCasas[casa.id][signo.signo.toLowerCase()] = signo;
+    }
+  }
+
+  for (let i = 0; i < dadosNatal.houses.length; i++) {
+    const dadosCasaNatal = dadosNatal.houses[i];
+    const numeroCasa = i + 1;
+    const idCasa = `casa${numeroCasa}`;
+    const casaBase = (jsonCasas.casas || []).find((c) => c.id === idCasa);
+    const nomeSigno = mapaSigno[dadosCasaNatal.sign_id];
+    const dadosSigno = indiceCasas[idCasa]?.[nomeSigno];
+    if (!casaBase || !dadosSigno) continue;
+
+    const card = document.createElement("div");
+    card.className = "posicionamento-card";
+    card.innerHTML = `
+      <div class="posicionamento-card-header">
+        <div class="posicionamento-simbolos">
+          <span class="posicionamento-simbolo-planeta">${casaBase.simbolo}</span>
+          <span class="posicionamento-seta">→</span>
+          <span class="posicionamento-simbolo-signo">${dadosSigno.simbolo}</span>
+        </div>
+        <div class="posicionamento-titulo">
+          <h3>${numeroCasa}ª Casa (${casaBase.nome}) em ${dadosSigno.signo}</h3>
+        </div>
+      </div>
+      <p class="posicionamento-introducao">${casaBase.introducao}</p>
+      <p class="posicionamento-texto">${dadosSigno.texto}</p>
+    `;
     container.appendChild(card);
   }
 
