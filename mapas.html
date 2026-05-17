@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapas extras e dados armazenados</title>
     <link rel="shortcut icon" href="./assets/imagens/apple-touch-icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/mapas.css">
     <link rel="stylesheet" href="./assets/css/menu.css">
@@ -14,16 +15,11 @@
 
 <body>
 
-    <!--Aba de navegação padrão do site da Vura -->
-
     <div id="vura-nav"></div>
-
-
-
-    <!---tela de armanezamento de dados para gerenciamento de registros onde o usuário pode visualizar os dados e registros armazenados e realizar alterações (apagar ou adicionar um novo mapa) -->
 
     <main>
 
+        <!-- ── Tela principal: lista de mapas ── -->
         <section id="gerenciamento">
             <h2>Dados Armazenados</h2>
 
@@ -31,57 +27,101 @@
                 <p>Gerenciamento de mapas cadastrados</p>
                 <button onclick="adicionar()" id="adicionar">Adicionar mapa +</button>
             </div>
+
             <div class="card" id="container-card">
                 <div class="todos_registros"></div>
-                <button id="deletar" class="btn-main btn-cancel" onclick="irParaEliminar()">Apagar Registros
-                    Assinalados</button>
+                <button id="deletar" class="btn-main btn-cancel" onclick="irParaEliminar()">
+                    Apagar Registros Assinalados
+                </button>
             </div>
         </section>
 
-
-
-        <!---tela de apagar registros  assinalados, com a lista de dados que o usuário deseja apagar e confirmar a senha para a modificação de registros-->
-
+        <!-- ── Tela de confirmação de exclusão ── -->
         <section id="apagar" class="escondido">
             <h2>Deletar registros:</h2>
 
             <div class="card">
                 <div class="card-content">
-                    <p class="instrucoes">Você deseja apagar os dados do perfil de utilizador
-                        <u>usuariovura@gmail.com</u> :</p>
+                    <p class="instrucoes">Você deseja apagar os seguintes mapas:</p>
                     <ul id="lista-apagar" class="lista_delet"></ul>
 
-                    <p id="confirmacao" class="instrucoes">Tem certeza que deseja eliminar esses dados astrologicos?</p>
-                    <p class="instrucoes">Por favor ensira sua senha Vura:</p>
+                    <p id="confirmacao" class="instrucoes">Tem certeza que deseja eliminar esses dados astrológicos?</p>
+                    <p class="instrucoes">Por favor insira sua senha Vura:</p>
                     <label class="label-senha" for="senha_vura">Senha Vura:</label>
-                    <input id="senha_vura" type="password" class="vura_senha" placeholder=" ••••••••">
+                    <input id="senha_vura" type="password" class="vura_senha" placeholder="••••••••">
                 </div>
 
+                <hr class="divisor-confirmacao">
 
-
-                <!---linha sutil de separação  para a confirmação da senha-->
-
-                 <hr class="divisor-confirmacao">
-
-                <!---Confirmação de registro e atualização dos dados armazenados pelo usuário-->
                 <div class="card-confirm">
                     <p class="instrucoes">Confirmar atualização de Registros</p>
-
                     <div class="yn">
                         <button class="btn-main btn-confirmar" onclick="finalizar()">Sim</button>
                         <button class="btn-main btn-cancelar" onclick="voltar()">Não</button>
                     </div>
-
                 </div>
-
-
             </div>
         </section>
 
+        <!-- ── Modal de edição ── -->
+        <div id="modal-edicao" class="modal-overlay escondido" onclick="fecharModalFora(event)">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>Editar Mapa</h3>
+                    <button class="modal-fechar" onclick="fecharModal('modal-edicao')">✕</button>
+                </div>
+
+                <div class="modal-corpo">
+                    <div class="mandala-campo">
+                        <label>Apelido do mapa</label>
+                        <input id="edit-apelido" type="text" class="mandala-input" placeholder="Ex: Meu mapa, Mãe..." />
+                    </div>
+                    <div class="mandala-campo">
+                        <label>Nome</label>
+                        <input id="edit-nome" type="text" class="mandala-input" required />
+                    </div>
+                    <div class="mandala-linha-2">
+                        <div class="mandala-campo">
+                            <label>Data de nascimento</label>
+                            <input id="edit-data" type="date" class="mandala-input" required />
+                        </div>
+                        <div class="mandala-campo">
+                            <label>Hora de nascimento</label>
+                            <input id="edit-hora" type="time" class="mandala-input" required />
+                        </div>
+                    </div>
+                    <div class="mandala-campo">
+                        <label>Cidade</label>
+                        <input id="edit-cidade" type="text" class="mandala-input" required />
+                    </div>
+                    <!-- Campos técnicos (lat/lng/tz preenchidos automaticamente pelo autocomplete) -->
+                    <div class="mandala-linha-2">
+                        <div class="mandala-campo">
+                            <label>Latitude</label>
+                            <input id="edit-lat" type="number" step="any" class="mandala-input" required />
+                        </div>
+                        <div class="mandala-campo">
+                            <label>Longitude</label>
+                            <input id="edit-lng" type="number" step="any" class="mandala-input" required />
+                        </div>
+                    </div>
+                    <div class="mandala-campo">
+                        <label>Fuso horário</label>
+                        <input id="edit-tz" type="text" class="mandala-input" placeholder="Ex: America/Sao_Paulo" required />
+                    </div>
+
+                    <p id="edit-erro" class="mandala-status" style="color:var(--error, #e07070)"></p>
+                </div>
+
+                <div class="modal-rodape">
+                    <button class="btn-main btn-confirmar" onclick="salvarEdicao()">Salvar e Gerar Novo Mapa</button>
+                    <button class="btn-main btn-cancelar" onclick="fecharModal('modal-edicao')">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-
-    <!-- FOOTER -->
     <div id="footer-container"></div>
 
     <script src="./assets/js/mapas.js"></script>
@@ -89,6 +129,12 @@
     <script src="./assets/js/footer.js"></script>
     <script src="./assets/js/theme.js"></script>
 
-</body>
+    <script>
+        // Fecha modal ao clicar fora
+        function fecharModalFora(e) {
+            if (e.target.classList.contains('modal-overlay')) fecharModal('modal-edicao');
+        }
+    </script>
 
+</body>
 </html>
