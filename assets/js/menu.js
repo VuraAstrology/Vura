@@ -1,4 +1,4 @@
-    /* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════════
     VURA NAV — nav.js
     Injeta o menu em qualquer página via:
     <div id="vura-nav"></div>
@@ -8,8 +8,61 @@
     (function () {
         'use strict';
 
-        /* ── 1. HTML do menu ── */
-        const NAV_HTML = `
+        /* ── 0. Estado de autenticação ──
+         * Compatível com login.js:
+         *   - Chave: 'vura_usuario'
+         *   - "Lembrar de mim" marcado  → salvo em localStorage
+         *   - "Lembrar de mim" desmarcado → salvo em sessionStorage
+         * O nav verifica os dois e prioriza o localStorage.
+         */
+        function getUser() {
+            try {
+                const raw = localStorage.getItem('vura_usuario')
+                         ?? sessionStorage.getItem('vura_usuario');
+                return raw ? JSON.parse(raw) : null;
+            } catch {
+                return null;
+            }
+        }
+
+        /* ── 1. HTML do dropdown de perfil — varia conforme login ── */
+        function buildProfileDropdown(user) {
+            if (user) {
+                /* ── LOGADO ── */
+                return `
+                    <ul class="nav-profile-dropdown">
+                        <li class="user-header">
+                            <p>Meu Vura</p>
+                            <span>Olá, ${user.nome || 'Bem-vindo(a)'}!</span>
+                        </li>
+                        <li><a href="./mandala.html"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
+                        <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
+                        <li><a href="./mapas.html"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
+                        <li><a href="./perfil.html"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
+                        <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
+                        <hr class="nav-divisor">
+                        <li><a href="#" id="vura-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                    </ul>`;
+            } else {
+                /* ── DESLOGADO ── */
+                return `
+                    <ul class="nav-profile-dropdown">
+                        <li class="user-header">
+                            <p>Meu Vura</p>
+                            <span>Bem-vindo(a)!</span>
+                        </li>
+                        <li><a href="./login.html"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
+                        <li><a href="./cadastro.html"><i class="fa-solid fa-user-plus"></i> Criar Conta</a></li>
+                        <hr class="nav-divisor">
+                        <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
+                    </ul>`;
+            }
+        }
+
+        /* ── 2. HTML completo do menu ── */
+        function buildNav() {
+            const user = getUser();
+            return `
         <header>
             <nav class="vura-nav">
                 <div class="nav-inner">
@@ -20,6 +73,7 @@
                             <img class="vura_logo" src="./assets/imagens/logo_transparent.png" alt="Vura">
                         </a>
                     </figure>
+
                     <!-- Temas -->
                     <button class="opcao-pill" onclick="abrirPainelTemas()">
                         <span id="theme-dot" style="width:8px;height:8px;border-radius:50%;background:var(--teal-light);display:inline-block;"></span>
@@ -73,24 +127,10 @@
                         <li class="nav-profile">
                             <button class="nav-profile-btn" aria-expanded="false" aria-haspopup="true">
                                 <span class="nav-profile-icon"><i class="fa-solid fa-user"></i></span>
-                                <span class="nav-profile-label">Conta</span>
+                                <span class="nav-profile-label">${user ? (user.nome || 'Perfil') : 'Conta'}</span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
-                            <ul class="nav-profile-dropdown">
-                                <li class="user-header">
-                                    <p>Meu Vura</p>
-                                    <span>Bem-vindo(a)!</span>
-                                </li>
-                                <li><a href="./login.html"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
-                                <li><a href="./cadastro.html"><i class="fa-solid fa-user-plus"></i> Criar Conta</a></li>
-                                <li><a href="./mandala.html"><i class="fa-solid fa-circle-nodes"></i> Mapa Natal</a></li>
-                                <li><a href="#"><i class="fa-solid fa-bookmark"></i> Salvos</a></li>
-                                <li><a href="./mapas.html"><i class="fa-solid fa-database"></i> Dados Armazenados</a></li>
-                                <li><a href="./perfil.html"><i class="fa-solid fa-gear"></i> Gerenciamento da Conta</a></li>
-                                <li><a href="#"><i class="fa-solid fa-circle-question"></i> Central de Ajuda</a></li>
-                                <hr class="nav-divisor">
-                                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
-                            </ul>
+                            ${buildProfileDropdown(user)}
                         </li>
 
                     </ul>
@@ -113,9 +153,11 @@
                 </div>
             </div>
         </header>`;
+        }
 
-        /* ── 2. Injeta o menu no #vura-nav (ou no início do body como fallback) ── */
+        /* ── 3. Injeta o menu no #vura-nav (ou no início do body como fallback) ── */
         function injectNav() {
+            const NAV_HTML = buildNav();
             const mount = document.getElementById('vura-nav');
             if (mount) {
                 mount.outerHTML = NAV_HTML;
@@ -124,21 +166,32 @@
             }
         }
 
-        /* ── 3. Marca o item ativo de acordo com a URL atual ── */
+        /* ── 4. Marca o item ativo de acordo com a URL atual ── */
         function markActive() {
             const path = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-menu a').forEach(a => {
                 const href = a.getAttribute('href') || '';
                 if (href && href !== '#' && path === href.split('?')[0].split('/').pop()) {
                     a.classList.add('nav-active');
-                    // Se estiver dentro de um submenu, destaca o pai também
                     const parentLi = a.closest('ul.nav-submenu')?.closest('li');
                     if (parentLi) parentLi.querySelector(':scope > a')?.classList.add('nav-active');
                 }
             });
         }
 
-        /* ── 4. Lógica de interação (hambúrguer, submenus, perfil) ── */
+        /* ── 5. Logout ── */
+        function initLogout() {
+            const logoutBtn = document.getElementById('vura-logout-btn');
+            if (!logoutBtn) return;
+            logoutBtn.addEventListener('click', e => {
+                e.preventDefault();
+                localStorage.removeItem('vura_usuario');
+                sessionStorage.removeItem('vura_usuario');
+                window.location.href = './index.html';
+            });
+        }
+
+        /* ── 6. Lógica de interação (hambúrguer, submenus, perfil) ── */
         function initInteractions() {
             const nav = document.querySelector('.vura-nav');
             const mobileToggle = document.querySelector('.nav-mobile-toggle');
@@ -175,18 +228,25 @@
                 });
             });
 
-            /* Botão de perfil no desktop (clique além do hover) */
+            /* Botão de perfil no desktop — toggle ao clicar */
             profileBtn?.addEventListener('click', e => {
                 e.stopPropagation();
-                if (isMobile()) return; // mobile já tratado acima
-                const dropdown = profileLi?.querySelector('.nav-profile-dropdown');
-                if (!dropdown) return;
-                const visible = dropdown.style.display === 'block';
+                if (isMobile()) return;
+                const isOpen = profileLi.classList.contains('sub--open');
                 closeAll();
-                if (!visible) dropdown.style.display = 'block';
+                if (!isOpen) open(profileLi);
             });
 
-            /* Fechar ao clicar fora */
+            /* Cliques dentro do dropdown não propagam para o document (evita fechar imediatamente) */
+            profileLi?.querySelector('.nav-profile-dropdown')
+                ?.addEventListener('click', e => e.stopPropagation());
+
+            /* Cliques nos submenus de conteúdo não fecham o drawer mobile */
+            nav.querySelectorAll('.nav-submenu').forEach(sub => {
+                sub.addEventListener('click', e => e.stopPropagation());
+            });
+
+            /* Fechar ao clicar fora do nav */
             document.addEventListener('click', () => {
                 closeAll();
                 if (isMobile() && navMenu.classList.contains('nav-menu--open')) {
@@ -194,8 +254,6 @@
                     if (mobileToggle) mobileToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
                 }
             });
-
-            nav.addEventListener('click', e => e.stopPropagation());
 
             /* ESC fecha tudo */
             document.addEventListener('keydown', e => {
@@ -236,16 +294,15 @@
             }
         }
 
-        /* ── 5. Init ── */
+        /* ── 7. Init ── */
         function init() {
             injectNav();
             markActive();
-            initInteractions();            
-            // 👇 AVISA que o menu foi carregado
+            initLogout();
+            initInteractions();
             document.dispatchEvent(new Event('vura:nav-ready'));
         }
 
-        // Roda assim que o DOM estiver pronto
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
