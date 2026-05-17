@@ -1,8 +1,13 @@
-const express    = require('express');
-const cors       = require('cors');
-const bcrypt     = require('bcrypt');
-const pool       = require('./db');
-const crypto     = require('crypto');
+require('dotenv').config();
+
+console.log(process.env.EMAIL_USER); // verifica se o email e a senha de acesso estão devidamente conectados com o server via nodemailer
+console.log(process.env.EMAIL_PASS);
+
+const express = require('express');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const pool = require('./db');
+const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const fetch      = require('node-fetch'); // npm install node-fetch@2
 
@@ -15,9 +20,19 @@ const FREEASTRO_BASE    = 'https://astro-api-1qnc.onrender.com';
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); // SVG pode ser grande
 
-// ════════════════════════════════════════════════════════════
-// CADASTRO
-// ════════════════════════════════════════════════════════════
+
+//________EMAIL___________________________________________________________________
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+
+// ─── CADASTRO ────────────────────────────────────────────────────────────────
 app.post('/cadastro', async (req, res) => {
   const { nome, email, senha } = req.body;
 
@@ -78,184 +93,72 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// ════════════════════════════════════════════════════════════
-// ESQUECI A SENHA
-// ════════════════════════════════════════════════════════════
-app.post('/esqueci-senha', async (req, res) => {
-  const { email } = req.body;
-  try {
-    const [rows] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
-    if (rows.length === 0)
-      return res.status(404).json({ erro: 'Usuário não encontrado.' });
 
-    const usuario = rows[0];
-    const token   = crypto.randomBytes(32).toString('hex');
-    const expira  = new Date(Date.now() + 1000 * 60 * 15);
 
-    await pool.query(
-      'INSERT INTO recuperacao_senha (usuario_id, token, expira_em) VALUES (?,?,?)',
-      [usuario.id, token, expira]
-    );
+// _____ESQUECI A SENHA DA MINHA CONTA (envia email de recuperação de senha)_______________________________________________________________________
 
-    const link = `http://localhost:5500/resetar.html?token=${token}`;
+app.post('/esqueci', async(req,res) =>{
+  const { email} = req.body;
+  const emailNormalizado = email?.trim().toLowerCase();
+
+ console.log('Email recebido:',JSON.stringify(emailNormalizado));
+  try{
+    const [rows] = await pool.query('SELECT * FROM usuarios WHERE email = ?',[emailNormalizado]);
+    if (rows.length === 0){
+      return res.status(404).json({erro:'Usuário não encontrado, Email inválido!'});
+    }
+    const usuario = rows[0]; //retorna o primeiro registro do usuário encontrado
+    const token = crypto.randomBytes(32).toString('hex');
+    const expira = new Date(Date.now() + 1000 * 60 * 15) // 15min para expirar o token de redefinição de senha
+    await pool.query(`INSERT INTO recuperacao_senha (usuario_id, token, expira_em) VALUES (?,?,?)`,[usuario.id,token,expira]);
+
+   const link = `http://localhost:5500/Vura/resetar.html?token=${token}`;
     await transporter.sendMail({
       to: email,
-      subject: 'Recuperação de senha Vura',
-      html: `<h1>Recupere sua senha de acesso Vura</h1><br><a href="${link}">Redefinir senha</a>`,
+      subject: 'Recuperação de senha de acesso Vura',
+      html:`<h2>Recuperação de senha</h2>
+      <p> recupere sua senha de acesso a sua conta VURA clicando no link abaixo:</p>
+      <a href="${link}">Redefinir senha</a>`
     });
-
-    return res.status(200).json({ mensagem: 'E-mail de recuperação enviado.' });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ erro: 'Ocorreu um erro interno.' });
+    return res.status(200).json({mensagem:'Email de redefinição de senha enviado com sucesso!'});
+  } catch (err){
+    console.error('ERRO INTERNO:', err);
+    return res.status(500).json({erro:'Não foi ímpossivel conectar com o servidor no momento, tente novamente mais tarde!'});
   }
 });
 
-// ════════════════════════════════════════════════════════════
-// GEO — autocomplete de cidades
-// ════════════════════════════════════════════════════════════
-app.get('/api/api-geo', async (req, res) => {
-  const termo  = String(req.query.q || '').trim();
-  const limite = Math.min(parseInt(String(req.query.limit || '8'), 10), 20);
 
-  if (termo.length < 2)
-    return res.status(400).json({ error: 'Digite ao menos 2 caracteres.' });
+//________________________resetar senha de acesso__________________________________________________________
 
-  try {
-    const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
-    url.searchParams.set('name',     termo);
-    url.searchParams.set('count',    String(limite));
-    url.searchParams.set('language', 'pt');
-    url.searchParams.set('format',   'json');
-    url.searchParams.set('timezone', 'auto');
+app.post('/resetar', async (req, res) =>{
+  const { token, novaSenha } = req.body;
 
-    const resposta = await fetch(url.toString());
-    if (!resposta.ok)
-      return res.status(502).json({ error: 'Falha ao consultar Open-Meteo.' });
-
-    const dados   = await resposta.json();
-    const results = (dados.results || []).map(item => ({
-      name:     item.name,
-      country:  item.country || '',
-      lat:      Number(item.latitude),
-      lng:      Number(item.longitude),
-      timezone: item.timezone || 'UTC',
-    }));
-
-    return res.status(200).json({ results });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erro interno em /api/api-geo.' });
-  }
-});
-
-// ════════════════════════════════════════════════════════════
-// MANDALA — gera SVG do mapa natal
-// ════════════════════════════════════════════════════════════
-app.post('/api/api-mandala', async (req, res) => {
-  const d = req.body;
-
-  const camposObrigatorios = ['name','year','month','day','hour','minute','city','lat','lng','tz_str'];
-  for (const campo of camposObrigatorios) {
-    if (d[campo] === undefined || d[campo] === null || d[campo] === '')
-      return res.status(400).json({ error: `Campo obrigatório: ${campo}` });
-  }
-
-  if (!FREEASTRO_API_KEY)
-    return res.status(500).json({ error: 'FREEASTRO_API_KEY não configurada.' });
-
-  const payload = {
-    name:   String(d.name),
-    year:   Number(d.year),
-    month:  Number(d.month),
-    day:    Number(d.day),
-    hour:   Number(d.hour),
-    minute: Number(d.minute),
-    city:   String(d.city),
-    lat:    Number(d.lat),
-    lng:    Number(d.lng),
-    tz_str: String(d.tz_str),
-    zodiac_type:  d.zodiac_type  || 'tropical',
-    house_system: d.house_system || 'placidus',
-    format:        'svg',
-    size:          Number(d.size || 900),
-    theme_type:    d.theme_type || 'light',
-    show_metadata: true,
-    display_settings: { chiron: true, lilith: true, north_node: true, south_node: true, asc: true, mc: true },
-    chart_config: {
-      show_color_background:        false,
-      sign_ring_thickness_fraction:  0.17,
-      house_ring_thickness_fraction: 0.07,
-      planet_symbol_scale:           0.40,
-      sign_symbol_scale:             0.62,
-    },
-  };
-
-  try {
-    const resposta = await fetch(`${FREEASTRO_BASE}/api/v1/natal/chart/`, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': FREEASTRO_API_KEY },
-      body:    JSON.stringify(payload),
-    });
-
-    if (!resposta.ok) {
-      const texto = await resposta.text();
-      return res.status(resposta.status).json({ error: 'FreeAstro retornou erro ao gerar SVG.', raw: texto });
+  try{
+    if (novaSenha.length < 6){
+      return res.status(400).json({erro:'Senha muito pequena'});
     }
+    const [rows] = await pool.query(`
+      SELECT * FROM recuperacao_senha
+      WHERE token = ?
+      AND expira_em > NOW()`,[token]);
 
-    const svg = await resposta.text();
-    return res.status(200).json({ svg });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erro interno em /api/api-mandala.' });
+      if(rows.length === 0){
+        return res.status(400).json({erro:'Token inválido ou expirado.'});
+      }
+    const recuperacao = rows[0];
+    const hash = await bcrypt.hash(novaSenha,10);
+
+    await pool.query(`
+      UPDATE usuarios SET senha = ?
+      WHERE id = ?`,[hash, recuperacao.usuario_id]);
+
+      await pool.query(`DELETE FROM recuperacao_senha WHERE token = ?`, [token]);
+      return res.status(200).json({mensagem:'Senha atualizada com sucesso!'});
+  }catch(err){
+    console.error('Não foi possível alterar a senha',err);
+    return res.status(500).json({erro:'Não foi possível alterar a senha no momento tente novamente mais tarde!'});
   }
 });
-
-// ════════════════════════════════════════════════════════════
-// NATAL — calcula dados do mapa natal (planetas, casas, etc)
-// ════════════════════════════════════════════════════════════
-app.post('/api/api-natal', async (req, res) => {
-  const d = req.body;
-
-  const camposObrigatorios = ['name','year','month','day','hour','minute','city','lat','lng','tz_str'];
-  for (const campo of camposObrigatorios) {
-    if (d[campo] === undefined || d[campo] === null || d[campo] === '')
-      return res.status(400).json({ error: `Campo obrigatório: ${campo}` });
-  }
-
-  if (!FREEASTRO_API_KEY)
-    return res.status(500).json({ error: 'FREEASTRO_API_KEY não configurada.' });
-
-  const payload = {
-    name:   String(d.name),
-    year:   Number(d.year),
-    month:  Number(d.month),
-    day:    Number(d.day),
-    hour:   Number(d.hour),
-    minute: Number(d.minute),
-    city:   String(d.city),
-    lat:    Number(d.lat),
-    lng:    Number(d.lng),
-    tz_str: String(d.tz_str),
-    house_system:      'placidus',
-    zodiac_type:       'tropical',
-    include_speed:     true,
-    include_dominants: true,
-    include_features:  ['chiron', 'lilith', 'true_node'],
-    interpretation:    { enable: true, style: 'improved' },
-  };
-
-  try {
-    const resposta = await fetch(`${FREEASTRO_BASE}/api/v1/natal/calculate`, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': FREEASTRO_API_KEY },
-      body:    JSON.stringify(payload),
-    });
-
-    if (!resposta.ok) {
-      const texto = await resposta.text();
-      return res.status(resposta.status).json({ error: 'FreeAstroAPI retornou erro.', raw: texto });
-    }
 
     const json = await resposta.json();
     return res.status(200).json(json);
