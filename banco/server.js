@@ -160,13 +160,7 @@ app.post('/resetar', async (req, res) =>{
   }
 });
 
-    const json = await resposta.json();
-    return res.status(200).json(json);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erro interno em /api/api-natal.' });
-  }
-});
+
 
 // ════════════════════════════════════════════════════════════
 // MAPAS — CRUD de mapas natais salvos
@@ -312,7 +306,159 @@ app.put('/perfil', async (req, res) => {
     return res.status(500).json({ erro: 'Erro interno ao atualizar perfil.' });
   }
 });
+// ════════════════════════════════════════════════════════════
+// GEO — autocomplete de cidades
+// ════════════════════════════════════════════════════════════
+app.get('/api/api-geo', async (req, res) => {
+  const termo  = String(req.query.q || '').trim();
+  const limite = Math.min(parseInt(String(req.query.limit || '8'), 10), 20);
 
+  if (termo.length < 2)
+    return res.status(400).json({ error: 'Digite ao menos 2 caracteres.' });
+
+  try {
+    const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
+    url.searchParams.set('name',     termo);
+    url.searchParams.set('count',    String(limite));
+    url.searchParams.set('language', 'pt');
+    url.searchParams.set('format',   'json');
+    url.searchParams.set('timezone', 'auto');
+
+    const resposta = await fetch(url.toString());
+    if (!resposta.ok)
+      return res.status(502).json({ error: 'Falha ao consultar Open-Meteo.' });
+
+    const dados   = await resposta.json();
+    const results = (dados.results || []).map(item => ({
+      name:     item.name,
+      country:  item.country || '',
+      lat:      Number(item.latitude),
+      lng:      Number(item.longitude),
+      timezone: item.timezone || 'UTC',
+    }));
+
+    return res.status(200).json({ results });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Erro interno em /api/api-geo.' });
+  }
+});
+
+// ════════════════════════════════════════════════════════════
+// MANDALA — gera SVG do mapa natal
+// ════════════════════════════════════════════════════════════
+app.post('/api/api-mandala', async (req, res) => {
+  const d = req.body;
+
+  const camposObrigatorios = ['name','year','month','day','hour','minute','city','lat','lng','tz_str'];
+  for (const campo of camposObrigatorios) {
+    if (d[campo] === undefined || d[campo] === null || d[campo] === '')
+      return res.status(400).json({ error: `Campo obrigatório: ${campo}` });
+  }
+
+  if (!FREEASTRO_API_KEY)
+    return res.status(500).json({ error: 'FREEASTRO_API_KEY não configurada.' });
+
+  const payload = {
+    name:   String(d.name),
+    year:   Number(d.year),
+    month:  Number(d.month),
+    day:    Number(d.day),
+    hour:   Number(d.hour),
+    minute: Number(d.minute),
+    city:   String(d.city),
+    lat:    Number(d.lat),
+    lng:    Number(d.lng),
+    tz_str: String(d.tz_str),
+    zodiac_type:  d.zodiac_type  || 'tropical',
+    house_system: d.house_system || 'placidus',
+    format:        'svg',
+    size:          Number(d.size || 900),
+    theme_type:    d.theme_type || 'light',
+    show_metadata: true,
+    display_settings: { chiron: true, lilith: true, north_node: true, south_node: true, asc: true, mc: true },
+    chart_config: {
+      show_color_background:         false,
+      sign_ring_thickness_fraction:  0.17,
+      house_ring_thickness_fraction: 0.07,
+      planet_symbol_scale:           0.40,
+      sign_symbol_scale:             0.62,
+    },
+  };
+
+  try {
+    const resposta = await fetch(`${FREEASTRO_BASE}/api/v1/natal/chart/`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': FREEASTRO_API_KEY },
+      body:    JSON.stringify(payload),
+    });
+
+    if (!resposta.ok) {
+      const texto = await resposta.text();
+      return res.status(resposta.status).json({ error: 'FreeAstro retornou erro ao gerar SVG.', raw: texto });
+    }
+
+    const svg = await resposta.text();
+    return res.status(200).json({ svg });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Erro interno em /api/api-mandala.' });
+  }
+});
+
+// ════════════════════════════════════════════════════════════
+// NATAL — calcula dados do mapa natal (planetas, casas, etc)
+// ════════════════════════════════════════════════════════════
+app.post('/api/api-natal', async (req, res) => {
+  const d = req.body;
+
+  const camposObrigatorios = ['name','year','month','day','hour','minute','city','lat','lng','tz_str'];
+  for (const campo of camposObrigatorios) {
+    if (d[campo] === undefined || d[campo] === null || d[campo] === '')
+      return res.status(400).json({ error: `Campo obrigatório: ${campo}` });
+  }
+
+  if (!FREEASTRO_API_KEY)
+    return res.status(500).json({ error: 'FREEASTRO_API_KEY não configurada.' });
+
+  const payload = {
+    name:   String(d.name),
+    year:   Number(d.year),
+    month:  Number(d.month),
+    day:    Number(d.day),
+    hour:   Number(d.hour),
+    minute: Number(d.minute),
+    city:   String(d.city),
+    lat:    Number(d.lat),
+    lng:    Number(d.lng),
+    tz_str: String(d.tz_str),
+    house_system:      'placidus',
+    zodiac_type:       'tropical',
+    include_speed:     true,
+    include_dominants: true,
+    include_features:  ['chiron', 'lilith', 'true_node'],
+    interpretation:    { enable: true, style: 'improved' },
+  };
+
+  try {
+    const resposta = await fetch(`${FREEASTRO_BASE}/api/v1/natal/calculate`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': FREEASTRO_API_KEY },
+      body:    JSON.stringify(payload),
+    });
+
+    if (!resposta.ok) {
+      const texto = await resposta.text();
+      return res.status(resposta.status).json({ error: 'FreeAstroAPI retornou erro.', raw: texto });
+    }
+
+    const json = await resposta.json();
+    return res.status(200).json(json);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Erro interno em /api/api-natal.' });
+  }
+});
 // ════════════════════════════════════════════════════════════
 // START
 // ════════════════════════════════════════════════════════════
