@@ -1,19 +1,22 @@
 // api/geo.js
-// AUTOCOMPLETE de cidades (Open-Meteo) + timezone via tz-lookup.
+// AUTOCOMPLETE de cidades (Open-Meteo)
 // Retorna: { results: [ { name, country, lat, lng, timezone } ] }
-
-import tzlookup from "tz-lookup";
+// Não depende de nenhum pacote externo — timezone vem direto da Open-Meteo
 
 export default async function handler(req, res) {
-  // CORS (para permitir seu GitHub Pages chamar esta API)
-  res.setHeader("Access-Control-Allow-Origin", "https://vuraastrology.github.io");
+  const origem = req.headers.origin || "";
+  const permitidas = [
+    "https://vuraastrology.github.io",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://localhost:3000",
+  ];
+  res.setHeader("Access-Control-Allow-Origin", permitidas.includes(origem) ? origem : permitidas[0]);
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Vary", "Origin");
 
-  // Preflight do navegador
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
 
   try {
     const termo = String(req.query.q || "").trim();
@@ -30,6 +33,7 @@ export default async function handler(req, res) {
     url.searchParams.set("count", String(limite));
     url.searchParams.set("language", "pt");
     url.searchParams.set("format", "json");
+    url.searchParams.set("timezone", "auto"); // Open-Meteo já devolve o timezone correto
 
     const resposta = await fetch(url.toString());
 
@@ -44,25 +48,16 @@ export default async function handler(req, res) {
 
     const dados = await resposta.json();
 
-    const results = (dados.results || []).map((item) => {
-      const latitude = Number(item.latitude);
-      const longitude = Number(item.longitude);
-
-      let timezone = "AUTO";
-      try {
-        timezone = tzlookup(latitude, longitude);
-      } catch {}
-
-      return {
-        name: item.name,
-        country: item.country || "",
-        lat: latitude,
-        lng: longitude,
-        timezone,
-      };
-    });
+    const results = (dados.results || []).map((item) => ({
+      name:     item.name,
+      country:  item.country || "",
+      lat:      Number(item.latitude),
+      lng:      Number(item.longitude),
+      timezone: item.timezone || "UTC", // vem direto da API, sem tz-lookup
+    }));
 
     return res.status(200).json({ results });
+
   } catch (erro) {
     return res.status(500).json({
       error: "Erro interno ao buscar cidades (/api/geo).",

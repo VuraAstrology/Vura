@@ -10,14 +10,12 @@
   <link rel="stylesheet" href="./assets/css/perfil.css">
   <link rel="stylesheet" href="./assets/css/menu.css">
   <link rel="stylesheet" href="./assets/css/footer.css">
-
-
 </head>
 
 <body>
 
-  <!-- Menu: apenas esta div em todas as páginas -->
   <div id="vura-nav"></div>
+
   <div class="conteudo">
     <h1>Editar perfil</h1>
 
@@ -25,8 +23,8 @@
 
       <!-- Avatar -->
       <div class="avatar-area">
-        <div class="avatar-ring" title="Alterar foto">
-          A
+        <div class="avatar-ring" title="Foto de perfil">
+          ?
           <div class="avatar-edit-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="#060e0b" stroke-width="2.5">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -34,7 +32,7 @@
             </svg>
           </div>
         </div>
-        <span class="avatar-name">Alterar foto</span>
+        <span class="avatar-name"></span>
       </div>
 
       <hr class="divisor">
@@ -42,52 +40,17 @@
       <!-- Nome -->
       <div class="field">
         <label for="nome">Nome</label>
-        <input id="nome" type="text" placeholder="digite seu nome" autocomplete="off">
+        <input id="nome" type="text" placeholder="Digite seu nome" autocomplete="off">
       </div>
 
       <!-- Email -->
       <div class="field">
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="digite seu email">
+        <input id="email" type="email" placeholder="Digite seu email">
       </div>
-
-      <!-- Gênero -->
-      <div class="field">
-        <label>Gênero</label>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="genero" value="f" checked>
-            <span class="radio-dot"></span>
-            Feminino
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="genero" value="m">
-            <span class="radio-dot"></span>
-            Masculino
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="genero" value="nb">
-            <span class="radio-dot"></span>
-            Não binário
-          </label>
-        </div>
-      </div>
-
-      <!-- Cidade -->
-      <div class="field">
-        <label for="cidade">Cidade</label>
-        <input id="cidade" type="text" placeholder="digite sua cidade" autocomplete="off">
-      </div>
-
-      <!-- Data de nascimento -->
-      <div class="field">
-        <label for="nascimento">Data de nascimento</label>
-        <input id="nascimento" type="date">
-      </div>
-
 
       <!-- Seção senha -->
-      <div class="section-title">Editar Senha</div>
+      <div class="section-title">Alterar Senha <span class="section-hint">(deixe em branco para não alterar)</span></div>
 
       <div class="field">
         <label for="senha-atual">Senha atual</label>
@@ -116,7 +79,7 @@
       </div>
 
       <div class="field">
-        <label for="confirmar-senha">Confirmar senha</label>
+        <label for="confirmar-senha">Confirmar nova senha</label>
         <div class="input-wrap">
           <input id="confirmar-senha" type="password" placeholder="••••••••">
           <button class="toggle-pass" onclick="togglePass(this)" type="button">
@@ -128,11 +91,13 @@
         </div>
       </div>
 
+      <p id="perfil-erro" class="perfil-erro"></p>
+
       <button class="btn-save" onclick="salvar()">Salvar alterações</button>
 
     </div>
   </div>
-  <!-- FOOTER -->
+
   <div id="footer-container"></div>
 
   <script src="./assets/js/perfil.js"></script>
@@ -140,8 +105,5 @@
   <script src="./assets/js/footer.js"></script>
   <script src="./assets/js/theme.js"></script>
 
-
-
 </body>
-
 </html>

@@ -1,5 +1,5 @@
 // mandala.js
-const API_BASE = "https://vura-wine.vercel.app";
+const API_BASE = "http://localhost:3000";
 
 const pegarEl = (id) => document.getElementById(id);
 
@@ -31,6 +31,16 @@ const mapaId = {
 // ================= STATUS =================
 function definirStatus(mensagem) {
   elStatus.textContent = mensagem || "";
+}
+
+// ================= USUÁRIO LOGADO =================
+function getUsuario() {
+  try {
+    const raw = localStorage.getItem("vura_usuario") ?? sessionStorage.getItem("vura_usuario");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
 }
 
 // ================= RETRY COM BACKOFF =================
@@ -110,6 +120,46 @@ document.addEventListener("click", (e) => {
   if (!e.target.closest(".mandala-autocomplete")) mostrarSugestoes([]);
 });
 
+// ================= SALVAR MAPA NO BANCO =================
+async function salvarMapa({ payload, dadosNatal, svg }) {
+  const usuario = getUsuario();
+
+  // Silencioso: se não estiver logado, não salva e não mostra erro
+  if (!usuario?.id) return;
+
+  const dataNasc = `${payload.year}-${String(payload.month).padStart(2, "0")}-${String(payload.day).padStart(2, "0")}`;
+  const horaNasc = `${String(payload.hour).padStart(2, "0")}:${String(payload.minute).padStart(2, "0")}`;
+
+  try {
+    const resp = await fetch(`${API_BASE}/api/mapas`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        usuario_id: usuario.id,
+        nome:       payload.name,
+        data_nasc:  dataNasc,
+        hora_nasc:  horaNasc,
+        cidade:     payload.city,
+        lat:        payload.lat,
+        lng:        payload.lng,
+        tz_str:     payload.tz_str,
+        dados_json: dadosNatal,
+        svg:        svg,
+        apelido:    payload.name, // usa o nome do formulário como apelido inicial
+      }),
+    });
+
+    if (!resp.ok) {
+      const erro = await resp.json();
+      console.warn("[salvarMapa] Erro ao salvar:", erro);
+    }
+    // Sucesso silencioso — o usuário já viu o mapa, não precisa de alert
+  } catch (erro) {
+    // Não interrompe a experiência se o banco falhar
+    console.warn("[salvarMapa] Falha na requisição:", erro);
+  }
+}
+
 // ================= GERAR MANDALA =================
 formulario.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -124,21 +174,21 @@ formulario.addEventListener("submit", async (e) => {
   const [hora, minuto] = valorHora.split(":").map(Number);
 
   const payload = {
-    name: pegarEl("name").value.trim(),
-    year: ano,
-    month: mes,
-    day: dia,
-    hour: hora,
-    minute: minuto,
-    city: cidadeSelecionada.name,
-    lat: cidadeSelecionada.lat,
-    lng: cidadeSelecionada.lng,
-    tz_str: cidadeSelecionada.timezone,
+    name:        pegarEl("name").value.trim(),
+    year:        ano,
+    month:       mes,
+    day:         dia,
+    hour:        hora,
+    minute:      minuto,
+    city:        cidadeSelecionada.name,
+    lat:         cidadeSelecionada.lat,
+    lng:         cidadeSelecionada.lng,
+    tz_str:      cidadeSelecionada.timezone,
     house_system: "placidus",
-    zodiac_type: "tropical",
-    theme_type: "light",
-    size: 900,
-    lang: "pt",
+    zodiac_type:  "tropical",
+    theme_type:   "light",
+    size:         900,
+    lang:         "pt",
   };
 
   try {
@@ -159,7 +209,7 @@ formulario.addEventListener("submit", async (e) => {
       }),
     ]);
 
-    const dadosSvg = await respostaSvg.json();
+    const dadosSvg   = await respostaSvg.json();
     const dadosNatal = await respostaNatal.json();
 
     if (!respostaSvg.ok) throw new Error(dadosSvg?.error || "Falha ao gerar mandala.");
@@ -193,6 +243,22 @@ formulario.addEventListener("submit", async (e) => {
     }
 
     definirStatus("Pronto!");
+
+    // ── Se for edição, deleta o mapa antigo antes de salvar o novo ──
+    const mapaEditandoId = formulario.dataset.mapaEditandoId;
+    if (mapaEditandoId) {
+      const usuario = getUsuario();
+      if (usuario?.id) {
+        await fetch(`${API_BASE}/api/mapas?id=${mapaEditandoId}&usuario_id=${usuario.id}`, {
+          method: 'DELETE',
+        }).catch(() => {}); // silencioso
+      }
+      delete formulario.dataset.mapaEditandoId;
+    }
+
+    // ── Salva no banco em segundo plano ──
+    salvarMapa({ payload, dadosNatal, svg });
+
   } catch (erro) {
     definirStatus(erro.message);
   }
@@ -212,7 +278,6 @@ async function carregarJsonLocal() {
 
 // ================= FILTRAR E MONTAR CARDS =================
 function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
-  // Contêiner externo (borda + título)
   const secao = document.createElement("div");
   secao.className = "posicionamentos-secao";
 
@@ -225,12 +290,10 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
   divisor.className = "posicionamentos-secao-divisor";
   secao.appendChild(divisor);
 
-  // Grid onde os cards ficam
   const container = document.createElement("div");
   container.className = "posicionamentos-grid";
   secao.appendChild(container);
 
-  // Índice rápido: { "sol": { "áries": { texto, simbolo, imagem }, ... }, ... }
   const indice = {};
   for (const planeta of jsonLocal.posicionamentos) {
     indice[planeta.id] = {};
@@ -239,7 +302,6 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     }
   }
 
-  // Mapa de sign_id da API para nome do signo no JSON
   const mapaSiglo = {
     aries: "áries",
     taurus: "touro",
@@ -255,10 +317,8 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     pisces: "peixes",
   };
 
-  // Monta lista de posicionamentos: planetas + ascendente + meio do céu
   const posicionamentos = [];
 
-  // Planetas
   for (const planeta of dadosNatal.planets) {
     const idLocal = mapaId[planeta.id];
     if (!idLocal) continue;
@@ -277,7 +337,6 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     });
   }
 
-  // Ascendente
   const asc = dadosNatal.angles_details?.asc;
   if (asc) {
     const nomeSigno = mapaSiglo[asc.sign_id];
@@ -288,7 +347,6 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     }
   }
 
-  // Meio do Céu
   const mc = dadosNatal.angles_details?.mc;
   if (mc) {
     const nomeSigno = mapaSiglo[mc.sign_id];
@@ -299,7 +357,6 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
     }
   }
 
-  // Renderiza os cards
   for (const { planeta, signo, retrogrado } of posicionamentos) {
     const card = document.createElement("div");
     card.className = "posicionamento-card";
@@ -324,3 +381,99 @@ function montarCardsPostcionamentos(dadosNatal, jsonLocal) {
 
   return secao;
 }
+
+// ================= MODO EDIÇÃO =================
+// Se vier de mapas.html com ?editar=1, preenche o formulário
+// com os dados salvos no sessionStorage.
+function verificarModoEdicao() {
+  const params = new URLSearchParams(window.location.search);
+  if (!params.get('editar')) return;
+
+  const raw = sessionStorage.getItem('vura_edicao');
+  if (!raw) return;
+
+  try {
+    const d = JSON.parse(raw);
+
+    // Guarda o id do mapa que será substituído após gerar
+    formulario.dataset.mapaEditandoId = d.mapaId;
+
+    // Preenche os campos
+    pegarEl('name').value  = d.nome   || '';
+    pegarEl('date').value  = d.data   || '';
+    pegarEl('time').value  = d.hora   || '';
+    pegarEl('city').value  = d.cidade || '';
+    pegarEl('lat').value   = d.lat    || '';
+    pegarEl('lng').value   = d.lng    || '';
+    pegarEl('tz').value    = d.tz_str || '';
+
+    // Reconstrói o objeto cidadeSelecionada para o submit funcionar
+    cidadeSelecionada = {
+      name:     d.cidade,
+      lat:      Number(d.lat),
+      lng:      Number(d.lng),
+      timezone: d.tz_str,
+    };
+
+    // Limpa o sessionStorage após ler
+    sessionStorage.removeItem('vura_edicao');
+
+    definirStatus('Dados pré-preenchidos. Clique em "Gerar Mandala" para atualizar.');
+  } catch { /* silencioso */ }
+}
+
+// ================= VISUALIZAR MAPA SALVO =================
+// Se a URL tiver ?mapaId=X, carrega o SVG e posicionamentos do banco
+// sem precisar preencher o formulário novamente.
+async function verificarMapaSalvo() {
+  const params  = new URLSearchParams(window.location.search);
+  const mapaId  = params.get('mapaId');
+  if (!mapaId) return; // página aberta normalmente, nada a fazer
+
+  // Esconde o formulário e mostra status de carregamento
+  if (formulario) formulario.closest('section')?.classList.add('escondido');
+  definirStatus('Carregando mapa salvo...');
+
+  try {
+    const resp = await fetch(`${API_BASE}/api/mapas?id=${mapaId}`);
+    const mapa = await resp.json();
+    if (!resp.ok) throw new Error(mapa.error || 'Mapa não encontrado.');
+
+    // Exibe o SVG salvo
+    if (mapa.svg) {
+      elResultado.innerHTML = `<div id="svgWrapper">${mapa.svg}</div>`;
+      const svgEl = elResultado.querySelector('svg');
+      if (svgEl) {
+        const w = svgEl.getAttribute('width');
+        const h = svgEl.getAttribute('height');
+        if (w && h && !svgEl.getAttribute('viewBox')) svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        svgEl.removeAttribute('width');
+        svgEl.removeAttribute('height');
+        svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svgEl.style.cssText = 'width:100%; height:auto; display:block;';
+      }
+    }
+
+    // Exibe os posicionamentos salvos
+    if (mapa.dados_json?.planets) {
+      definirStatus('Carregando posicionamentos...');
+      const dados = await carregarJsonLocal();
+      if (dados) {
+        const area = document.getElementById('posicionamentos-area');
+        if (area) {
+          area.innerHTML = '';
+          area.appendChild(montarCardsPostcionamentos(mapa.dados_json, dados));
+        }
+      }
+    }
+
+    definirStatus('');
+  } catch (err) {
+    definirStatus('Erro ao carregar mapa: ' + err.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  verificarModoEdicao();  // preenche formulário se vier de edição
+  verificarMapaSalvo();   // exibe SVG salvo se vier de visualizar
+});

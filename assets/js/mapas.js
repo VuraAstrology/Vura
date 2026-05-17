@@ -3,117 +3,202 @@
  * Script: mapas.js
  */
 
-// 1. ESTADO DA APLICAÇÃO (Dados iniciais)
-let mapas = [
-    { id: 1, nome: "nome usuário padrão", isUser: true, selecionado: false }
-];
+const API_BASE = 'http://localhost:3000';
 
-let contador = 2;
+// ── Usuário logado ──────────────────────────────────────────
+function getUsuario() {
+    try {
+        const raw = localStorage.getItem('vura_usuario') ?? sessionStorage.getItem('vura_usuario');
+        return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+}
 
-/**
- * 2. RENDERIZAÇÃO DA LISTA
- * Desenha os cards dentro da div .todos_registros
- */
+// ── Estado local ────────────────────────────────────────────
+let mapas = [];
+let selecionados = new Set(); // ids selecionados para deletar
+
+// ── Carregar mapas do banco ─────────────────────────────────
+async function carregarMapas() {
+    const usuario = getUsuario();
+    if (!usuario?.id) {
+        mostrarErro('Você precisa estar logado para ver seus mapas.');
+        return;
+    }
+
+    try {
+        const resp = await fetch(`${API_BASE}/api/mapas?usuario_id=${usuario.id}`);
+        const dados = await resp.json();
+        if (!resp.ok) throw new Error(dados.error || 'Erro ao carregar mapas.');
+        mapas = dados.mapas || [];
+        renderizarLista();
+    } catch (err) {
+        mostrarErro(err.message);
+    }
+}
+
+// ── Renderizar lista de cards ───────────────────────────────
 function renderizarLista() {
-    const todosRegistrosDiv = document.querySelector('.todos_registros');
+    const container = document.querySelector('.todos_registros');
+    if (!container) return;
 
-    if (!todosRegistrosDiv) return; // Segurança caso a div não exista
+    if (mapas.length === 0) {
+        container.innerHTML = '<p class="sem-mapas">Nenhum mapa cadastrado ainda.</p>';
+        return;
+    }
 
-    todosRegistrosDiv.innerHTML = ''; // Limpa a lista para atualizar
+    container.innerHTML = '';
 
     mapas.forEach((mapa, index) => {
-        const itemDiv = document.createElement('div');
+        const isPrimeiro = index === 0;
+        const dataNasc   = mapa.data_nasc ? mapa.data_nasc.split('T')[0] : '';
+        const apelido    = mapa.apelido || mapa.nome;
 
-        // Adiciona classe de item e destaque se for o principal
-        itemDiv.className = `map-item ${mapa.isUser ? 'destaque-usuario' : ''}`;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = `map-item ${isPrimeiro ? 'destaque-usuario' : ''}`;
+        itemDiv.dataset.id = mapa.id;
 
         itemDiv.innerHTML = `
             <div class="info-group">
                 <span class="material-symbols-outlined icon-vura">
-                    ${mapa.isUser ? 'stars' : 'account_circle'}
+                    ${isPrimeiro ? 'stars' : 'account_circle'}
                 </span>
-                
-                ${mapa.isUser ? '<span class="badge-eu">eu *</span>' : ''}
-                <span class="name-text">${mapa.nome}</span>
-                
+                ${isPrimeiro ? '<span class="badge-eu">eu *</span>' : ''}
+                <div class="map-info">
+                    <span class="name-text">${apelido}</span>
+                    <span class="map-detalhe">${mapa.nome} · ${dataNasc} · ${mapa.cidade}</span>
+                </div>
                 <div class="actions">
-                    <button class="btn-outline">visualizar</button>
-                    <button class="btn-outline">editar</button>
+                    <button class="btn-outline" onclick="visualizar(${mapa.id})">visualizar</button>
+                    <button class="btn-outline" onclick="abrirEdicao(${mapa.id})">editar</button>
                 </div>
             </div>
-
-            <input type="checkbox" class="check-vura" 
-                   ${mapa.selecionado ? 'checked' : ''} 
-                   onchange="alternarSelecao(${index})">
+            <input type="checkbox" class="check-vura"
+                   onchange="alternarSelecao(${mapa.id}, this.checked)">
         `;
 
-        todosRegistrosDiv.appendChild(itemDiv);
+        container.appendChild(itemDiv);
     });
 }
 
-/**
- * 3. FUNÇÕES DE CONTROLE (Expostas ao Window para o HTML ler)
- */
-
-// Selecionar/Deselecionar um mapa
-window.alternarSelecao = (index) => {
-    mapas[index].selecionado = !mapas[index].selecionado;
+// ── Selecionar / deselecionar ───────────────────────────────
+window.alternarSelecao = (id, checked) => {
+    checked ? selecionados.add(id) : selecionados.delete(id);
 };
 
-// Adicionar novo mapa à lista
+// ── Visualizar — redireciona para mandala.html com id ───────
+window.visualizar = (id) => {
+    window.location.href = `./mandala.html?mapaId=${id}`;
+};
+
+// ── Adicionar — redireciona para mandala.html limpo ─────────
 window.adicionar = () => {
-    const novoMapa = {
-        id: Date.now(),
-        nome: `nome pessoa mapa ${contador++}`,
-        isUser: false,
-        selecionado: false
-    };
-    mapas.push(novoMapa);
-    renderizarLista();
+    window.location.href = './mandala.html';
 };
 
-// Ir para a tela de confirmação de exclusão
-window.irParaEliminar = () => {
-    const selecionados = mapas.filter(m => m.selecionado);
+// ════════════════════════════════════════════════════════════
+// EDIÇÃO — redireciona para mandala.html com dados pré-preenchidos
+// ════════════════════════════════════════════════════════════
+window.abrirEdicao = async (id) => {
+    try {
+        const resp = await fetch(`${API_BASE}/api/mapas?id=${id}`);
+        const mapa = await resp.json();
+        if (!resp.ok) throw new Error(mapa.error);
 
-    if (selecionados.length === 0) {
-        alert("Por favor, selecione ao menos um registro para apagar.");
+        // Salva os dados no sessionStorage para o mandala.html ler
+        sessionStorage.setItem('vura_edicao', JSON.stringify({
+            mapaId:   mapa.id,
+            apelido:  mapa.apelido  || '',
+            nome:     mapa.nome     || '',
+            data:     mapa.data_nasc ? mapa.data_nasc.split('T')[0] : '',
+            hora:     mapa.hora_nasc ? mapa.hora_nasc.substring(0, 5) : '',
+            cidade:   mapa.cidade   || '',
+            lat:      mapa.lat      || '',
+            lng:      mapa.lng      || '',
+            tz_str:   mapa.tz_str   || '',
+        }));
+
+        window.location.href = './mandala.html?editar=1';
+    } catch (err) {
+        alert('Erro ao carregar dados para edição: ' + err.message);
+    }
+};
+
+// ════════════════════════════════════════════════════════════
+// EXCLUSÃO
+// ════════════════════════════════════════════════════════════
+window.irParaEliminar = () => {
+    if (selecionados.size === 0) {
+        alert('Selecione ao menos um registro para apagar.');
         return;
     }
 
-    const listaApagarUl = document.getElementById('lista-apagar');
-    const sectionGerenciamento = document.getElementById('gerenciamento');
-    const sectionApagar = document.getElementById('apagar');
-
-    // Preenche a lista da segunda tela
-    listaApagarUl.innerHTML = selecionados
-        .map(m => `<li><span class="material-symbols-outlined" style="font-size:14px">close</span> ${m.nome}</li>`)
+    const listaUl = document.getElementById('lista-apagar');
+    listaUl.innerHTML = mapas
+        .filter(m => selecionados.has(m.id))
+        .map(m => `<li><span class="material-symbols-outlined" style="font-size:14px">close</span> ${m.apelido || m.nome}</li>`)
         .join('');
 
-    // Troca as telas
-    sectionGerenciamento.classList.add('escondido');
-    sectionApagar.classList.remove('escondido');
+    document.getElementById('gerenciamento').classList.add('escondido');
+    document.getElementById('apagar').classList.remove('escondido');
 };
 
-// Voltar para a tela principal
 window.voltar = () => {
     document.getElementById('apagar').classList.add('escondido');
     document.getElementById('gerenciamento').classList.remove('escondido');
 };
 
-// Confirmar a exclusão definitiva
-window.finalizar = () => {
-    // Filtra o array mantendo apenas quem NÃO está selecionado
-    mapas = mapas.filter(m => !m.selecionado);
+window.finalizar = async () => {
+    const usuario = getUsuario();
+    if (!usuario?.id) return;
 
-    renderizarLista();
+    const senha = document.getElementById('senha_vura').value;
+    if (!senha) { alert('Digite sua senha para confirmar.'); return; }
+
+    // Confirma senha no backend
+    try {
+        const respLogin = await fetch(`${API_BASE}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: usuario.email, senha }),
+        });
+        if (!respLogin.ok) { alert('Senha incorreta.'); return; }
+    } catch {
+        alert('Erro ao verificar senha.');
+        return;
+    }
+
+    // Deleta todos os selecionados
+    const promessas = [...selecionados].map(id =>
+        fetch(`${API_BASE}/api/mapas?id=${id}&usuario_id=${usuario.id}`, { method: 'DELETE' })
+    );
+
+    await Promise.all(promessas);
+    selecionados.clear();
+    document.getElementById('senha_vura').value = '';
     window.voltar();
+    await carregarMapas();
 };
 
-/**
- * 4. INICIALIZAÇÃO
- * Garante que a lista apareça assim que o site abrir
- */
+// ════════════════════════════════════════════════════════════
+// MODAL HELPERS
+// ════════════════════════════════════════════════════════════
+function abrirModal(id) {
+    document.getElementById(id).classList.remove('escondido');
+    document.getElementById(id).classList.add('modal-visivel');
+}
+function fecharModal(id) {
+    document.getElementById(id).classList.add('escondido');
+    document.getElementById(id).classList.remove('modal-visivel');
+}
+window.fecharModal = fecharModal;
+
+// ── Helpers de erro ─────────────────────────────────────────
+function mostrarErro(msg) {
+    const container = document.querySelector('.todos_registros');
+    if (container) container.innerHTML = `<p class="sem-mapas erro">${msg}</p>`;
+}
+
+// ── Init ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    renderizarLista();
+    carregarMapas();
 });
