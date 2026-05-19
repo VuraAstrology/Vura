@@ -29,6 +29,8 @@ blocoSenha.forEach(bloco =>{
 const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
 
+console.log(token);
+
 document.getElementById('formulario_confirmar_senha').addEventListener('submit', async(e) =>{
     e.preventDefault();
     const novaSenha = document.getElementById('password').value;
