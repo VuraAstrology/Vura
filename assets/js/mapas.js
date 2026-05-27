@@ -3,7 +3,7 @@
  * Script: mapas.js
  */
 
-const API_BASE = 'http://https://vura-production-5c16.up.railway.app';
+const API_BASE = 'https://vura-production-5c16.up.railway.app';
 
 // ── Usuário logado ──────────────────────────────────────────
 function getUsuario() {
