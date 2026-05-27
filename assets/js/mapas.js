@@ -52,6 +52,9 @@ function renderizarLista() {
         const isPrimeiro = index === 0;
         const dataNasc   = mapa.data_nasc ? mapa.data_nasc.split('T')[0] : '';
         const apelido    = mapa.apelido || mapa.nome;
+        const detalhe = apelido !== mapa.nome
+        ? `${mapa.nome} · ${dataNasc} · ${mapa.cidade}`
+            : `${dataNasc} · ${mapa.cidade}`;
 
         const itemDiv = document.createElement('div');
         itemDiv.className = `map-item ${isPrimeiro ? 'destaque-usuario' : ''}`;
@@ -65,7 +68,7 @@ function renderizarLista() {
                 ${isPrimeiro ? '<span class="badge-eu">eu *</span>' : ''}
                 <div class="map-info">
                     <span class="name-text">${apelido}</span>
-                    <span class="map-detalhe">${mapa.nome} · ${dataNasc} · ${mapa.cidade}</span>
+                    <span class="map-detalhe">${detalhe}</span>
                 </div>
                 <div class="actions">
                     <button class="btn-outline" onclick="visualizar(${mapa.id})">visualizar</button>

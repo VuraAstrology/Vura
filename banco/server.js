@@ -109,9 +109,11 @@ app.post('/esqueci', async(req,res) =>{
     }
     const usuario = rows[0]; //retorna o primeiro registro do usuário encontrado
     const token = crypto.randomBytes(32).toString('hex');
-    const expira = new Date(Date.now() + 1000 * 60 * 15) // 15min para expirar o token de redefinição de senha
-    await pool.query(`INSERT INTO recuperacao_senha (usuario_id, token, expira_em) VALUES (?,?,?)`,[usuario.id,token,expira]);
-
+    await pool.query(
+      `INSERT INTO recuperacao_senha (usuario_id, token, expira_em) 
+       VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))`,
+      [usuario.id, token]
+    );
    const link = `http://localhost:5500/Vura/resetar.html?token=${token}`;
     await transporter.sendMail({
       to: email,
@@ -215,7 +217,7 @@ app.get('/api/mapas', async (req, res) => {
 
     const [rows] = await pool.execute(
       `SELECT id, nome, apelido, data_nasc, hora_nasc, cidade, criado_em
-       FROM mapas_natais WHERE usuario_id = ? ORDER BY criado_em DESC`,
+       FROM mapas_natais WHERE usuario_id = ? ORDER BY criado_em ASC`,
       [Number(usuario_id)]
     );
     return res.status(200).json({ mapas: rows });
