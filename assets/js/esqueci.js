@@ -9,7 +9,7 @@ formulario.addEventListener('submit', async (e) => {
     
 
     try{
-        const resposta = await fetch('http://localhost:3000/esqueci',
+        const resposta = await fetch('http://https://vura-production-5c16.up.railway.app/esqueci',
             {
                 method:'POST',
                 headers: {'Content-Type':'application/json'},
