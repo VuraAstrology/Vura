@@ -217,7 +217,7 @@ app.get('/api/mapas', async (req, res) => {
 
     const [rows] = await pool.execute(
       `SELECT id, nome, apelido, data_nasc, hora_nasc, cidade, criado_em
-       FROM mapas_natais WHERE usuario_id = ? ORDER BY criado_em DESC`,
+       FROM mapas_natais WHERE usuario_id = ? ORDER BY criado_em ASC`,
       [Number(usuario_id)]
     );
     return res.status(200).json({ mapas: rows });
