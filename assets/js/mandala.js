@@ -1,5 +1,5 @@
 // mandala.js
-const API_BASE = "http://localhost:3000";
+const API_BASE = "http://https://vura-production-5c16.up.railway.app";
 
 
 const pegarEl = (id) => document.getElementById(id);
