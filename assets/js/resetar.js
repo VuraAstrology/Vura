@@ -55,7 +55,7 @@ document.getElementById('formulario_confirmar_senha').addEventListener('submit',
     }
 
     try{
-        const resposta = await fetch('http://localhost:3000/resetar',
+        const resposta = await fetch('https://vura-production-5c16.up.railway.app/resetar',
             {
                 method:'POST',
                 headers:{'Content-Type':'application/json'},

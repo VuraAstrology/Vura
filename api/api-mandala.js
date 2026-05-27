@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     "https://vuraastrology.github.io",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
-    "http://localhost:3000",
+    "https://vura-production-5c16.up.railway.app",
   ];
   res.setHeader("Access-Control-Allow-Origin", permitidas.includes(origem) ? origem : permitidas[0]);
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
