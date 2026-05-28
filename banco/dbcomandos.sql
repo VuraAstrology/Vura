@@ -1,0 +1,62 @@
+-- Cria o banco
+CREATE DATABASE Vura ;
+
+
+-- Usa o banco
+USE Vura;
+
+-- Cria tabela de usuários
+CREATE TABLE  usuarios (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(120) NOT NULL,
+  email VARCHAR(191) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+    ON UPDATE CURRENT_TIMESTAMP,
+  ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+
+
+-- criação da tabela de recuperação de senha/ resetar senha
+
+CREATE TABLE recuperacao_senha (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id BIGINT UNSIGNED NOT NULL,
+  token VARCHAR(255) NOT NULL,
+  expira_em DATETIME NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE -- ele cria e deleta o token depois de usar 
+);
+
+-- ══════════════════════════════════════════════
+-- VURA — Tabela de mapas natais salvos
+-- Rodar no seu banco MySQL
+-- ══════════════════════════════════════════════
+ 
+CREATE TABLE IF NOT EXISTS mapas_natais (
+    id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id    INT UNSIGNED NOT NULL,                       -- FK para sua tabela de usuários
+ 
+    -- Dados de nascimento
+    nome          VARCHAR(120)  NOT NULL,
+    data_nasc     DATE          NOT NULL,                      -- ano-mês-dia
+    hora_nasc     TIME          NOT NULL,                      -- hh:mm
+    cidade        VARCHAR(150)  NOT NULL,
+    lat           DECIMAL(9,6)  NOT NULL,
+    lng           DECIMAL(9,6)  NOT NULL,
+    tz_str        VARCHAR(60)   NOT NULL,                      -- ex: "America/Sao_Paulo"
+ 
+    -- Resultado da API
+    dados_json    JSON          NOT NULL,                      -- resposta completa de /natal/calculate
+    svg           MEDIUMTEXT    DEFAULT NULL,                  -- SVG do mapa (pode ser grande)
+ 
+    -- Controle
+    apelido       VARCHAR(80)   DEFAULT NULL,                  -- nome amigável ex: "Meu mapa", "Mãe"
+    criado_em     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ 
+    INDEX idx_usuario (usuario_id),
+    INDEX idx_criado  (criado_em)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
