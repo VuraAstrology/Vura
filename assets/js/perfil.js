@@ -3,7 +3,7 @@
  * Script: perfil.js
  */
 
-const API_BASE = 'https://vura-production-977f.up.railway.app';
+const API_BASE = 'https://vura-w5sy.onrender.com';
 
 // ── Usuário logado ──────────────────────────────────────────
 function getUsuario() {

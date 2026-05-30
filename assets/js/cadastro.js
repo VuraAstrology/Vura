@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botao.textContent = 'Criando conta...';
 
     try {
-      const resposta = await fetch('https://vura-production-977f.up.railway.app/cadastro', {
+      const resposta = await fetch('https://vura-w5sy.onrender.com/cadastro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, senha }),

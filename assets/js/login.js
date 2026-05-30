@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botao.textContent = 'Entrando...';
 
     try {
-      const resposta = await fetch('https://vura-production-977f.up.railway.app/login', {
+      const resposta = await fetch('https://vura-w5sy.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
