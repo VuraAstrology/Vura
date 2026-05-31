@@ -114,8 +114,9 @@ app.post('/esqueci', async(req,res) =>{
        VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))`,
       [usuario.id, token]
     );
-   const link = `http://localhost:5500/Vura/resetar.html?token=${token}`;
+   const link = `https://vura-w5sy.onrender.com/resetar.html?token=${token}`;
     await transporter.sendMail({
+      from: `"Vura" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Recuperação de senha de acesso Vura',
       html:`<h2>Recuperação de senha</h2>
