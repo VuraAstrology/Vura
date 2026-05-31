@@ -232,16 +232,18 @@ formulario.addEventListener("submit", async (e) => {
     }
 
     // Monta cards se a api-natal respondeu com sucesso
-    if (respostaNatal.ok && dadosNatal?.planets) {
-      definirStatus("Carregando posicionamentos...");
-      const dados = await carregarJsonLocal();
-      if (dados) {
-        const areaPosicionamentos = document.getElementById("posicionamentos-area");
-        areaPosicionamentos.innerHTML = "";
-        const cards = montarCardsPosicionamentos(dadosNatal, dados);
-        areaPosicionamentos.appendChild(cards);
-      }
-    }
+       if (respostaNatal.ok && dadosNatal?.planets) {
+          definirStatus("Carregando posicionamentos...");
+          const dados = await carregarJsonLocal();
+          if (dados) {
+            const areaPosicionamentos = document.getElementById("posicionamentos-area");
+            areaPosicionamentos.innerHTML = "";
+            areaPosicionamentos.appendChild(montarCardsPosicionamentos(dadosNatal, dados));
+            if (dadosNatal.houses || dadosNatal.house_cusps) {
+              areaPosicionamentos.appendChild(montarCardsCasas(dadosNatal, dados));
+            }
+          }
+        }
 
     definirStatus("Pronto!");
 
@@ -383,6 +385,128 @@ function montarCardsPosicionamentos(dadosNatal, jsonLocal) {
   return secao;
 }
 
+function montarCardsCasas(dadosNatal, jsonLocal) {
+  const secao = document.createElement("div");
+  secao.className = "posicionamentos-secao";
+ 
+  const titulo = document.createElement("p");
+  titulo.className = "posicionamentos-secao-titulo";
+  titulo.textContent = "Casas";
+  secao.appendChild(titulo);
+ 
+  const divisor = document.createElement("div");
+  divisor.className = "posicionamentos-secao-divisor";
+  secao.appendChild(divisor);
+ 
+  const container = document.createElement("div");
+  container.className = "posicionamentos-grid";
+  secao.appendChild(container);
+ 
+  // Normaliza o array de casas que vem da API
+  // (tenta os campos mais comuns retornados por bibliotecas astrológicas)
+  const casasBruto =
+    dadosNatal.houses ||
+    dadosNatal.house_cusps ||
+    dadosNatal.houseCusps ||
+    [];
+ 
+  if (casasBruto.length === 0 || !jsonLocal.casas) {
+    const aviso = document.createElement("p");
+    aviso.textContent = "Dados das casas não disponíveis.";
+    aviso.style.cssText = "color:#a9b6d3; font-size:13px; padding:8px 0;";
+    container.appendChild(aviso);
+    return secao;
+  }
+ 
+  // Mapeamento inglês (API) → português com inicial maiúscula (JSON local)
+  const mapaSigno = {
+    aries:       "Áries",
+    taurus:      "Touro",
+    gemini:      "Gêmeos",
+    cancer:      "Câncer",
+    leo:         "Leão",
+    virgo:       "Virgem",
+    libra:       "Libra",
+    scorpio:     "Escorpião",
+    sagittarius: "Sagitário",
+    capricorn:   "Capricórnio",
+    aquarius:    "Aquário",
+    pisces:      "Peixes",
+  };
+ 
+  // Índice rápido: numero (string) → objeto casa do JSON local
+  const indiceCasas = {};
+  for (const casa of jsonLocal.casas) {
+    indiceCasas[String(casa.numero)] = casa;
+  }
+ 
+  // Índice de signos: numero → { "Áries": {...}, "Touro": {...}, ... }
+  const indiceSignos = {};
+  for (const casa of jsonLocal.casas) {
+    indiceSignos[String(casa.numero)] = {};
+    for (const signo of (casa.signos || [])) {
+      indiceSignos[String(casa.numero)][signo.signo] = signo;
+    }
+  }
+ 
+  for (const casaAPI of casasBruto) {
+    // Normaliza número da casa (pode vir como number ou string)
+    const numeroCasa = String(
+      casaAPI.house ?? casaAPI.number ?? casaAPI.id ?? ""
+    );
+    if (!numeroCasa || Number(numeroCasa) < 1 || Number(numeroCasa) > 12) continue;
+ 
+    // Normaliza signo: pega o id em inglês e converte para português com maiúscula
+    const signoBruto = (
+      casaAPI.sign_id ||
+      casaAPI.sign ||
+      casaAPI.cusp_sign_id ||
+      ""
+    ).toLowerCase();
+ 
+    const nomeSigno = mapaSigno[signoBruto];
+    if (!nomeSigno) continue;
+ 
+    const dadosCasa  = indiceCasas[numeroCasa];
+    const dadosSigno = indiceSignos[numeroCasa]?.[nomeSigno];
+    if (!dadosCasa || !dadosSigno) continue;
+ 
+    // Grau da cúspide (exibido se disponível)
+    const grau = casaAPI.degree ?? casaAPI.cusp_degree ?? null;
+    const grauHtml = grau != null
+      ? ` <span class="posicionamento-grau">${Number(grau).toFixed(1)}°</span>`
+      : "";
+ 
+    const card = document.createElement("div");
+    card.className = "posicionamento-card";
+    card.innerHTML = `
+      <div class="posicionamento-card-header">
+        <div class="posicionamento-simbolos">
+          <span class="posicionamento-simbolo-planeta">${dadosCasa.simbolo}</span>
+          <span class="posicionamento-seta">→</span>
+          <span class="posicionamento-simbolo-signo">${dadosSigno.simbolo}</span>
+        </div>
+        <div class="posicionamento-titulo">
+          <h3>${dadosCasa.nome} em ${dadosSigno.signo}${grauHtml}</h3>
+        </div>
+      </div>
+      <p class="posicionamento-introducao">${dadosCasa.introducao}</p>
+      <p class="posicionamento-texto">${dadosSigno.texto}</p>
+    `;
+    container.appendChild(card);
+  }
+ 
+  if (container.childElementCount === 0) {
+    const aviso = document.createElement("p");
+    aviso.textContent = "Não foi possível cruzar os dados das casas com as interpretações.";
+    aviso.style.cssText = "color:#a9b6d3; font-size:13px; padding:8px 0;";
+    container.appendChild(aviso);
+  }
+ 
+  return secao;
+}
+ 
+
 // ================= MODO EDIÇÃO =================
 // Se vier de mapas.html com ?editar=1, preenche o formulário
 // com os dados salvos no sessionStorage.
@@ -456,7 +580,7 @@ async function verificarMapaSalvo() {
     }
 
     // Exibe os posicionamentos salvos
-    if (mapa.dados_json?.planets) {
+   if (mapa.dados_json?.planets) {
       definirStatus('Carregando posicionamentos...');
       const dados = await carregarJsonLocal();
       if (dados) {
@@ -464,6 +588,9 @@ async function verificarMapaSalvo() {
         if (area) {
           area.innerHTML = '';
           area.appendChild(montarCardsPosicionamentos(mapa.dados_json, dados));
+          if (mapa.dados_json.houses || mapa.dados_json.house_cusps) {
+            area.appendChild(montarCardsCasas(mapa.dados_json, dados));
+          }
         }
       }
     }
