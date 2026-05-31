@@ -158,3 +158,29 @@
     padding: 24px 18px;
   }
 }
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap .cadastro-input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  color: inherit;
+}
+
+.toggle-pass svg {
+  width: 20px;
+  height: 20px;
+}
