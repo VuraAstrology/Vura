@@ -21,16 +21,27 @@ app.use(express.json({ limit: '10mb' })); // SVG pode ser grande
 
 
 //________EMAIL___________________________________________________________________
+// EMAIL via Brevo HTTP API
+async function enviarEmail(para, assunto, html) {
+  const resposta = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': process.env.BREVO_API_KEY
+    },
+    body: JSON.stringify({
+      sender: { name: 'Vura', email: process.env.EMAIL_USER },
+      to: [{ email: para }],
+      subject: assunto,
+      htmlContent: html
+    })
+  });
 
-const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
-  port: 587,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.BREVO_SMTP_KEY
+  if (!resposta.ok) {
+    const erro = await resposta.text();
+    throw new Error(`Brevo erro: ${erro}`);
   }
-});
+}
 // ─── CADASTRO ────────────────────────────────────────────────────────────────
 app.post('/cadastro', async (req, res) => {
   const { nome, email, senha } = req.body;
@@ -114,17 +125,14 @@ app.post('/esqueci', async(req,res) =>{
       [usuario.id, token]
     );
    const link = `https://vuraastrology.github.io/Vura/resetar.html?token=${token}`;
-    await transporter.sendMail({
-  from: `"Vura" <${process.env.EMAIL_USER}>`,
-  to: emailNormalizado,
-  subject: 'Recuperação de senha de acesso Vura',
-  html: `
-    <h2>Recuperação de senha</h2>
-    <p>Recupere sua senha de acesso à sua conta VURA clicando no link abaixo:</p>
-    <a href="${link}">Redefinir senha</a>
-    <p><small>Este link expira em 15 minutos.</small></p>
-  `
-});
+    await enviarEmail(
+  emailNormalizado,
+  'Recuperação de senha de acesso Vura',
+  `<h2>Recuperação de senha</h2>
+   <p>Recupere sua senha de acesso à sua conta VURA clicando no link abaixo:</p>
+   <a href="${link}">Redefinir senha</a>
+   <p><small>Este link expira em 15 minutos.</small></p>`
+);
     return res.status(200).json({mensagem:'Email de redefinição de senha enviado com sucesso!'});
   } catch (err){
     console.error('ERRO INTERNO:', err);
