@@ -54,23 +54,28 @@ document.getElementById('formulario_confirmar_senha').addEventListener('submit',
 
     }
 
-    try{
-        const resposta = await fetch('https://vura-w5sy.onrender.com/resetar',
-            {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify({
-                    token,
-                    novaSenha
-                })
-            }
-        );
-        const dados = await resposta.json();
+   try {
+    const resposta = await fetch('https://vura-w5sy.onrender.com/resetar',
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                token,
+                novaSenha
+            })
+        }
+    );
+    const dados = await resposta.json();
 
-        alert(dados.mensagem || dados.erro);
-
-    } catch (erro){
-        console.log(erro);
-        alert('Erro, impossível conectar com o servidor no momento, por favor tente mais tarde');
+    if (resposta.ok) {
+        alert(dados.mensagem || 'Senha alterada com sucesso!');
+        window.location.href = 'https://vuraastrology.github.io/Vura/login.html';
+    } else {
+        alert(dados.erro || 'Erro ao alterar a senha.');
     }
+
+} catch (erro) {
+    console.log(erro);
+    alert('Erro, impossível conectar com o servidor no momento, por favor tente mais tarde');
+}
 });
