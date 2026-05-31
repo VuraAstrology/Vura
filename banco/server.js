@@ -22,11 +22,15 @@ app.use(express.json({ limit: '10mb' })); // SVG pode ser grande
 
 //________EMAIL___________________________________________________________________
 
-const SibApiV3Sdk = require('@getbrevo/brevo');
-const brevoClient = SibApiV3Sdk.ApiClient.instance;
-brevoClient.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
-const emailApi = new SibApiV3Sdk.TransactionalEmailsApi();
-
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.BREVO_SMTP_KEY
+  }
+});
 // ─── CADASTRO ────────────────────────────────────────────────────────────────
 app.post('/cadastro', async (req, res) => {
   const { nome, email, senha } = req.body;
@@ -110,11 +114,11 @@ app.post('/esqueci', async(req,res) =>{
       [usuario.id, token]
     );
    const link = `https://vuraastrology.github.io/Vura/resetar.html?token=${token}`;
-    await emailApi.sendTransacEmail({
-  sender: { name: 'Vura', email: process.env.EMAIL_USER },
-  to: [{ email: emailNormalizado }],
+    await transporter.sendMail({
+  from: `"Vura" <${process.env.EMAIL_USER}>`,
+  to: emailNormalizado,
   subject: 'Recuperação de senha de acesso Vura',
-  htmlContent: `
+  html: `
     <h2>Recuperação de senha</h2>
     <p>Recupere sua senha de acesso à sua conta VURA clicando no link abaixo:</p>
     <a href="${link}">Redefinir senha</a>
