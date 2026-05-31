@@ -22,10 +22,10 @@ app.use(express.json({ limit: '10mb' })); // SVG pode ser grande
 
 //________EMAIL___________________________________________________________________
 
-const Brevo = require('@getbrevo/brevo');
-const brevoClient = Brevo.ApiClient.instance;
+const SibApiV3Sdk = require('@getbrevo/brevo');
+const brevoClient = SibApiV3Sdk.ApiClient.instance;
 brevoClient.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
-const emailApi = new Brevo.TransactionalEmailsApi();
+const emailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
 // ─── CADASTRO ────────────────────────────────────────────────────────────────
 app.post('/cadastro', async (req, res) => {
