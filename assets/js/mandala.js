@@ -233,17 +233,20 @@ formulario.addEventListener("submit", async (e) => {
 
     // Monta cards se a api-natal respondeu com sucesso
        if (respostaNatal.ok && dadosNatal?.planets) {
-          definirStatus("Carregando posicionamentos...");
-          const dados = await carregarJsonLocal();
-          if (dados) {
-            const areaPosicionamentos = document.getElementById("posicionamentos-area");
-            areaPosicionamentos.innerHTML = "";
-            areaPosicionamentos.appendChild(montarCardsPosicionamentos(dadosNatal, dados));
-            if (dadosNatal.houses || dadosNatal.house_cusps) {
-              areaPosicionamentos.appendChild(montarCardsCasas(dadosNatal, dados));
-            }
-          }
-        }
+  definirStatus("Carregando posicionamentos...");
+  const [dados, dadosCasas] = await Promise.all([
+    carregarJsonLocal(),
+    carregarJsonCasas(),
+  ]);
+  if (dados) {
+    const areaPosicionamentos = document.getElementById("posicionamentos-area");
+    areaPosicionamentos.innerHTML = "";
+    areaPosicionamentos.appendChild(montarCardsPosicionamentos(dadosNatal, dados));
+    if (dadosCasas && dadosNatal.houses) {
+      areaPosicionamentos.appendChild(montarCardsCasas(dadosNatal, dadosCasas));
+    }
+  }
+}
 
     definirStatus("Pronto!");
 
@@ -272,6 +275,16 @@ async function carregarJsonLocal() {
   try {
     const resp = await fetch("./assets/data/posicionamentos.json");
     if (!resp.ok) throw new Error("Não foi possível carregar os posicionamentos.");
+    return await resp.json();
+  } catch (erro) {
+    console.error(erro);
+    return null;
+  }
+}
+async function carregarJsonCasas() {
+  try {
+    const resp = await fetch("./assets/data/casas.json");
+    if (!resp.ok) throw new Error("Não foi possível carregar as casas.");
     return await resp.json();
   } catch (erro) {
     console.error(erro);
@@ -410,7 +423,7 @@ function montarCardsCasas(dadosNatal, jsonLocal) {
     dadosNatal.houseCusps ||
     [];
  
-  if (casasBruto.length === 0 || !jsonLocal.casas) {
+if (casasBruto.length === 0 || !jsonLocal?.casas) {
     const aviso = document.createElement("p");
     aviso.textContent = "Dados das casas não disponíveis.";
     aviso.style.cssText = "color:#a9b6d3; font-size:13px; padding:8px 0;";
@@ -580,20 +593,23 @@ async function verificarMapaSalvo() {
     }
 
     // Exibe os posicionamentos salvos
-   if (mapa.dados_json?.planets) {
-      definirStatus('Carregando posicionamentos...');
-      const dados = await carregarJsonLocal();
-      if (dados) {
-        const area = document.getElementById('posicionamentos-area');
-        if (area) {
-          area.innerHTML = '';
-          area.appendChild(montarCardsPosicionamentos(mapa.dados_json, dados));
-          if (mapa.dados_json.houses || mapa.dados_json.house_cusps) {
-            area.appendChild(montarCardsCasas(mapa.dados_json, dados));
-          }
-        }
+  if (mapa.dados_json?.planets) {
+  definirStatus('Carregando posicionamentos...');
+  const [dados, dadosCasas] = await Promise.all([
+    carregarJsonLocal(),
+    carregarJsonCasas(),
+  ]);
+  if (dados) {
+    const area = document.getElementById('posicionamentos-area');
+    if (area) {
+      area.innerHTML = '';
+      area.appendChild(montarCardsPosicionamentos(mapa.dados_json, dados));
+      if (dadosCasas && mapa.dados_json.houses) {
+        area.appendChild(montarCardsCasas(mapa.dados_json, dadosCasas));
       }
     }
+  }
+}
 
     definirStatus('');
   } catch (err) {
