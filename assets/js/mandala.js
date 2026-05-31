@@ -53,7 +53,7 @@ async function fetchComRetry(url, options, maxTentativas = 3) {
 
     let data = {};
     try { data = await resp.clone().json(); } catch (_) { }
-    const retryMs = data?.response?.retry_after_ms ?? 1200;
+    const retryMs = data?.response?.retry_after_ms ?? 2000;
     const jitter = Math.random() * 300;
     const delay = retryMs * Math.pow(2, tentativa) + jitter;
 
