@@ -472,7 +472,7 @@ function montarCardsCasas(dadosNatal, jsonLocal) {
     if (!dadosCasa || !dadosSigno) continue;
  
     // Grau da cúspide (exibido se disponível)
-    const grau = casaAPI.degree ?? casaAPI.cusp_degree ?? null;
+    const grau = casaAPI.pos ?? casaAPI.degree ?? null;
     const grauHtml = grau != null
       ? ` <span class="posicionamento-grau">${Number(grau).toFixed(1)}°</span>`
       : "";
