@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <a href="#">Home</a>
                 <a href="#">Sobre</a>
                 <a href="#">Termos de Uso</a>
-                <a href="#">Política de Privacidade</a>
+                <a href="politica_privacidade.html">Política de Privacidade</a>
                 <a href="#">Fale Conosco</a>
             </div>
         </footer>

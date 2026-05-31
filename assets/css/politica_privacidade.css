@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    font-family: cinzel, sans-serif;
+    color: #8ca9bf;
+    font-size: 1rem;
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+#Voltar {
+    display: inline-flex;
+    align-items: center;
+    color: #1d6c61;
+    text-decoration: none;
+    padding: 30px;
+    transition: all ease 0.3s;
+}
+
+#Voltar:hover {
+    color: #AFFDF0;
+}
+
+/* ── TABS ── */
+.tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+    padding: 0 2px;
+}
+
+.tab-btn {
+    flex: 1;
+    font-family: cinzel, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8ca9bf;
+    background: transparent;
+    border: 1px solid #09272d;
+    border-bottom: none;
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    border-radius: 10px 10px 0 0;
+    height: auto;
+}
+
+.tab-btn:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.tab-btn:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+.tab-btn:hover {
+    color: #AFFDF0;
+    background: #0b3037;
+}
+
+.tab-btn.active {
+    color: #AFFDF0;
+    background: linear-gradient(#03080d, #0b3037);
+    border-color: #09272d;
+}
+
+/* ── CARD ── */
+.card {
+    background: linear-gradient(#03080d, #0b3037, #031716);
+    border-radius: 0 0 20px 20px;
+    border: 1px solid #09272d;
+    padding: 48px 56px 56px;
+}
+
+/* ── PANELS ── */
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+}
+
+.panel header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #09272d;
+}
+
+.pag-title {
+    font-size: 1.9rem;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #bbd7c892;
+    font-size: 0.8rem;
+}
+
+.intro {
+    font-family: 'Funnel Sans', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #8ca9bf;
+    margin-bottom: 36px;
+}
+
+.secao {
+    margin-bottom: 32px;
+}
+
+.secao h2 {
+    font-family: cinzel, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #AFFDF0;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+}
+
+.secao p {
+    font-family: 'Funnel Sans', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #8ca9bf;
+    margin-bottom: 10px;
+}
+
+.secao ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+
+.secao ul li {
+    font-family: 'Funnel Sans', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #8ca9bf;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.secao ul li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: #1d6c61;
+    font-size: 0.8rem;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #09272d;
+    margin: 24px 0;
+}
+
+.sub-label {
+    color: #93ebc8;
+}
+
+.rodape {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid #09272d;
+    font-family: 'Funnel Sans', sans-serif;
+    font-size: 0.8rem;
+    color: #bbd7c892;
+    text-align: center;
+    line-height: 1.7;
+}
+
+a.email-link {
+    color: #AFFDF0;
+    text-decoration: none;
+    transition: opacity ease 0.3s;
+}
+
+a.email-link:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 32px 20px 40px;
+    }
+    .pag-title {
+        font-size: 1.2rem;
+    }
+    .tab-btn {
+        font-size: 0.6rem;
+        padding: 12px 6px;
+    }
+}
