@@ -114,9 +114,8 @@ app.post('/esqueci', async(req,res) =>{
        VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))`,
       [usuario.id, token]
     );
-   const link = `https://vura-w5sy.onrender.com/resetar.html?token=${token}`;
+   const link = `https://vuraastrology.github.io/Vura/resetar.html?token=${token}`;
     await transporter.sendMail({
-      from: `"Vura" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Recuperação de senha de acesso Vura',
       html:`<h2>Recuperação de senha</h2>
@@ -126,7 +125,7 @@ app.post('/esqueci', async(req,res) =>{
     return res.status(200).json({mensagem:'Email de redefinição de senha enviado com sucesso!'});
   } catch (err){
     console.error('ERRO INTERNO:', err);
-    return res.status(500).json({erro:'Não foi ímpossivel conectar com o servidor no momento, tente novamente mais tarde!'});
+    return res.status(500).json({erro:'Não foi possivel conectar com o servidor no momento, tente novamente mais tarde!'});
   }
 });
 
