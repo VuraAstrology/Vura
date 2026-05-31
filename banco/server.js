@@ -8,7 +8,6 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const pool = require('./db');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 const fetch      = require('node-fetch'); // npm install node-fetch@2
 
 const app  = express();
@@ -23,14 +22,10 @@ app.use(express.json({ limit: '10mb' })); // SVG pode ser grande
 
 //________EMAIL___________________________________________________________________
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
-
+const Brevo = require('@getbrevo/brevo');
+const brevoClient = Brevo.ApiClient.instance;
+brevoClient.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
+const emailApi = new Brevo.TransactionalEmailsApi();
 
 // ─── CADASTRO ────────────────────────────────────────────────────────────────
 app.post('/cadastro', async (req, res) => {
@@ -115,13 +110,17 @@ app.post('/esqueci', async(req,res) =>{
       [usuario.id, token]
     );
    const link = `https://vuraastrology.github.io/Vura/resetar.html?token=${token}`;
-    await transporter.sendMail({
-      to: email,
-      subject: 'Recuperação de senha de acesso Vura',
-      html:`<h2>Recuperação de senha</h2>
-      <p> recupere sua senha de acesso a sua conta VURA clicando no link abaixo:</p>
-      <a href="${link}">Redefinir senha</a>`
-    });
+    await emailApi.sendTransacEmail({
+  sender: { name: 'Vura', email: process.env.EMAIL_USER },
+  to: [{ email: emailNormalizado }],
+  subject: 'Recuperação de senha de acesso Vura',
+  htmlContent: `
+    <h2>Recuperação de senha</h2>
+    <p>Recupere sua senha de acesso à sua conta VURA clicando no link abaixo:</p>
+    <a href="${link}">Redefinir senha</a>
+    <p><small>Este link expira em 15 minutos.</small></p>
+  `
+});
     return res.status(200).json({mensagem:'Email de redefinição de senha enviado com sucesso!'});
   } catch (err){
     console.error('ERRO INTERNO:', err);
