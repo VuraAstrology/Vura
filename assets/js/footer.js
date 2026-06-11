@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="footer_contents">
                 <a href="#">Home</a>
                 <a href="#">Sobre</a>
-                <a href="#">Termos de Uso</a>
+                <a href="./politica_privacidade.html">Termos de Uso</a>
                 <a href="./politica_privacidade.html">Política de Privacidade</a>
                 <a href="#">Fale Conosco</a>
             </div>
