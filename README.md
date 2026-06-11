@@ -15,7 +15,10 @@ aspectos de sua personalidade, aprofunde seu conhecimento sobre astrologia e des
  ## Visualização do Projeto: 
 <img width="1895" height="988" alt="Captura de tela 2026-05-30 161611" src="https://github.com/user-attachments/assets/4c6cb70c-d2b7-4571-b1c3-6bc696e6acc9" />
 
-🔗 **[Acesse o projeto ao vivo aqui](https://vuraastrology.github.io/Vura/)**
+ 🔗 **[Acesse o projeto ao vivo aqui](https://vuraastrology.github.io/Vura/)**<br>
+ 🎬 **[Saiba mais sobre o projeto através do nosso vídeo](https://youtu.be/aiRhIOew_K8?si=6laf2TNyGIBC3tNE)**
+ 
+
 
 ---
 
