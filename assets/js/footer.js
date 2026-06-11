@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <a href="#">Sobre</a>
                 <a href="#">Termos de Uso</a>
                 <a href="./politica_privacidade.html">Política de Privacidade</a>
-                <a href="./termos_uso.html">Fale Conosco</a>
+                <a href="#">Fale Conosco</a>
             </div>
         </footer>
     `;
